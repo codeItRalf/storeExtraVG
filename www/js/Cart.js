@@ -8,7 +8,24 @@ class Cart {
     but so far I am really stupid... 😢
   */
 
+ render() {
+  $('main').html(/*html*/`
+    <section class="row">
+      <div class="col">
+        <h1>Shopping cart</h1>
+      </div>
+    </section>
+    <section class="row">
+    <ol class="col" id="cart-list">
+    
+    </ol>
+    </section>
+  `);
+}
+
   add(product) {
+
+   
     // We are doing a json stringify of the product
     // minus the cart property of a product
     // (which is just a reference to the cart)
