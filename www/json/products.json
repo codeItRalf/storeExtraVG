@@ -1,26 +1,161 @@
 [
   {
     "id": 1,
-    "slug": "produkter-badanka",
-    "name": "Badanka",
-    "price": 99,
-    "image": "/images/badanka.jpg",
-    "description": "En fin badanka som dubblar som superhjälte. Kläm på den och den kvackar!"
+    "slug": "produkter-sandisk-usb",
+    "name": "Sandisk Cruzer Blade USB stick 16gb",
+    "price": 59,
+    "image": "https://shop.westerndigital.com/content/dam/store/en-us/assets/products/usb-flash-drives/cruzer-blade-usb-2-0/gallery/cruzer-blade-usb-2-0-angle.png.thumb.1280.1280.png",
+    "description": "A great USB-stick for everyday use!",
+    "weight": 9,
+    "category": "usb-accessory"
   },
   {
-    "id": 2,
-    "slug": "produkter-ryggborste",
-    "name": "Ryggborste",
-    "price": 149,
-    "image": "/images/ryggborste.jpg",
-    "description": "En genuin ryggborste. Ergonomisk och bra på att ta bort döda hudceller."
+    
+      "id": 2,
+      "slug": "produkter-kingston-usb",
+      "name": "Kingston USB-stick 64GB",
+      "price": 89,
+      "image": "https://www.7dayshop.com/media/catalog/product/cache/1/image/1000x/9df78eab33525d08d6e5fb8d27136e95/w/h/wh2-dt100g3_64gb_055.jpg",
+      "description": "Bigger memory than our Sandisk USB-stick, it's a good pick if you need some more storage",
+      "weight": 9,
+      "category": "usb-accessory"
   },
   {
     "id": 3,
-    "slug": "produkter-tval",
-    "name": "Tvål",
-    "price": 34,
-    "image": "/images/tval.jpg",
-    "description": "En ph-neutral tvål, milt parfymerad med citrusdoft."
+      "slug": "produkter-hp-wireless",
+      "name": "HP premium wireless keyboard",
+      "price": 55,
+      "image": "https://in-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/Z/9/Z9N41AA-1_T1539235942.png",
+      "description": "Tired of cables? Pick this wireless keyboard up from Hewlett Packard!",
+      "weight": 650,
+      "category": "usb-accessory"
+  },
+  {
+    "id": 4,
+      "slug": "produkter-havit-wireless",
+      "name": "Havit wireless gaming keyboard",
+      "price": 99,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/71w5zh6ob-L._SL1500_.jpg",
+      "description": "A standard wireless gaming keyboard for a friendly price",
+      "weight": 700,
+      "category": "usb-accessory"
+  },
+  {
+    "id": 5,
+      "slug": "produkter-logitech-wireless",
+      "name": "Logitech wireless mouse",
+      "price": 49,
+      "image": "https://assets.logitech.com/assets/64365/2/wireless-mouse-m185.png",
+      "description": "A standard wireless mouse from Logitech",
+      "weight": 68,
+      "category": "usb-accessory"
+  },
+  {
+    "id": 6,
+      "slug": "produkter-ctl-monitor",
+      "name": "CTL 22 inch LCD monitor",
+      "price": 99,
+      "image": "http://cdn.shopify.com/s/files/1/1382/9181/products/ctl-ctl-ip2153-22-inch-lcd-monitor-ads-screen-1244201943081_grande.jpg?v=1539100679",
+      "description": "22 inch LCD monitor from CTL",
+      "weight": 2.5,
+      "category": "monitor"
+  },
+  {
+    "id": 7,
+      "slug": "produkter-dell-monitor",
+      "name": "Dell 22 inch LED monitor",
+      "price": 109,
+      "image": "https://matrixwarehouse.co.za/wp-content/uploads/2019/03/SE2419H-1.png",
+      "description": "22 inch LED monitor from Dell",
+      "weight": 3.5,
+      "category": "monitor"
+  },
+  {
+    "id": 8,
+      "slug": "produkter-lg-monitor",
+      "name": "LG 24 inch FULL HD monitor",
+      "price": 149,
+      "image": "https://www.lg.com/in/images/monitors/md05772287/gallery/medium01.jpg",
+      "description": "24 inch FULL HD monitor from LG",
+      "weight": 3.5,
+      "category": "monitor"
+
+  },
+  {
+    "id": 9,
+      "slug": "produkter-asus-monitor",
+      "name": "Asus ROG Strix 32 inch curved monitor 144hz",
+      "price": 699,
+      "image": "https://www.komplett.se/img/p/800/1121629_1.jpg",
+      "description": "32 inch curved gaming monitor with 144hz refresh rate from Asus",
+      "weight": 6.5,
+      "category": "monitor"
+
+  },
+  {
+    "id": 10,
+      "slug": "produkter-lg34-monitor",
+      "name": "LG 34 inch Full HD Curved Led Gaming monitor",
+      "price": 800,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/81fk%2BcshV-L._SX466_.jpg",
+      "description": "34 inch FULL HD curved LED gaming monitor from LG",
+      "weight": 7.5,
+      "category": "monitor"
+
+  },
+  {
+    "id": 11,
+      "slug": "produkter-hp14-laptop",
+      "name": "HP 14” i3 4GB RAM 128GB",
+      "price": 329,
+      "image": "https://images-na.ssl-images-amazon.com/images/I/81Q71WtLBlL._SL1500_.jpg",
+      "description": "A standard laptop from HP, great for working or surfing the web!",
+      "weight": 1.5,
+      "category": "laptop"
+
+  },
+  {
+    "id": 12,
+      "slug": "produkter-hppav-laptop",
+      "name": "HP Pavilion 15.6” i3 8GB 128GB",
+      "price": 499,
+      "image": "https://media.4rgos.it/i/Argos/9164291_R_Z001A?w=750&h=440&qlt=70",
+      "description": "A laptop from HP, with a 15.6 inch screen",
+      "weight": 1.85,
+      "category": "laptop"
+
+  },
+  {
+    "id": 13,
+      "slug": "produkter-hp250-laptop",
+      "name": "HP 250 G7 Core i5-8265U 8GB 256GB SSD 15.6 Inch",
+      "price": 799,
+      "image": "https://westore.mv/wp-content/uploads/2019/07/g7-m.jpg",
+      "description": "A laptop from HP, can be used to play less demanding games",
+      "weight": 1.85,
+      "category": "laptop"
+
+  },
+  {
+    "id": 14,
+      "slug": "produkter-acer-laptop",
+      "name": "15.6 inch i5 8GB RAM 256GB SSD Nvidia Geforce GTX 1050",
+      "price": 899,
+      "image": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6344/6344383_sd.jpg",
+      "description": "A gaming laptop from Acer",
+      "weight": 2.5,
+      "category": "laptop"
+
+  },
+  {
+    "id": 15,
+      "slug": "produkter-asus-laptop",
+      "name": "ASUS ROG Strix SCAR III i7-9750H 16GB RAM 512GB SSD NVIDIA RTX 2060",
+      "price": 1799,
+      "image": "https://img-us1.asus.com/A/show/AW000706/2019/0530/AM0000003/201905AM300000003_15591704692232090023263.jpg!t500x500",
+      "description": "A crazy potent gaming laptop from Asus",
+      "weight": 4,
+      "category": "laptop"
+
   }
 ]
