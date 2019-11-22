@@ -74,5 +74,6 @@ class Product {
       </div>
     `
   }
+  
 
 }
