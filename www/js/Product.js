@@ -10,13 +10,14 @@ class Product {
     clicks my buy-button.
   */
 
-  constructor(data, cart) {
+  constructor(data, cart, counter) {
     // Object.assign is used to copy all properties from data to me
     Object.assign(this, data);
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
+    this.counter = counter;
   }
 
   addBuyButtonListener() {
@@ -36,6 +37,8 @@ class Product {
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
+      //this.counter calls for the method addCounter()
+      this.counter.addCounter();
     });
   }
 
@@ -74,5 +77,7 @@ class Product {
       </div>
     `
   }
+
+  
 
 }

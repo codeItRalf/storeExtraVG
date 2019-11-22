@@ -24,6 +24,12 @@ class App {
     };
     // A shop should always have a cart
     this.cart = new Cart();
+    /* Store a new class CartCounter through its constructor in this.cartCounter
+       this.cartCounter is able to call for the method render() in class CartCounter
+       becasue we stored a new class CartCounter in the property this.cartCounter
+    */
+    this.cartCounter = new CartCounter();
+    this.cartCounter.render();
     // Listen to hash changes - rerender...
     $(window).on('hashchange', () => this.changeRoute());
     // Load the products from JSON
@@ -57,7 +63,7 @@ class App {
     this.products = [];
     // Loop through the JSON data and create Products
     for (let productData of productsData) {
-      let product = new Product(productData, this.cart);
+      let product = new Product(productData, this.cart, this.cartCounter);
       this.products.push(product);
       this.routes[product.slug] = product;
     }
