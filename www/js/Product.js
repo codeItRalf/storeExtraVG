@@ -54,6 +54,7 @@ class Product {
       <section class="row">
         <div class="col-12 col-lg-9">
           <p>${this.description}</p>
+          <p>Weight: ${this.weight}</p>
           <h4>${this.price} kr</p>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
         </div>
@@ -77,6 +78,7 @@ class Product {
       </div>
     `
   }
+  
 
   
 
