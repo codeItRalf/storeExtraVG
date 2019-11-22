@@ -21,8 +21,10 @@ class ProductList {
       <section class="row">
         <!-- Notice the "loop" using the array map method -->
         ${this.products.map(product => product.renderInList()).join('')}
+        
       </section>
     `);
   }
+  
 
 }
