@@ -32,8 +32,6 @@ class Product {
       // from doing what it normally does on a certain element
       // since the buy button is sometimes inside a a-tag
       // in this case it prevents us from following the a-tag
-      let key = this.id;
-      localStorage.setItem(key,JSON.stringify(this));
       e.preventDefault();
       // this.cart is an instance of Cart
       // add me to that cart
