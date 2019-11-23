@@ -106,7 +106,7 @@
   {
     "id": 11,
       "slug": "produkter-hp14-laptop",
-      "name": "HP 14” i3 4GB RAM 128GB",
+      "name": "HP 14” i3 4GB RAM 128GB SSD",
       "price": 329,
       "image": "https://images-na.ssl-images-amazon.com/images/I/81Q71WtLBlL._SL1500_.jpg",
       "description": "A standard laptop from HP, great for working or surfing the web!",
@@ -117,7 +117,7 @@
   {
     "id": 12,
       "slug": "produkter-hppav-laptop",
-      "name": "HP Pavilion 15.6” i3 8GB 128GB",
+      "name": "HP Pavilion 15.6” i3 8GB 128GB SSD",
       "price": 499,
       "image": "https://media.4rgos.it/i/Argos/9164291_R_Z001A?w=750&h=440&qlt=70",
       "description": "A laptop from HP, with a 15.6 inch screen",
