@@ -23,7 +23,15 @@ class App {
       'page404': new Page404(),
       'cart' : new Cart()
     };
+    
 
+    //Code for the navbar
+    this.navBar = new NavBar()
+    this.navBar.render()
+    //Changes location hash thru javascript due Href doent work when using collapse class
+    $('header').on('click', '#produkter', ()=>{  location.hash = "#produkter"})
+
+   
     // A shop should always have a cart
     this.cart = new Cart();
     // Listen to hash changes - rerender...
@@ -39,10 +47,16 @@ class App {
     let hashFirstPart = hash.split('-')[0];
 
     //split hash at "&" second string is subcategory
-    this.subCategory = hash.split('&')[1];
+    this.subCategory = hash.split('&')[1]
+    if(!this.subCategory){this.navBar.subNavCollapse()
+    console.log("Colapse")}
+
     //Each time the method gets called filter and make new list the sub category from the list which is created in loadProducts()
+    if(this.subCategory){
     this.routes.produkter = new ProductList(this.products.filter(product => product.category ==  this.subCategory));
-  
+    }else
+    this.routes.produkter = new ProductList(this.products)
+
     // Look up the "page to show" - the instance to call render on
     // if we do not find any page set the page to 'page404'
     let pageToShow = this.routes[hash.split('&')[0]] || this.routes.page404;
@@ -77,5 +91,4 @@ class App {
     // the correct page on initial page load..
     this.changeRoute();
   }
-
 }
