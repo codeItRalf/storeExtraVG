@@ -93,6 +93,7 @@ class App {
   }
 
   animateNavLine(){
+    //Animates nav line
     let element = $(`header nav a[class~="active"]`).not(".navbar-brand")[0]
     let position = $(element).offset()
     $("#nav-active-line").animate({

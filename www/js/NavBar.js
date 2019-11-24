@@ -32,7 +32,9 @@ class NavBar {
 
       <ul class="navbar-nav">
         <li class="cart-icon">
+        <div id="cart-button">
           <a class="fas fa-shopping-cart nav-link" href="#cart"></a>
+          </div>
         </li>
       </ul>
     </div>
