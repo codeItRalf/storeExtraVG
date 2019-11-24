@@ -24,20 +24,41 @@ class App {
       'cart' : new Cart()
     };
     
+    //save window width to keep track on responsive changes
+    this.fullScreen = false
 
     //Code for the navbar
     this.navBar = new NavBar()
     this.navBar.render()
-    //Changes location hash thru javascript due Href doent work when using collapse class
+    //Changes location hash thru javascript due Href doent work when using bootstrap collapse class
     $('header').on('click', '#produkter', ()=>{  location.hash = "#produkter"})
+  
 
-   
+
+
     // A shop should always have a cart
     this.cart = new Cart();
     // Listen to hash changes - rerender...
     $(window).on('hashchange', () => this.changeRoute());
     // Load the products from JSON
     this.loadProducts();
+    this.windowSizeListener()
+  }
+
+  windowSizeListener(){
+      //Everytime width of the window is changed this gets called
+      $(window).resize(()=> {
+        //This is used when the window width is over 992px and the #sub-menu display flex
+       if(parseFloat($(window).width()) > 992 &&  this.fullScreen && $("#sub-menu").css("display") == "flex"){
+        this.fullScreen = !this.fullScreen
+        this.animateNavLine()
+        //This is used when the window width is under 992px and the #sub-menu display block
+       }else if(parseFloat($(window).width()) <= 992 && !this.fullScreen && $("#sub-menu").css("display") == "block"){
+        this.fullScreen = !this.fullScreen
+        this.animateNavLine()
+       }
+      });
+     
   }
 
   changeRoute() {
@@ -49,12 +70,12 @@ class App {
     //split hash at "&" second string is subcategory
     this.subCategory = hash.split('&')[1]
     if(!this.subCategory){this.navBar.subNavCollapse()
-    console.log("Colapse")}
+    }
 
     //Each time the method gets called filter and make new list the sub category from the list which is created in loadProducts()
     if(this.subCategory){
     this.routes.produkter = new ProductList(this.products.filter(product => product.category ==  this.subCategory));
-    }else
+    }else if(hashFirstPart == "produkter")
     this.routes.produkter = new ProductList(this.products)
 
     // Look up the "page to show" - the instance to call render on
@@ -63,10 +84,23 @@ class App {
     // Make the correct menu item active
     // (the css selector finds a-tags with matching hrefs)
     $('header nav a').removeClass('active');
-    $(`header nav a[href="#${hashFirstPart}"]`).addClass('active');
+    $(`header nav a[href="#${hashFirstPart}"]`).not(".navbar-brand").addClass('active');
+ 
     // Render content
     pageToShow.render();
+
+    this.animateNavLine()
   }
+
+  animateNavLine(){
+    let element = $(`header nav a[class~="active"]`).not(".navbar-brand")[0]
+    let position = $(element).offset()
+    $("#nav-active-line").animate({
+    left: position.left + parseFloat($(element).css("padding-left")),
+    top: position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding")),
+    width:  $(element).find("span").css("width")});
+  }
+
 
   // An async function is allowed to await things
   // Loading data from JSON takes time
