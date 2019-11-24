@@ -24,7 +24,10 @@ class ProductList {
         
       </section>
     `);
+    localStorage.setItem("Products",JSON.stringify(this.products));
+    
   }
+  
   
 
 }

@@ -33,6 +33,8 @@ class Product {
       // since the buy button is sometimes inside a a-tag
       // in this case it prevents us from following the a-tag
       e.preventDefault();
+      e.target.innerText = "In cart";
+      e.target.disabled = true; 
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
