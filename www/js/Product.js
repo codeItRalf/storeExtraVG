@@ -35,7 +35,7 @@ class Product {
       // in this case it prevents us from following the a-tag
       e.preventDefault();
       e.target.innerText = "In cart";
-      e.target.disabled = true; 
+      e.target.disabled = true;
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
@@ -78,6 +78,38 @@ class Product {
       </div>
     `
   }
+
+  renderInCart() {
+
+    return `
+    <div class="col-2">
+    <img class="img-fluid rounded" src="${this.image}">
+    </div>
+
+    <div class="col-4 d-flex align-items-center">
+    <h5>${this.name}</h5>
+    
+    </div>
+
+    <div class="col-1 amount d-flex align-items-center justify-content-around">
+    <i class="fas fa-plus"></i>
+    <h5>${this.amount}</h5>
+    <i class="fas fa-minus"></i>
+
+    </div>
+    <div class="col-1 raw-price d-flex align-items-center justify-content-center">
+    <h5>€${this.price}</h5>
+    
+    </div>
+
+
+  <div class="col-4 d-flex align-items-center">
+    <button id="remove" class="btn btn-primary my-2">remove</button>
+  </div>
+
+    `
+  }
   
+
 
 }

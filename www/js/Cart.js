@@ -2,6 +2,7 @@ class Cart {
 
   constructor() {
     this.cartProducts = []
+
   }
 
   /*
@@ -12,26 +13,31 @@ class Cart {
     but so far I am really stupid... 😢
   */
 
- render() {
-  $('main').html(/*html*/`
-    <section class="row">
-      <div class="col">
-        <h1>Shopping cart</h1>
+  render() {
+    $('main').html(/*html*/`
+  <section class="row">
+  <div class="col d-flex justify-content-center">
+    <h1>Shopping cart</h1>
+  </div>
+  </section>
+  <section class="row">
+    ${this.cartProducts.map(cartItems=> cartItems.renderInCart()).join('')}
+  </section>
+  <div class = "row">
+      <div class = "col-8 total-price d-flex justify-content-end align-items-end">
+  
+          Total Price
       </div>
-    </section>
-    <section class="row">
-     <ol class="col" id="cart-list">
-      
-    
-     </ol>
-    </section>
-  `);
-}
+
+  </div>
+
+`);
+  }
 
 
   add(product) {
 
-   
+
     // We are doing a json stringify of the product
     // minus the cart property of a product
     // (which is just a reference to the cart)
@@ -47,16 +53,14 @@ class Cart {
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
-
+    product.amount = 1;
     this.cartProducts.push(product)
-    
+    this.render();
     console.log(this.cartProducts)
+    
+
   }
 
 
-}
-function loadObject(key){
-  const stringInLocalStorage = localStorage.getItem(key);
-  return JSON.parse(stringInLocalStorage);
 }
 
