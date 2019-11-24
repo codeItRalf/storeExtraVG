@@ -1,11 +1,7 @@
 class Cart {
 
   constructor() {
-    this.products = []
-    for(let product of this.products){
-      loadObject(product.id);
-      console.log( "loaded product",loadObject(product.id) );
-    }
+    this.cartProducts = []
   }
 
   /*
@@ -52,10 +48,9 @@ class Cart {
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
 
-    this.products.push(product)
-   // localStorage.setItem("cart",JSON.stringify(product) );
-
-    console.log(this.products)
+    this.cartProducts.push(product)
+    
+    console.log(this.cartProducts)
   }
 
 

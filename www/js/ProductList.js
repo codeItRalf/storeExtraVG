@@ -9,6 +9,8 @@ class ProductList {
 
   constructor(products) {
     this.products = products;
+    localStorage.setItem("products", JSON.stringify(products));
+
   }
 
   render() {
@@ -24,7 +26,7 @@ class ProductList {
         
       </section>
     `);
-    localStorage.setItem("Products",JSON.stringify(this.products));
+    //localStorage.setItem("Products",JSON.stringify(this.products));
     
   }
   

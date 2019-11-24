@@ -17,6 +17,7 @@ class Product {
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
+
   }
 
   addBuyButtonListener() {

@@ -42,7 +42,7 @@ class App {
     this.subCategory = hash.split('&')[1];
     //Each time the method gets called filter and make new list the sub category from the list which is created in loadProducts()
     this.routes.produkter = new ProductList(this.products.filter(product => product.category ==  this.subCategory));
-     
+    
     // Look up the "page to show" - the instance to call render on
     // if we do not find any page set the page to 'page404'
     let pageToShow = this.routes[hash.split('&')[0]] || this.routes.page404;
@@ -70,6 +70,7 @@ class App {
           this.routes[product.slug] = product;
          
     }
+
     // Make a new product list with all of our products
     // and add it to our routes
     
