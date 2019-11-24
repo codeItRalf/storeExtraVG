@@ -21,11 +21,14 @@ class App {
       '': new StartPage(),
       'omoss': new AboutUs(),
       'page404': new Page404(),
-      'cart' : new Cart()
+      'cart' : new Cart(),
+      'adressinfo' : new AdressInfo(),
+      'confirmation' : new Confirmation()
     };
 
     // A shop should always have a cart
     this.cart = new Cart();
+    
     // Listen to hash changes - rerender...
     $(window).on('hashchange', () => this.changeRoute());
     // Load the products from JSON

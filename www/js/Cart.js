@@ -20,6 +20,7 @@ class Cart {
     
     </ol>
     </section>
+    
   `);
 }
 
