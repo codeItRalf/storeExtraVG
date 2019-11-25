@@ -32,11 +32,11 @@ class Cart {
   </div>
   <div class="row">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
-      <button id="confirm" class="btn btn-primary my-2">Continue buying</button>
-      <button id="confirm" class="btn btn-primary my-2">Checkout</button>
+      <a class="btn btn-primary" href="#produkter" id="confirmbutton">Continue buying</a>
+      <a class="btn btn-primary" href="#adressinfo" id="confirmbutton">Checkout</a>
     </div>
-  </div
-  
+  </div>
+
 
 `);
     
