@@ -88,7 +88,7 @@ class Product {
     </div>
 
     <div class=" col-4 col-lg-4 d-flex align-items-center">
-    <h5>${this.name}</h5>
+    <h6>${this.name}</h6>
     
     </div>
 

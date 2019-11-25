@@ -3,8 +3,7 @@ class Cart {
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
-    //this.render();
-    this.add = new Product();
+    this.render();
   }
 
   /*
@@ -22,18 +21,18 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-  <section class="row">
+  <section class="row cart-items-info">
     ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
   </section>
   <div class = "row">
-      <div class = "col-8 total-price d-flex justify-content-end align-items-end">
-          Total Price
+      <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
+          <h3>Total Price</h3>
       </div>     
   </div>
-  <div class="row">
+  <div class="row py-3">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
-      <a class="btn btn-primary" href="#produkter" id="confirmbutton">Continue buying</a>
-      <a class="btn btn-primary" href="#adressinfo" id="confirmbutton">Checkout</a>
+      <a class="btn btn-primary" href="#produkter" id="continueBuying">Continue buying</a>
+      <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
 
