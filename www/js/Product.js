@@ -39,9 +39,49 @@ class Product {
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
+      //Animate added product to cart
+       this.animateImage()
 
     });
   }
+  
+  animateImage(){
+    let image = $(`.product-image-${this.id}`)[0]
+    let imagePosition = $(image).offset()
+    let clonedImage = $(image).clone()
+   
+    $(clonedImage).css({position :"absolute",
+       top : imagePosition.top,
+       left : imagePosition.left,
+       "z-index" : 3000,
+      width : image.width,
+      height : image.height})
+       $(clonedImage).appendTo($(image).parent())
+       console.log(clonedImage)
+    let position = $("#cart-button").offset() 
+
+    $(clonedImage).animate({
+        left:   position.left,  
+        top:   position.top,
+        opacity: 30,
+        width: 10,
+        height: 10
+     }, 400,()=>{
+      $(clonedImage).remove()
+
+      let cart =  $("#cart-button").animate({
+        opacity: "0"
+      },100,()=>{
+        cart.animate({
+          opacity: "1"
+        },100)
+      })
+     });
+
+        console.log("Animation called")
+  }
+
+
 
   render() {
     // This is how I render myself on a product-detail page
@@ -59,7 +99,7 @@ class Product {
           <h4>${this.price} €</p>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
         </div>
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 product-image-${this.id}">
           <img class="img-fluid border border-primary rounded" src="${this.image}">
         </div>
       </section>
@@ -70,11 +110,11 @@ class Product {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return `
-      <div class="col-12 col-md-6 col-lg-4 mt-5">
+      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
           <h4>${this.name} ${this.price} €</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
-          <img class="img-fluid border border-primary rounded" src="${this.image}">
+          <img class="img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}">
         </a>
       </div>
     `
