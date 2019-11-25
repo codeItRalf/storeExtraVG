@@ -54,11 +54,14 @@ class NavBar {
   animateNavLine(){
     //Animates nav line
     let element = $(`header nav .menu-link[class~="active"]`).not(".navbar-brand")[0]
-    let position = $(element).offset()
-    $("#nav-active-line").animate({
-    left: position.left + parseFloat($(element).css("padding-left")),
-    top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
-    width:  $(element).find("span").css("width")},250);
+    if(element){
+      let position = $(element).offset()
+      $("#nav-active-line").animate({
+      left: position.left + parseFloat($(element).css("padding-left")),
+      top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
+      width:  $(element).find("span").css("width")},250);
+    }
+   
   }
 
 

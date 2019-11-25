@@ -35,12 +35,8 @@ class Cart {
       <button id="confirm" class="btn btn-primary my-2">Continue buying</button>
       <button id="confirm" class="btn btn-primary my-2">Checkout</button>
     </div>
-  </div
-  
-
-`);
-    
-  }
+  </div>
+`)}
 
 
   add(product) {

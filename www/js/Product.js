@@ -38,11 +38,11 @@ class Product {
       e.target.disabled = true;
       // this.cart is an instance of Cart
       // add me to that cart
-      this.cart.add(this);
+       this.cart.add(this);
       //Animate added product to cart
-       this.animateImage()
+      this.animateImage()
+    })
 
-    });
   }
   
   animateImage(){
