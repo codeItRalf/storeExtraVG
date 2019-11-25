@@ -42,23 +42,25 @@ class Product {
   
   animateImage(){
     let image = $(`.product-image-${this.id}`)[0]
-    let imagePosition = $(image).position()
-     let clonedImage = $(image).clone()
+    let imagePosition = $(image).offset()
+    let clonedImage = $(image).clone()
    
     $(clonedImage).css({position :"absolute",
        top : imagePosition.top,
        left : imagePosition.left,
-       "z-index" : 3000})
+       "z-index" : 3000,
+      width : image.width,
+      height : image.height})
        $(clonedImage).appendTo($(image).parent())
        console.log(clonedImage)
-    let position = $("#cart-button").position() 
-    let yPostion = $(clonedImage).offset().top + $(clonedImage).position().top
-    let yMain = $(window).scrollTop()
-     console.log(`child: ${yPostion} parent: ${yMain}`)
+    let position = $("#cart-button").offset() 
+    
+  
+     
 
     $(clonedImage).animate({
-        left:  Math.abs( $(clonedImage).offset().left - position.left)  ,  
-        top:   yPostion ,
+        left:   position.left,  
+        top:   position.top,
         opacity: 30,
         width: 10,
         height: 10
@@ -98,7 +100,7 @@ class Product {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return `
-      <div class="col-12 col-md-6 col-lg-4 mt-5">
+      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
           <h4>${this.name} ${this.price} €</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>

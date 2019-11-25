@@ -57,7 +57,7 @@ class NavBar {
     let position = $(element).offset()
     $("#nav-active-line").animate({
     left: position.left + parseFloat($(element).css("padding-left")),
-    top: position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding")),
+    top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
     width:  $(element).find("span").css("width")});
   }
 
