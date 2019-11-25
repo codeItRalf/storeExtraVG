@@ -21,7 +21,10 @@ class App {
       '': new StartPage(),
       'omoss': new AboutUs(),
       'page404': new Page404(),
-      'cart' : new Cart()
+      'cart' : new Cart(),
+      'adressinfo' : new AdressInfo(),
+      'payment-info': new PaymentInfo(),
+      'confirmation' : new Confirmation()
     };
     
     //save window width to keep track on responsive changes
@@ -38,6 +41,7 @@ class App {
 
     // A shop should always have a cart
     this.cart = new Cart();
+    
     // Listen to hash changes - rerender...
     $(window).on('hashchange', () => this.changeRoute());
     // Load the products from JSON
