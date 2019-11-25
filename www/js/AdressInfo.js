@@ -2,7 +2,7 @@ class AdressInfo {
   render() {
     $("main").html(/*html*/ `
 <div class="form-group form">    
-  <form class="row d-flex adresspayment justify-content-center align-content-center">
+  <form class="row d-flex adress justify-content-center align-content-center">
       <div class="col-12">
       <h1>Adress info</h1>
       </div>
@@ -30,40 +30,18 @@ class AdressInfo {
       <div class="col-6">
       <input type="text" placeholder="Enter your adress">
       </div>
-    
-    <div class="col-12">
-    <h2>Payment info </h2>
-    </div>
-    <div class="col-6 d-flex justify-content-center align-content-center">
-    <p>Mastercard, Visa and Amex</p>
+      <div class="col-6">
+    <a class="btn btn-primary" href="#cart">Back</a>
     </div>
     <div class="col-6">
-    <input type="text" placeholder="Card number">
-    </div>
-    <div class="col-6 d-flex justify-content-center align-content-center">
-    <p>Expiration date</p>
-    </div>
-    <div class="col-6">
-    <input type="text" placeholder="Month/Date">
-    </div>
-    
-    <div class="col-6 d-flex justify-content-center align-content-center">
-    <p id="securitycode">Security code</p>
-    </div>
-    <div class="col-6">
-    <input type="text" placeholder="Ex: 111">
-    </div>
-    <div class="col-6">
-    <button class="btn btn-primary">Back</button>
-    </div>
-    <div class="col-6">
-    <button type="submit" class="btn btn-primary" id="confirmbutton">Confirm purchase</button>
+    <a type="link" class="btn btn-primary" href="#payment-info" id="confirmbutton">Payment</a>
     </div>
   </form>
 </div>
     `);
   }
 }
+
 
 
 

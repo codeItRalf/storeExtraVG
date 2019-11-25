@@ -23,6 +23,7 @@ class App {
       'page404': new Page404(),
       'cart' : new Cart(),
       'adressinfo' : new AdressInfo(),
+      'payment-info': new PaymentInfo(),
       'confirmation' : new Confirmation()
     };
     
