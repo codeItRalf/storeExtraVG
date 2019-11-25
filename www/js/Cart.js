@@ -4,7 +4,6 @@ class Cart {
     store.cartProducts = store.cartProducts || [];
     store.save();
     //this.render();
-    this.add = new Product();
   }
 
   /*
@@ -61,7 +60,8 @@ class Cart {
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
-    product.amount = 1;
+
+    product.amount += 1;
     store.cartProducts.push(product);
     store.save();
     //this.render();
@@ -69,6 +69,14 @@ class Cart {
     // localStorage.setItem('cart',JSON.stringify(product));
 
 
+  }
+
+  saveToStore(product) {
+    let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    productInStore.amount = product.amount;
+    store.save();
+    this.render();
+    console.log(store.cartProducts);
   }
 
 
