@@ -30,7 +30,7 @@ class PaymentInfo{
             <a class="btn btn-primary" href="#adressinfo">Back</a>
             </div>
             <div class="col-6">
-            <a type="submit" class="btn btn-primary" href="#confirmation" id="confirmbutton">Confirm purchase</a>
+            <a type="submit" class="btn btn-primary" href="#confirmation" id="confirmbutton">Confirm</a>
             </div>
           </form>
         </div>
