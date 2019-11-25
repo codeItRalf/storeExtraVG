@@ -28,7 +28,7 @@ class App {
     this.cart = new Cart();
     /* Store a new class CartCounter through its constructor in this.cartCounter
        this.cartCounter is able to call for the method render() in class CartCounter
-       becasue we stored a new class CartCounter in the property this.cartCounter
+       because we stored a new class CartCounter in the property this.cartCounter
     */
     this.cartCounter = new CartCounter();
     this.cartCounter.render();
