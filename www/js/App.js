@@ -51,11 +51,11 @@ class App {
         //This is used when the window width is over 992px and the #sub-menu display flex
        if(parseFloat($(window).width()) > 992 &&  this.fullScreen && $("#sub-menu").css("display") == "flex"){
         this.fullScreen = !this.fullScreen
-        this.animateNavLine()
+        this.navBar.animateNavLine()
         //This is used when the window width is under 992px and the #sub-menu display block
        }else if(parseFloat($(window).width()) <= 992 && !this.fullScreen && $("#sub-menu").css("display") == "block"){
         this.fullScreen = !this.fullScreen
-        this.animateNavLine()
+        this.navBar.animateNavLine()
        }
       });
      
@@ -89,18 +89,10 @@ class App {
     // Render content
     pageToShow.render();
 
-    this.animateNavLine()
+    this.navBar.animateNavLine()
   }
 
-  animateNavLine(){
-    //Animates nav line
-    let element = $(`header nav a[class~="active"]`).not(".navbar-brand")[0]
-    let position = $(element).offset()
-    $("#nav-active-line").animate({
-    left: position.left + parseFloat($(element).css("padding-left")),
-    top: position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding")),
-    width:  $(element).find("span").css("width")});
-  }
+
 
 
   // An async function is allowed to await things
