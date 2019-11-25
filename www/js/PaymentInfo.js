@@ -1,4 +1,11 @@
 class PaymentInfo{
+
+    constructor(){
+        $('body').on('click', '#confirmbutton', this.clearCart) 
+    }
+    clearCart(){
+      localStorage.clear();
+    }
     render() {
         $("main").html(/*html*/ `
         <div class="form form-group">
@@ -18,8 +25,6 @@ class PaymentInfo{
             <div class="col-6">
             <input type="text" placeholder="Month/Date">
             </div>
-            
-            
             <div class="col-6 d-flex justify-content-center align-content-center">
             <p id="securitycode">Security code</p>
             </div>
@@ -34,9 +39,11 @@ class PaymentInfo{
             </div>
           </form>
         </div>
+        
         `);
       }
     }
+    
     
     
     
