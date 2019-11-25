@@ -17,6 +17,7 @@ class Product {
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
+
   }
 
   addBuyButtonListener() {
@@ -33,10 +34,14 @@ class Product {
       // since the buy button is sometimes inside a a-tag
       // in this case it prevents us from following the a-tag
       e.preventDefault();
+      e.target.innerText = "In cart";
+      e.target.disabled = true;
       // this.cart is an instance of Cart
       // add me to that cart
-     // this.cart.add(this);
-      this.animateImage()
+      this.cart.add(this);
+      //Animate added product to cart
+       this.animateImage()
+
     });
   }
   
@@ -114,6 +119,40 @@ class Product {
       </div>
     `
   }
+
+  renderInCart() {
+
+    return `
+    <div class="col-2 col-lg-2">
+    <img class="img-fluid rounded" src="${this.image}">
+    </div>
+
+    <div class=" col-4 col-lg-4 d-flex align-items-center">
+    <h5>${this.name}</h5>
+    
+    </div>
+
+    </div>
+    <div class=" col-2 col-lg-1 raw-price d-flex align-items-center">
+    <h5>€${this.price}</h5>
+    
+    </div>
+
+
+    <div class="col-2 col-lg-2 amount d-flex align-items-center ">
+    <span class="oi oi-plus" id="add"></span>
+    <h5 class="px-2">${this.amount}</h5>
+    <span class="oi oi-minus" id="remove"></span>
+    </div>
+
   
+  <div class=" col-2 col-lg-3 d-flex align-items-center ">
+    <button id="remove" class="btn btn-primary my-2">remove</button>
+  </div>
+
+    `
+  }
+  
+
 
 }
