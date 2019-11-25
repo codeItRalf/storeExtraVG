@@ -54,9 +54,6 @@ class Product {
        $(clonedImage).appendTo($(image).parent())
        console.log(clonedImage)
     let position = $("#cart-button").offset() 
-    
-  
-     
 
     $(clonedImage).animate({
         left:   position.left,  
@@ -66,6 +63,14 @@ class Product {
         height: 10
      }, 400,()=>{
       $(clonedImage).remove()
+
+      let cart =  $("#cart-button").animate({
+        opacity: "0"
+      },100,()=>{
+        cart.animate({
+          opacity: "1"
+        },100)
+      })
      });
 
         console.log("Animation called")
