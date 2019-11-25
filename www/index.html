@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="position-relative">
   <!-- We are hard coding the header and footer section-->
   <!-- The main section will be populated by our class instances-->
   <header>
@@ -20,33 +20,7 @@
       component that should not be placed inside
       a container -> row -> col structure... 
     -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark">
-      <a class=" navbar-brand" href="#">BadButiken</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Start</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#omoss">Om oss</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#produkter">Produkter</a>
-          </li>
-        </ul>
-
-        <ul class="navbar-nav">
-          <li class="cart-icon" id="cart-counter">
-            <a class="fas fa-shopping-cart nav-link" href="#cart"></a>
-          </li>
-        </ul>
-      </div>
-      
-    </nav>
+  
   </header>
 
   <main class="container-fluid mt-4">
@@ -73,6 +47,7 @@
   <script src="/js/Product.js"></script>
   <script src="/js/AboutUs.js"></script>
   <script src="/js/Page404.js"></script>
+  <script src="/js/NavBar.js"></script>
   <script src="/js/main.js"></script>
 
 </body>

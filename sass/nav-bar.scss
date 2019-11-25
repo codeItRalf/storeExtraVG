@@ -1,0 +1,27 @@
+#sub-nav > a {
+    font-size: 70%;
+  }
+
+  #nav-active-line{
+      position: absolute;
+      border-bottom: 1px solid white;
+      z-index: 1;
+  }
+
+  #sub-nav{
+   background-color:  var(--secondary);
+   padding: 10px;
+   border-radius: 7px;
+  }
+
+
+  @media screen and (min-width: 992px) {
+    #sub-nav {
+      position: absolute;
+      background-color: var(--primary);
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+    }
+}
+
+
