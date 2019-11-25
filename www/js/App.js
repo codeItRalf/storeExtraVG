@@ -82,7 +82,6 @@ class App {
           let product = new Product(productData, this.cart);
           this.products.push(product);
           this.routes[product.slug] = product;
-              localStorage.setItem("products", JSON.stringify(this.products));
 
          
     }

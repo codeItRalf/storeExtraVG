@@ -82,28 +82,30 @@ class Product {
   renderInCart() {
 
     return `
-    <div class="col-2">
+    <div class="col-2 col-lg-2">
     <img class="img-fluid rounded" src="${this.image}">
     </div>
 
-    <div class="col-4 d-flex align-items-center">
+    <div class=" col-4 col-lg-4 d-flex align-items-center">
     <h5>${this.name}</h5>
     
     </div>
 
-    <div class="col-1 amount d-flex align-items-center justify-content-around">
-    <i class="fas fa-plus"></i>
-    <h5>${this.amount}</h5>
-    <i class="fas fa-minus"></i>
-
     </div>
-    <div class="col-1 raw-price d-flex align-items-center justify-content-center">
+    <div class=" col-2 col-lg-1 raw-price d-flex align-items-center">
     <h5>€${this.price}</h5>
     
     </div>
 
 
-  <div class="col-4 d-flex align-items-center">
+    <div class="col-2 col-lg-2 amount d-flex align-items-center ">
+    <i class="fas fa-plus"></i>
+    <h5 class="px-2">${this.amount}</h5>
+    <i class="fas fa-minus"></i>
+    </div>
+
+  
+  <div class=" col-2 col-lg-3 d-flex align-items-center ">
     <button id="remove" class="btn btn-primary my-2">remove</button>
   </div>
 

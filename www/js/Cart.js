@@ -1,8 +1,9 @@
 class Cart {
 
   constructor() {
-    this.cartProducts = []
-
+    store.cartProducts = store.cartProducts || [];
+    store.save();
+    //this.render();
   }
 
   /*
@@ -21,17 +22,18 @@ class Cart {
   </div>
   </section>
   <section class="row">
-    ${this.cartProducts.map(cartItems=> cartItems.renderInCart()).join('')}
+    ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end">
   
           Total Price
       </div>
-
   </div>
+  
 
 `);
+
   }
 
 
@@ -54,10 +56,12 @@ class Cart {
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
     product.amount = 1;
-    this.cartProducts.push(product)
-    this.render();
-    console.log(this.cartProducts)
-    
+    store.cartProducts.push(product);
+    store.save();
+    //this.render();
+    console.log(store.cartProducts)
+    // localStorage.setItem('cart',JSON.stringify(product));
+
 
   }
 
