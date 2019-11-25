@@ -17,7 +17,7 @@ class Product {
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
-    this.counter = counter;
+    // this.counter = counter;
   }
 
   addBuyButtonListener() {
@@ -38,7 +38,7 @@ class Product {
       // add me to that cart
       this.cart.add(this);
       //this.counter calls for the method addCounter()
-      this.counter.addCounter();
+      // this.counter.addCounter();
     });
   }
 
