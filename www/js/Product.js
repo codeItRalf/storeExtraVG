@@ -17,7 +17,9 @@ class Product {
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
-
+    this.addPlusButtonClickListener();
+    this.addMinusButtonClickListener();
+    this.amount = 0;
   }
 
   addBuyButtonListener() {
@@ -80,6 +82,24 @@ class Product {
     `
   }
 
+  addPlusButtonClickListener() {
+
+    $('body').on('click', `#add-${this.id}`, e => {
+      e.preventDefault();
+      this.amount += 1;
+      this.cart.saveToStore(this);
+    });
+  }
+
+  addMinusButtonClickListener() {
+
+    $('body').on('click', `#remove-${this.id}`, e => {
+      e.preventDefault();
+      this.amount -= 1;
+      this.cart.saveToStore(this);
+    });
+  }
+
   renderInCart() {
 
     return `
@@ -100,14 +120,14 @@ class Product {
 
 
     <div class="col-2 col-lg-2 amount d-flex align-items-center ">
-    <span class="oi oi-plus" id="add"></span>
+    <span class="oi oi-plus" id="add-${this.id}"></span>
     <h5 class="px-2">${this.amount}</h5>
-    <span class="oi oi-minus" id="remove"></span>
+    <span class="oi oi-minus" id="remove-${this.id}"></span>
     </div>
 
   
   <div class=" col-2 col-lg-3 d-flex align-items-center ">
-    <button id="remove" class="btn btn-primary my-2">remove</button>
+    <button id="remove-button-${this.id}" class="btn btn-primary my-2">remove</button>
   </div>
 
     `
