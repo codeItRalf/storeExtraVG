@@ -39,6 +39,7 @@ class Product {
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
+
     });
   }
 
@@ -99,9 +100,9 @@ class Product {
 
 
     <div class="col-2 col-lg-2 amount d-flex align-items-center ">
-    <i class="fas fa-plus"></i>
+    <span class="oi oi-plus" id="add"></span>
     <h5 class="px-2">${this.amount}</h5>
-    <i class="fas fa-minus"></i>
+    <span class="oi oi-minus" id="remove"></span>
     </div>
 
   

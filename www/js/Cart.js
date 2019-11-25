@@ -4,6 +4,7 @@ class Cart {
     store.cartProducts = store.cartProducts || [];
     store.save();
     //this.render();
+    this.add = new Product();
   }
 
   /*
@@ -26,14 +27,19 @@ class Cart {
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end">
-  
           Total Price
-      </div>
+      </div>     
   </div>
+  <div class="row">
+    <div class = "col-12 total-price d-flex justify-content-between align-items-end">
+      <button id="confirm" class="btn btn-primary my-2">Continue buying</button>
+      <button id="confirm" class="btn btn-primary my-2">Checkout</button>
+    </div>
+  </div
   
 
 `);
-
+    
   }
 
 
