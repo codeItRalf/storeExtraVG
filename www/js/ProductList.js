@@ -9,6 +9,7 @@ class ProductList {
 
   constructor(products) {
     this.products = products;
+
   }
 
   render() {
@@ -24,7 +25,9 @@ class ProductList {
         
       </section>
     `);
+ 
   }
+  
   
 
 }

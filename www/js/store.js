@@ -4,3 +4,9 @@ catch (e) { store = {} }
 store.save = function () {
   localStorage.store = JSON.stringify(this);
 };
+
+/*
+if(!store.products){
+  store.products =[]
+  store.save()
+}*/

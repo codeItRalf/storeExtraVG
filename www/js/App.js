@@ -21,7 +21,10 @@ class App {
       '': new StartPage(),
       'omoss': new AboutUs(),
       'page404': new Page404(),
-      'cart' : new Cart()
+      'cart' : new Cart(),
+      'adressinfo' : new AdressInfo(),
+      'payment-info': new PaymentInfo(),
+      'confirmation' : new Confirmation()
     };
     
     //save window width to keep track on responsive changes
@@ -38,12 +41,13 @@ class App {
 
     // A shop should always have a cart
     this.cart = new Cart();
-    // /* Store a new class CartCounter through its constructor in this.cartCounter
-    //    this.cartCounter is able to call for the method render() in class CartCounter
-    //    because we stored a new class CartCounter in the property this.cartCounter
-    // */
+    // Store a new class CartCounter through its constructor in this.cartCounter
+    // this.cartCounter is able to call for the method render() in class CartCounter
+    // because we stored a new class CartCounter in the property this.cartCounter
+    // 
     // this.cartCounter = new CartCounter();
     // this.cartCounter.render();
+    
     // Listen to hash changes - rerender...
     $(window).on('hashchange', () => this.changeRoute());
     // Load the products from JSON
@@ -123,6 +127,9 @@ class App {
       this.products.push(product);
       this.routes[product.slug] = product;
     }
+    localStorage.setItem("products", JSON.stringify(this.products));
+
+
     // Make a new product list with all of our products
     // and add it to our routes
     
