@@ -1,7 +1,7 @@
 class AdressInfo {
   render() {
     $("main").html(/*html*/ `
-<div class="form">    
+<div class="form-group form">    
   <form class="row d-flex adresspayment justify-content-center align-content-center">
       <div class="col-12">
       <h1>Adress info</h1>
@@ -54,10 +54,10 @@ class AdressInfo {
     <input type="text" placeholder="Ex: 111">
     </div>
     <div class="col-6">
-    <button>Back</button>
+    <button class="btn btn-primary">Back</button>
     </div>
     <div class="col-6">
-    <button type="submit" id="confirmbutton">Confirm</button>
+    <button type="submit" class="btn btn-primary" id="confirmbutton">Confirm purchase</button>
     </div>
   </form>
 </div>
