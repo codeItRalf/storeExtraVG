@@ -10,7 +10,7 @@ class Product {
     clicks my buy-button.
   */
 
-  constructor(data, cart, add, remove) {
+  constructor(data, cart) {
     // Object.assign is used to copy all properties from data to me
     Object.assign(this, data);
     // I also know who is my cart (the App sent me this info)
@@ -18,12 +18,7 @@ class Product {
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
 
-    this.add = new Cart(add);
-    this.remove = new Cart(remove);
-
   }
-
-
 
   addBuyButtonListener() {
     // this a delegated event handler:

@@ -4,6 +4,7 @@ class Cart {
     store.cartProducts = store.cartProducts || [];
     store.save();
     //this.render();
+    this.add = new Product();
   }
 
   /*
@@ -38,7 +39,7 @@ class Cart {
   
 
 `);
-
+    
   }
 
 
