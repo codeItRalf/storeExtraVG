@@ -42,19 +42,31 @@ class Product {
   
   animateImage(){
     let image = $(`.product-image-${this.id}`)[0]
-    let clonedImage = $(image).clone(true)
-    console.log(clonedImage)
+    let imagePosition = $(image).position()
+     let clonedImage = $(image).clone()
+   
     $(clonedImage).css({position :"absolute",
-       top : $(image).offset().top,
-       left : $(image).offset().left})
-    let position = $("#cart-button").offset()
+       top : imagePosition.top,
+       left : imagePosition.left,
+       "z-index" : 3000})
+       $(clonedImage).appendTo($(image).parent())
+       console.log(clonedImage)
+    let position = $("#cart-button").position() 
+    let yPostion = $(clonedImage).offset().top + $(clonedImage).position().top
+    let yMain = $(window).scrollTop()
+     console.log(`child: ${yPostion} parent: ${yMain}`)
 
     $(clonedImage).animate({
-        left: position.left,  
-        top: position.top 
+        left:  Math.abs( $(clonedImage).offset().left - position.left)  ,  
+        top:   yPostion ,
+        opacity: 30,
+        width: 10,
+        height: 10
+     }, 400,()=>{
+      $(clonedImage).remove()
      });
 
-        console.log("Animate called!")
+        console.log("Animation called")
   }
 
 
