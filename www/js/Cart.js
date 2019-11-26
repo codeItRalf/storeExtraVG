@@ -3,11 +3,7 @@ class Cart {
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
-<<<<<<< HEAD
     this.render();
-=======
-    //this.render();
->>>>>>> fa0fb08075cd2d36a182e5dfd0933b8d75560bae
   }
 
   /*
