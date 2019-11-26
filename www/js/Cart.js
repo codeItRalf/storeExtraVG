@@ -35,11 +35,7 @@ class Cart {
       <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
-
-
-`);
-    
-  }
+`)}
 
 
   add(product) {
@@ -91,6 +87,7 @@ class Cart {
     store.save();
     this.render();
     console.log(store.cartProducts);
+
   }
 
 
