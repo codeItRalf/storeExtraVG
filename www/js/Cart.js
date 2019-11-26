@@ -21,7 +21,7 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-  <section class="row cart-items-info">
+   <section class="row cart-items-info">
     ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
   </section>
   <div class = "row">
@@ -60,9 +60,14 @@ class Cart {
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
-
-    product.amount += 1;
-    store.cartProducts.push(product);
+    let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    if(selectedProduct){
+      product.amount += 1;
+    }else{
+      product.amount += 1;
+      store.cartProducts.push(product);
+  
+    }
     store.save();
     //this.render();
     console.log(store.cartProducts)
@@ -71,9 +76,18 @@ class Cart {
 
   }
 
+   removeFromStore(product){
+    let removedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    store.cartProducts = store.cartProducts.filter(product => product != removedProduct);
+    store.save();
+    this.render();
+ 
+  }
+
   saveToStore(product) {
     let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
     productInStore.amount = product.amount;
+    productInStore.price = product.price;
     store.save();
     this.render();
     console.log(store.cartProducts);

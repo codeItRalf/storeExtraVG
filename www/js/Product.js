@@ -1,3 +1,4 @@
+
 class Product {
 
 
@@ -16,11 +17,15 @@ class Product {
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
+    this.amount = 0;
+
+    this.removeProduct();
     this.addBuyButtonListener();
     this.addPlusButtonClickListener();
     this.addMinusButtonClickListener();
-    this.amount = 0;
+
   }
+
 
   addBuyButtonListener() {
     // this a delegated event handler:
@@ -42,45 +47,47 @@ class Product {
       // add me to that cart
       this.cart.add(this);
       //Animate added product to cart
-       this.animateImage()
+      this.animateImage()
 
     });
   }
-  
-  animateImage(){
+
+  animateImage() {
     let image = $(`.product-image-${this.id}`)[0]
     let imagePosition = $(image).offset()
     let clonedImage = $(image).clone()
-   
-    $(clonedImage).css({position :"absolute",
-       top : imagePosition.top,
-       left : imagePosition.left,
-       "z-index" : 3000,
-      width : image.width,
-      height : image.height})
-       $(clonedImage).appendTo($(image).parent())
-       console.log(clonedImage)
-    let position = $("#cart-button").offset() 
+
+    $(clonedImage).css({
+      position: "absolute",
+      top: imagePosition.top,
+      left: imagePosition.left,
+      "z-index": 3000,
+      width: image.width,
+      height: image.height
+    })
+    $(clonedImage).appendTo($(image).parent())
+    console.log(clonedImage)
+    let position = $("#cart-button").offset()
 
     $(clonedImage).animate({
-        left:   position.left,  
-        top:   position.top,
-        opacity: 30,
-        width: 10,
-        height: 10
-     }, 400,()=>{
+      left: position.left,
+      top: position.top,
+      opacity: 30,
+      width: 10,
+      height: 10
+    }, 400, () => {
       $(clonedImage).remove()
 
-      let cart =  $("#cart-button").animate({
+      let cart = $("#cart-button").animate({
         opacity: "0"
-      },100,()=>{
+      }, 100, () => {
         cart.animate({
           opacity: "1"
-        },100)
+        }, 100)
       })
-     });
+    });
 
-        console.log("Animation called")
+    console.log("Animation called")
   }
 
 
@@ -121,12 +128,22 @@ class Product {
       </div>
     `
   }
+  removeProduct() {
+
+    $('body').on('click', `#remove-button-${this.id}`, e => {
+      e.preventDefault();
+      this.amount = 0;
+      this.cart.removeFromStore(this);
+     // $( `#remove-button-${this.id}`).parent().siblings().remove();
+    });
+  }
 
   addPlusButtonClickListener() {
-
+    let rowTotal = 0;
     $('body').on('click', `#add-${this.id}`, e => {
       e.preventDefault();
       this.amount += 1;
+      rowTotal = this.price * this.amount;
       this.cart.saveToStore(this);
     });
   }
@@ -136,6 +153,10 @@ class Product {
     $('body').on('click', `#remove-${this.id}`, e => {
       e.preventDefault();
       this.amount -= 1;
+
+      if (this.amount <= 0) {
+        this.cart.removeFromStore(this);
+      }
       this.cart.saveToStore(this);
     });
   }
@@ -153,8 +174,8 @@ class Product {
     </div>
 
     </div>
-    <div class=" col-2 col-lg-1 raw-price d-flex align-items-center">
-    <h5>€${this.price}</h5>
+    <div class=" col-2 col-lg-1 d-flex align-items-center">
+    <h5 id="price">€${this.price}</h5>
     
     </div>
 
@@ -167,12 +188,12 @@ class Product {
 
   
   <div class=" col-2 col-lg-3 d-flex align-items-center ">
-    <button id="remove-button-${this.id}" class="btn btn-primary my-2">remove</button>
+    <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
   </div>
 
     `
   }
-  
+
 
 
 }
