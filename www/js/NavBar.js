@@ -66,7 +66,9 @@ class NavBar {
         left: position.left + parseFloat($(element).css("padding-left")),
         top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
         width: $(element).find("span").css("width")
-      }, 250);
+      }, 250, ()=>{
+        $("#nav-active-line").css('opacity', '1');
+      });
     }
 
   }
