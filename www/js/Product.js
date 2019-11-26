@@ -40,43 +40,46 @@ class Product {
       this.cart.add(this);
 
       //Animate added product to cart
-       this.animateImage()
+      this.animateImage()
+    })
 
-    });
   }
   
   animateImage(){
     let image = $(`.product-image-${this.id}`)[0]
-    let imagePosition = $(image).offset()
-    let clonedImage = $(image).clone()
+    if(image){
+      let imagePosition = $(image).offset()
+      let clonedImage = $(image).clone()
+     
+      $(clonedImage).css({position :"absolute",
+         top : imagePosition.top,
+         left : imagePosition.left,
+         "z-index" : 3000,
+        width : image.width,
+        height : image.height})
+         $(clonedImage).appendTo($(image).parent())
+         console.log(clonedImage)
+      let position = $("#cart-button").offset() 
+     console.log(position)
+      $(clonedImage).animate({
+          left:   position.left,  
+          top:   position.top,
+          opacity: 30,
+          width: 10,
+          height: 10
+       }, 400,()=>{
+        $(clonedImage).remove()
+  
+        let cart =  $("#cart-button").animate({
+          opacity: "0"
+        },100,()=>{
+          cart.animate({
+            opacity: "1"
+          },100)
+        })
+       });
+    }
    
-    $(clonedImage).css({position :"absolute",
-       top : imagePosition.top,
-       left : imagePosition.left,
-       "z-index" : 3000,
-      width : image.width,
-      height : image.height})
-       $(clonedImage).appendTo($(image).parent())
-       console.log(clonedImage)
-    let position = $("#cart-button").offset() 
-
-    $(clonedImage).animate({
-        left:   position.left,  
-        top:   position.top,
-        opacity: 30,
-        width: 10,
-        height: 10
-     }, 400,()=>{
-      $(clonedImage).remove()
-
-      let cart =  $("#cart-button").animate({
-        opacity: "0"
-      },100,()=>{
-        cart.animate({
-          opacity: "1"
-        },100)
-      })
-     });
 
         console.log("Animation called")
   }
