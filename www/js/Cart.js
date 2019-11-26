@@ -3,7 +3,7 @@ class Cart {
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
-    this.render();
+    //this.render();
   }
 
   /*
