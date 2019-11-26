@@ -10,14 +10,13 @@ class Product {
     clicks my buy-button.
   */
 
-  constructor(data, cart) {
+  constructor(data, cart, counter) {
     // Object.assign is used to copy all properties from data to me
     Object.assign(this, data);
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
-
   }
 
   addBuyButtonListener() {
@@ -38,7 +37,8 @@ class Product {
       e.target.disabled = true;
       // this.cart is an instance of Cart
       // add me to that cart
-       this.cart.add(this);
+      this.cart.add(this);
+
       //Animate added product to cart
       this.animateImage()
     })
@@ -47,36 +47,39 @@ class Product {
   
   animateImage(){
     let image = $(`.product-image-${this.id}`)[0]
-    let imagePosition = $(image).offset()
-    let clonedImage = $(image).clone()
+    if(image){
+      let imagePosition = $(image).offset()
+      let clonedImage = $(image).clone()
+     
+      $(clonedImage).css({position :"absolute",
+         top : imagePosition.top,
+         left : imagePosition.left,
+         "z-index" : 3000,
+        width : image.width,
+        height : image.height})
+         $(clonedImage).appendTo($(image).parent())
+         console.log(clonedImage)
+      let position = $("#cart-button").offset() 
+     console.log(position)
+      $(clonedImage).animate({
+          left:   position.left,  
+          top:   position.top,
+          opacity: 30,
+          width: 10,
+          height: 10
+       }, 400,()=>{
+        $(clonedImage).remove()
+  
+        let cart =  $("#cart-button").animate({
+          opacity: "0"
+        },100,()=>{
+          cart.animate({
+            opacity: "1"
+          },100)
+        })
+       });
+    }
    
-    $(clonedImage).css({position :"absolute",
-       top : imagePosition.top,
-       left : imagePosition.left,
-       "z-index" : 3000,
-      width : image.width,
-      height : image.height})
-       $(clonedImage).appendTo($(image).parent())
-       console.log(clonedImage)
-    let position = $("#cart-button").offset() 
-
-    $(clonedImage).animate({
-        left:   position.left,  
-        top:   position.top,
-        opacity: 30,
-        width: 10,
-        height: 10
-     }, 400,()=>{
-      $(clonedImage).remove()
-
-      let cart =  $("#cart-button").animate({
-        opacity: "0"
-      },100,()=>{
-        cart.animate({
-          opacity: "1"
-        },100)
-      })
-     });
 
         console.log("Animation called")
   }
@@ -120,6 +123,24 @@ class Product {
     `
   }
 
+  addPlusButtonClickListener() {
+
+    $('body').on('click', `#add-${this.id}`, e => {
+      e.preventDefault();
+      this.amount += 1;
+      this.cart.saveToStore(this);
+    });
+  }
+
+  addMinusButtonClickListener() {
+
+    $('body').on('click', `#remove-${this.id}`, e => {
+      e.preventDefault();
+      this.amount -= 1;
+      this.cart.saveToStore(this);
+    });
+  }
+
   renderInCart() {
 
     return `
@@ -140,14 +161,14 @@ class Product {
 
 
     <div class="col-2 col-lg-2 amount d-flex align-items-center ">
-    <span class="oi oi-plus" id="add"></span>
+    <span class="oi oi-plus" id="add-${this.id}"></span>
     <h5 class="px-2">${this.amount}</h5>
-    <span class="oi oi-minus" id="remove"></span>
+    <span class="oi oi-minus" id="remove-${this.id}"></span>
     </div>
 
   
   <div class=" col-2 col-lg-3 d-flex align-items-center ">
-    <button id="remove" class="btn btn-primary my-2">remove</button>
+    <button id="remove-button-${this.id}" class="btn btn-primary my-2">remove</button>
   </div>
 
     `

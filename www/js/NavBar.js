@@ -31,10 +31,10 @@ class NavBar {
       </ul>
 
       <ul class="navbar-nav">
-        <li class="cart-icon">
-        <div id="cart-button">
-          <a class="fas fa-shopping-cart nav-link" href="#cart"></a>
-          </div>
+
+        <li class="cart-icon" id="cart-counter">
+          <a class="fas fa-shopping-cart nav-link position-relative" href="#cart"><span class="cart-icon-number">1</span></a>
+
         </li>
       </ul>
     </div>
