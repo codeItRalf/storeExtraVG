@@ -26,14 +26,19 @@ class Cart {
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end">
-  
           Total Price
-      </div>
+      </div>     
   </div>
+  <div class="row">
+    <div class = "col-12 total-price d-flex justify-content-between align-items-end">
+      <button id="confirm" class="btn btn-primary my-2">Continue buying</button>
+      <button id="confirm" class="btn btn-primary my-2">Checkout</button>
+    </div>
+  </div
   
 
 `);
-
+    
   }
 
 
@@ -55,7 +60,8 @@ class Cart {
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
-    product.amount = 1;
+
+    product.amount += 1;
     store.cartProducts.push(product);
     store.save();
     //this.render();
@@ -63,6 +69,14 @@ class Cart {
     // localStorage.setItem('cart',JSON.stringify(product));
 
 
+  }
+
+  saveToStore(product) {
+    let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    productInStore.amount = product.amount;
+    store.save();
+    this.render();
+    console.log(store.cartProducts);
   }
 
 

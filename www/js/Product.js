@@ -17,7 +17,6 @@ class Product {
     this.cart = cart;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
-    // this.counter = counter;
   }
 
   addBuyButtonListener() {
@@ -39,10 +38,50 @@ class Product {
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
-      //this.counter calls for the method addCounter()
-      // this.counter.addCounter();
+
+      //Animate added product to cart
+       this.animateImage()
+
     });
   }
+  
+  animateImage(){
+    let image = $(`.product-image-${this.id}`)[0]
+    let imagePosition = $(image).offset()
+    let clonedImage = $(image).clone()
+   
+    $(clonedImage).css({position :"absolute",
+       top : imagePosition.top,
+       left : imagePosition.left,
+       "z-index" : 3000,
+      width : image.width,
+      height : image.height})
+       $(clonedImage).appendTo($(image).parent())
+       console.log(clonedImage)
+    let position = $("#cart-button").offset() 
+
+    $(clonedImage).animate({
+        left:   position.left,  
+        top:   position.top,
+        opacity: 30,
+        width: 10,
+        height: 10
+     }, 400,()=>{
+      $(clonedImage).remove()
+
+      let cart =  $("#cart-button").animate({
+        opacity: "0"
+      },100,()=>{
+        cart.animate({
+          opacity: "1"
+        },100)
+      })
+     });
+
+        console.log("Animation called")
+  }
+
+
 
   render() {
     // This is how I render myself on a product-detail page
@@ -60,7 +99,7 @@ class Product {
           <h4>${this.price} €</p>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
         </div>
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 product-image-${this.id}">
           <img class="img-fluid border border-primary rounded" src="${this.image}">
         </div>
       </section>
@@ -71,14 +110,32 @@ class Product {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return `
-      <div class="col-12 col-md-6 col-lg-4 mt-5">
+      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
           <h4>${this.name} ${this.price} €</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
-          <img class="img-fluid border border-primary rounded" src="${this.image}">
+          <img class="img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}">
         </a>
       </div>
     `
+  }
+
+  addPlusButtonClickListener() {
+
+    $('body').on('click', `#add-${this.id}`, e => {
+      e.preventDefault();
+      this.amount += 1;
+      this.cart.saveToStore(this);
+    });
+  }
+
+  addMinusButtonClickListener() {
+
+    $('body').on('click', `#remove-${this.id}`, e => {
+      e.preventDefault();
+      this.amount -= 1;
+      this.cart.saveToStore(this);
+    });
   }
 
   renderInCart() {
@@ -101,23 +158,19 @@ class Product {
 
 
     <div class="col-2 col-lg-2 amount d-flex align-items-center ">
-    <i class="fas fa-plus"></i>
+    <span class="oi oi-plus" id="add-${this.id}"></span>
     <h5 class="px-2">${this.amount}</h5>
-    <i class="fas fa-minus"></i>
+    <span class="oi oi-minus" id="remove-${this.id}"></span>
     </div>
 
   
   <div class=" col-2 col-lg-3 d-flex align-items-center ">
-    <button id="remove" class="btn btn-primary my-2">remove</button>
+    <button id="remove-button-${this.id}" class="btn btn-primary my-2">remove</button>
   </div>
 
     `
   }
   
 
-<<<<<<< HEAD
-  
-=======
->>>>>>> 528b87d55c6f41aada2e141582a467509217179d
 
 }
