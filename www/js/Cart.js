@@ -3,7 +3,11 @@ class Cart {
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
+<<<<<<< HEAD
     this.render();
+=======
+    //this.render();
+>>>>>>> fa0fb08075cd2d36a182e5dfd0933b8d75560bae
   }
 
   /*
@@ -60,7 +64,8 @@ class Cart {
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
-    product.amount = 1;
+
+    product.amount += 1;
     store.cartProducts.push(product);
     store.save();
     //this.render();
@@ -68,6 +73,14 @@ class Cart {
     // localStorage.setItem('cart',JSON.stringify(product));
 
 
+  }
+
+  saveToStore(product) {
+    let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    productInStore.amount = product.amount;
+    store.save();
+    this.render();
+    console.log(store.cartProducts);
   }
 
 
