@@ -1,3 +1,4 @@
+
 class Product {
 
 
@@ -16,8 +17,15 @@ class Product {
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
+    this.amount = 0;
+
+    this.removeProduct();
     this.addBuyButtonListener();
+    this.addPlusButtonClickListener();
+    this.addMinusButtonClickListener();
+
   }
+
 
   addBuyButtonListener() {
     // this a delegated event handler:
@@ -44,8 +52,8 @@ class Product {
     })
 
   }
-  
-  animateImage(){
+
+  animateImage() {
     let image = $(`.product-image-${this.id}`)[0]
     if(image){
       let imagePosition = $(image).offset()
@@ -81,7 +89,7 @@ class Product {
     }
    
 
-        console.log("Animation called")
+    console.log("Animation called")
   }
 
 
@@ -122,12 +130,22 @@ class Product {
       </div>
     `
   }
+  removeProduct() {
+
+    $('body').on('click', `#remove-button-${this.id}`, e => {
+      e.preventDefault();
+      this.amount = 0;
+      this.cart.removeFromStore(this);
+     // $( `#remove-button-${this.id}`).parent().siblings().remove();
+    });
+  }
 
   addPlusButtonClickListener() {
-
+    let rowTotal = 0;
     $('body').on('click', `#add-${this.id}`, e => {
       e.preventDefault();
       this.amount += 1;
+      rowTotal = this.price * this.amount;
       this.cart.saveToStore(this);
     });
   }
@@ -137,6 +155,10 @@ class Product {
     $('body').on('click', `#remove-${this.id}`, e => {
       e.preventDefault();
       this.amount -= 1;
+
+      if (this.amount <= 0) {
+        this.cart.removeFromStore(this);
+      }
       this.cart.saveToStore(this);
     });
   }
@@ -149,13 +171,13 @@ class Product {
     </div>
 
     <div class=" col-4 col-lg-4 d-flex align-items-center">
-    <h5>${this.name}</h5>
+    <h6>${this.name}</h6>
     
     </div>
 
     </div>
-    <div class=" col-2 col-lg-1 raw-price d-flex align-items-center">
-    <h5>€${this.price}</h5>
+    <div class=" col-2 col-lg-1 d-flex align-items-center">
+    <h5 id="price">€${this.price}</h5>
     
     </div>
 
@@ -168,12 +190,12 @@ class Product {
 
   
   <div class=" col-2 col-lg-3 d-flex align-items-center ">
-    <button id="remove-button-${this.id}" class="btn btn-primary my-2">remove</button>
+    <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
   </div>
 
     `
   }
-  
+
 
 
 }

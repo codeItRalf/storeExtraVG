@@ -21,18 +21,18 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-  <section class="row">
+   <section class="row cart-items-info">
     ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
   </section>
   <div class = "row">
-      <div class = "col-8 total-price d-flex justify-content-end align-items-end">
-          Total Price
+      <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
+          <h3>Total Price : € 0 </h3>
       </div>     
   </div>
-  <div class="row">
+  <div class="row py-3">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
-      <button id="confirm" class="btn btn-primary my-2">Continue buying</button>
-      <button id="confirm" class="btn btn-primary my-2">Checkout</button>
+      <a class="btn btn-primary" href="#produkter" id="continueBuying">Continue buying</a>
+      <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
 `)}
@@ -56,9 +56,14 @@ class Cart {
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
-
-    product.amount += 1;
-    store.cartProducts.push(product);
+    let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    if(selectedProduct){
+      product.amount += 1;
+    }else{
+      product.amount += 1;
+      store.cartProducts.push(product);
+  
+    }
     store.save();
     //this.render();
     console.log(store.cartProducts)
@@ -67,9 +72,18 @@ class Cart {
 
   }
 
+   removeFromStore(product){
+    let removedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    store.cartProducts = store.cartProducts.filter(product => product != removedProduct);
+    store.save();
+    this.render();
+ 
+  }
+
   saveToStore(product) {
     let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
     productInStore.amount = product.amount;
+    productInStore.price = product.price;
     store.save();
     this.render();
     console.log(store.cartProducts);
