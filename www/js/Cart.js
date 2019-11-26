@@ -26,7 +26,7 @@ class Cart {
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
-          <h3>Total Price</h3>
+          <h3>Total Price : € 0 </h3>
       </div>     
   </div>
   <div class="row py-3">
