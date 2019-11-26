@@ -1,6 +1,13 @@
 body { padding-top: 70px; }
 
-
+.cart-icon-number { 
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  text-shadow: 1px 1px 10px black;
+  color: white;
+}
 
 #sub-nav > a {
     font-size: 70%;

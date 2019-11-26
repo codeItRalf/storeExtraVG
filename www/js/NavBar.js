@@ -1,14 +1,26 @@
 class NavBar {
 
   render() {
-    $('header').html(/*html*/`
+    $('header').html( /*html*/ `
     <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark fixed-top ">
     <a class=" navbar-brand" href="#">Chyvek-Data</a>
     <div  id="nav-active-line"></div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    
+   
+    <div class="d-flex order-lg-3">
+    <div class="cart-icon navbar-nav" id="cart-button">
+    <a class="fas fa-shopping-cart nav-link position-relative" href="#cart">
+    <span class="cart-icon-number">1</span>
+    </a>
+    </div>
+    <button class="navbar-toggler ml-3 ml-lg-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
     </button>
+    </div>
+    
+    
+    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -29,39 +41,34 @@ class NavBar {
            </div>
         </li>
       </ul>
-
-      <ul class="navbar-nav">
-
-        <li class="cart-icon" id="cart-counter">
-          <a class="fas fa-shopping-cart nav-link position-relative" href="#cart"><span class="cart-icon-number">1</span></a>
-
-        </li>
-      </ul>
     </div>
+
     
+
   </nav>
     `);
   }
 
 
-  subNavCollapse(){
+  subNavCollapse() {
     $('#sub-nav').collapse('hide')
   }
 
 
 
 
-  animateNavLine(){
+  animateNavLine() {
     //Animates nav line
     let element = $(`header nav .menu-link[class~="active"]`).not(".navbar-brand")[0]
-    if(element){
+    if (element) {
       let position = $(element).offset()
       $("#nav-active-line").animate({
-      left: position.left + parseFloat($(element).css("padding-left")),
-      top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
-      width:  $(element).find("span").css("width")},250);
+        left: position.left + parseFloat($(element).css("padding-left")),
+        top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
+        width: $(element).find("span").css("width")
+      }, 250);
     }
-   
+
   }
 
 

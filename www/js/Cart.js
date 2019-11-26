@@ -73,6 +73,7 @@ class Cart {
     store.save();
     this.render();
     console.log(store.cartProducts);
+
   }
 
 
