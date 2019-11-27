@@ -21,7 +21,7 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-   <section class="row cart-items-info">
+   <section class="row ">
     ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
   </section>
   <div class = "row">
@@ -59,6 +59,9 @@ class Cart {
     let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
     if(selectedProduct){
       product.amount += 1;
+      product.rowTotal= product.price * product.amount;
+      console.log('rowTotal', product.rowTotal);
+      $(`#price-${product.id}`).html(product.rowTotal);
     }else{
       product.amount += 1;
       store.cartProducts.push(product);
@@ -76,16 +79,15 @@ class Cart {
     let removedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
     store.cartProducts = store.cartProducts.filter(product => product != removedProduct);
     store.save();
-    this.render();
+    //this.render();
  
   }
 
   saveToStore(product) {
     let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
     productInStore.amount = product.amount;
-    productInStore.price = product.price;
     store.save();
-    this.render();
+    //this.render();
     console.log(store.cartProducts);
 
   }

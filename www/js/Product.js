@@ -136,29 +136,41 @@ class Product {
       e.preventDefault();
       this.amount = 0;
       this.cart.removeFromStore(this);
-     // $( `#remove-button-${this.id}`).parent().siblings().remove();
+      $(`.cart-content-${this.id}`).remove();
     });
   }
 
   addPlusButtonClickListener() {
-    let rowTotal = 0;
+     this.rowTotal = 0;
     $('body').on('click', `#add-${this.id}`, e => {
       e.preventDefault();
       this.amount += 1;
-      rowTotal = this.price * this.amount;
+      this.rowTotal= this.price * this.amount;
+
+      console.log('rowTotal', this.rowTotal);
+      $(`#price-${this.id}`).html(this.rowTotal);
+      //this.price = this.price * this.amount;
+       $(`#amount-${this.id}`).html(this.amount);
+      
       this.cart.saveToStore(this);
     });
   }
 
   addMinusButtonClickListener() {
-
     $('body').on('click', `#remove-${this.id}`, e => {
       e.preventDefault();
       this.amount -= 1;
+      this.rowTotal= this.price * this.amount;
+
+      console.log('rowTotal', this.rowTotal);
+      $(`#price-${this.id}`).html(this.rowTotal);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
+         $(`.cart-content-${this.id}`).remove();
       }
+       $(`#amount-${this.id}`).html(this.amount);
+
       this.cart.saveToStore(this);
     });
   }
@@ -166,33 +178,37 @@ class Product {
   renderInCart() {
 
     return `
-    <div class="col-2 col-lg-2">
-    <img class="img-fluid rounded" src="${this.image}">
-    </div>
+    <div class="col-12 cart-content-${this.id}" id="cart-info">
 
-    <div class=" col-4 col-lg-4 d-flex align-items-center">
-    <h6>${this.name}</h6>
+      <div class="col-2">
+      <img class="img-fluid rounded cart-image" src="${this.image}">
+      </div>
+
+      <div class="col-4">
+      <h6>${this.name}</h6>
+      
+      </div>
+
+      
+      <div class="col-2">
+      <h5 id="price-${this.id}">€${this.price}</h5>
+      
+      </div>
+
+
+      <div class="col-2 d-flex flex-row">
+      <span class="oi oi-plus" id="add-${this.id}"></span>
+      <h5 class="px-2" id="amount-${this.id}">${this.amount}</h5>
+      <span class="oi oi-minus" id="remove-${this.id}"></span>
+      </div>
+
+    
+    <div class="col-2">
+      <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
     
     </div>
-
-    </div>
-    <div class=" col-2 col-lg-1 d-flex align-items-center">
-    <h5 id="price">€${this.price}</h5>
-    
-    </div>
-
-
-    <div class="col-2 col-lg-2 amount d-flex align-items-center ">
-    <span class="oi oi-plus" id="add-${this.id}"></span>
-    <h5 class="px-2">${this.amount}</h5>
-    <span class="oi oi-minus" id="remove-${this.id}"></span>
-    </div>
-
+</div>
   
-  <div class=" col-2 col-lg-3 d-flex align-items-center ">
-    <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
-  </div>
-
     `
   }
 
