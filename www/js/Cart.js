@@ -95,8 +95,8 @@ loadCartList(){
     productInStore.price = product.price;
     store.save();
     this.render();
-    console.log(store.cartProducts);
     this.updateCartIconQty()
+    
   }
 
 
