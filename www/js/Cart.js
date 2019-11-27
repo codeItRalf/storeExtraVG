@@ -21,8 +21,7 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-   <section class="row cart-items-info">
-    ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
+   <section class="row cart-items-info">${this.loadCartList()}
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
@@ -37,6 +36,16 @@ class Cart {
   </div>
 `)}
 
+
+
+loadCartList(){
+  let tempArray = []
+  
+  store.cartProducts.map(cartItem => {
+    tempArray.push (new Product(cartItem, Cart.cart, cartItem.amount))
+  })
+  return tempArray.map(item => item.renderInCart()).join('')
+}
 
   add(product) {
   
