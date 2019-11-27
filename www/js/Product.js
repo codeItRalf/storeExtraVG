@@ -11,13 +11,13 @@ class Product {
     clicks my buy-button.
   */
 
-  constructor(data, cart, counter) {
+  constructor(data, cart, amount) {
     // Object.assign is used to copy all properties from data to me
     Object.assign(this, data);
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
-    this.amount = 0;
+    this.amount = amount || 0;
 
     this.removeProduct();
     this.addBuyButtonListener();
@@ -87,9 +87,7 @@ class Product {
         })
        });
     }
-   
 
-    console.log("Animation called")
   }
 
 

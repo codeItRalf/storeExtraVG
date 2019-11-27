@@ -21,8 +21,7 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-   <section class="row ">
-    ${store.cartProducts.map(cartItems => cartItems.renderInCart()).join('')}
+   <section class="row cart-items-info">${this.loadCartList()}
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
@@ -38,8 +37,18 @@ class Cart {
 `)}
 
 
-  add(product) {
 
+loadCartList(){
+  let tempArray = []
+  
+  store.cartProducts.map(cartItem => {
+    tempArray.push (new Product(cartItem, Cart.cart, cartItem.amount))
+  })
+  return tempArray.map(item => item.renderInCart()).join('')
+}
+
+  add(product) {
+  
 
     // We are doing a json stringify of the product
     // minus the cart property of a product
@@ -72,15 +81,15 @@ class Cart {
     console.log(store.cartProducts)
     // localStorage.setItem('cart',JSON.stringify(product));
 
-
+    this.updateCartIconQty()
   }
 
    removeFromStore(product){
     let removedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
     store.cartProducts = store.cartProducts.filter(product => product != removedProduct);
     store.save();
-    //this.render();
- 
+    this.render();
+    this.updateCartIconQty()
   }
 
   saveToStore(product) {
@@ -89,9 +98,24 @@ class Cart {
     store.save();
     //this.render();
     console.log(store.cartProducts);
-
+    this.updateCartIconQty()
   }
 
+
+  updateCartIconQty(){
+    let cartCount = 0;
+    let cartList = store.cartProducts
+    console.log(cartList)
+    cartList.forEach(product => {
+     cartCount += product.amount
+   });
+   if(cartCount > 0){
+     $('#cart-count').html(cartCount)
+   }else{
+    $('#cart-count').html("")
+   }
+
+  }
 
 }
 

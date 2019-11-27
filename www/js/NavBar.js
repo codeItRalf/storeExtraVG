@@ -10,7 +10,7 @@ class NavBar {
     <div class="d-flex order-lg-3">
     <div class="cart-icon navbar-nav" id="cart-button">
     <a class="fas fa-shopping-cart nav-link position-relative" href="#cart">
-    <span class="cart-icon-number">1</span>
+    <span class="cart-icon-number" id="cart-count"></span>
     </a>
     </div>
     <button class="navbar-toggler ml-3 ml-lg-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
