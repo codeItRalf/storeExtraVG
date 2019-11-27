@@ -87,9 +87,7 @@ class Product {
         })
        });
     }
-   
 
-    console.log("Animation called")
   }
 
 
