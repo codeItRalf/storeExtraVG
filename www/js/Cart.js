@@ -39,7 +39,7 @@ class Cart {
 
 
   add(product) {
-
+  
 
     // We are doing a json stringify of the product
     // minus the cart property of a product
@@ -69,7 +69,7 @@ class Cart {
     console.log(store.cartProducts)
     // localStorage.setItem('cart',JSON.stringify(product));
 
-
+    this.updateCartIconQty()
   }
 
    removeFromStore(product){
@@ -77,7 +77,7 @@ class Cart {
     store.cartProducts = store.cartProducts.filter(product => product != removedProduct);
     store.save();
     this.render();
- 
+    this.updateCartIconQty()
   }
 
   saveToStore(product) {
@@ -87,9 +87,24 @@ class Cart {
     store.save();
     this.render();
     console.log(store.cartProducts);
-
+    this.updateCartIconQty()
   }
 
+
+  updateCartIconQty(){
+    let cartCount = 0;
+    let cartList = store.cartProducts
+    console.log(cartList)
+    cartList.forEach(product => {
+     cartCount += product.amount
+   });
+   if(cartCount > 0){
+     $('#cart-count').html(cartCount)
+   }else{
+    $('#cart-count').html("")
+   }
+
+  }
 
 }
 
