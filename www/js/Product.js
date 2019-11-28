@@ -21,6 +21,10 @@ class Product {
     this.amount = amount || 0;
     this.currentPrice = 0;
 
+    if (amount > 0) {
+      this.currentPrice = this.price * this.amount;
+    }
+
     this.removeProduct();
     this.addBuyButtonListener();
     this.addPlusButtonClickListener();
@@ -49,7 +53,7 @@ class Product {
       this.cart.add(this);
 
       //Animate added product to cart
-      this.animateImage()
+      self.animateImage()
     })
 
   }
@@ -151,7 +155,7 @@ class Product {
       console.log(this.amount);
       this.currentPrice= this.price * this.amount;
 
-      $(`#price-${this.id}`).html(this.currentPrice);
+      $(`#price-${this.id}`).html('€' + this.currentPrice);
        $(`#amount-${this.id}`).html(this.amount);
       this.cart.saveToStore(this);
     });
@@ -168,7 +172,7 @@ class Product {
       this.currentPrice= this.price * this.amount;
 
       console.log('currentPrice', this.currentPrice);
-      $(`#price-${this.id}`).html(this.currentPrice);
+      $(`#price-${this.id}`).html('€' + this.currentPrice);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
@@ -198,7 +202,7 @@ class Product {
 
       
       <div class="col-2">
-      <h5 id="price-${this.id}">€${this.price}</h5>
+      <h5 id="price-${this.id}">€${this.currentPrice}</h5>
       
       </div>
 

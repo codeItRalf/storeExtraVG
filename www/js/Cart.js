@@ -82,8 +82,8 @@ loadCartList(){
       product.amount += 1;
       store.cartProducts.push(product);
 
-    this.calculateTotal();
     store.save();
+    this.calculateTotal();
     //this.render();
     console.log(store.cartProducts)
     this.updateCartIconQty()
@@ -92,11 +92,12 @@ loadCartList(){
   }
 
   calculateTotal(){
-    
+    this.totalPrice = 0;
     store.cartProducts.map(item => {
-      
       this.totalPrice += item.currentPrice;
-    })
+    });
+
+    $('#total-price').html('Total Price: €' + this.totalPrice);
     console.log(this.totalPrice);
    //$('#total-price').html('Total Price : € ', this.totalPrice);
     //this.render();
