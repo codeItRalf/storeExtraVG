@@ -68,6 +68,9 @@ loadCartList(){
     let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
     if(selectedProduct){
       product.amount += 1;
+      product.rowTotal= product.price * product.amount;
+      console.log('rowTotal', product.rowTotal);
+      $(`#price-${product.id}`).html(product.rowTotal);
     }else{
       product.amount += 1;
       store.cartProducts.push(product);
@@ -92,9 +95,9 @@ loadCartList(){
   saveToStore(product) {
     let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
     productInStore.amount = product.amount;
-    productInStore.price = product.price;
     store.save();
-    this.render();
+    //this.render();
+    console.log(store.cartProducts);
     this.updateCartIconQty()
     
   }
