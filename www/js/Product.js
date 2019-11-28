@@ -17,13 +17,14 @@ class Product {
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
+    console.log('amount in constructor', amount)
     this.amount = amount || 0;
+    this.currentPrice = 0;
 
     this.removeProduct();
     this.addBuyButtonListener();
     this.addPlusButtonClickListener();
     this.addMinusButtonClickListener();
-
   }
 
 
@@ -139,29 +140,35 @@ class Product {
   }
 
   addPlusButtonClickListener() {
-     this.rowTotal = 0;
+    console.log('addPlusButtonClickListener', this.id);
+    // $(`#add-${this.id}`).unbind('click');
     $('body').on('click', `#add-${this.id}`, e => {
-      e.preventDefault();
-      this.amount += 1;
-      this.rowTotal= this.price * this.amount;
+      e.stopImmediatePropagation();
+      let clickedItemInCart = store.cartProducts.find(cartItem => cartItem.id === this.id);
+      this.amount = clickedItemInCart.amount;
 
-      console.log('rowTotal', this.rowTotal);
-      $(`#price-${this.id}`).html(this.rowTotal);
-      //this.price = this.price * this.amount;
+      this.amount++;
+      console.log(this.amount);
+      this.currentPrice= this.price * this.amount;
+
+      $(`#price-${this.id}`).html(this.currentPrice);
        $(`#amount-${this.id}`).html(this.amount);
-      
       this.cart.saveToStore(this);
     });
   }
 
   addMinusButtonClickListener() {
     $('body').on('click', `#remove-${this.id}`, e => {
-      e.preventDefault();
-      this.amount -= 1;
-      this.rowTotal= this.price * this.amount;
+      e.stopImmediatePropagation();
+      let clickedItemInCart = store.cartProducts.find(cartItem => cartItem.id === this.id);
+      console.log('clicked',clickedItemInCart.amount);
+      this.amount = clickedItemInCart.amount;
 
-      console.log('rowTotal', this.rowTotal);
-      $(`#price-${this.id}`).html(this.rowTotal);
+      this.amount -= 1;
+      this.currentPrice= this.price * this.amount;
+
+      console.log('currentPrice', this.currentPrice);
+      $(`#price-${this.id}`).html(this.currentPrice);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
@@ -169,9 +176,11 @@ class Product {
       }
        $(`#amount-${this.id}`).html(this.amount);
 
+      //this.cart.calculateTotal();
       this.cart.saveToStore(this);
     });
   }
+
 
   renderInCart() {
 
