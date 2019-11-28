@@ -3,7 +3,8 @@ class Cart {
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
-    //this.render();
+    this.totalPrice = 0;
+    this.calculateTotal();
   }
 
   /*
@@ -25,7 +26,7 @@ class Cart {
   </section>
   <div class = "row">
       <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
-          <h3>Total Price : € 0 </h3>
+          <h3 id="total-price">Total Price : € ${this.totalPrice}</h3>
       </div>     
   </div>
   <div class="row py-3">
@@ -34,9 +35,9 @@ class Cart {
       <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
-`)}
+`)
 
-
+}
 
 loadCartList(){
   let tempArray = []
@@ -49,7 +50,7 @@ loadCartList(){
 
   add(product) {
   
-
+    console.log('cart.add')
     // We are doing a json stringify of the product
     // minus the cart property of a product
     // (which is just a reference to the cart)
@@ -65,21 +66,43 @@ loadCartList(){
     //   ${JSON.stringify({ ...product, cart: undefined }, '', '  ')}
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
+
+    
     let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
     if(selectedProduct){
       product.amount += 1;
-    }else{
+      //product.rowTotal= product.price * product.amount;
+      //console.log('rowTotal', product.rowTotal);
+      // $(`#price-${product.id}`).html(product.rowTotal);
+      //this.saveToStore();
+
+      //this.updateCartIconQty()
+    }
+    else{
       product.amount += 1;
       store.cartProducts.push(product);
-  
-    }
+
     store.save();
+    this.calculateTotal();
     //this.render();
     console.log(store.cartProducts)
-    // localStorage.setItem('cart',JSON.stringify(product));
-
     this.updateCartIconQty()
+
+    }
   }
+
+  calculateTotal(){
+    this.totalPrice = 0;
+    store.cartProducts.map(item => {
+      this.totalPrice += item.currentPrice;
+    });
+
+    $('#total-price').html('Total Price: €' + this.totalPrice);
+    console.log(this.totalPrice);
+   //$('#total-price').html('Total Price : € ', this.totalPrice);
+    //this.render();
+  }
+
 
    removeFromStore(product){
     let removedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
@@ -87,18 +110,20 @@ loadCartList(){
     store.save();
     this.render();
     this.updateCartIconQty()
+    this.calculateTotal();
   }
 
   saveToStore(product) {
     let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
     productInStore.amount = product.amount;
-    productInStore.price = product.price;
+    productInStore.currentPrice = product.currentPrice;
     store.save();
-    this.render();
+    //this.render();
+    console.log(store.cartProducts);
+    this.calculateTotal();
     this.updateCartIconQty()
     
   }
-
 
   updateCartIconQty(){
     let cartCount = 0;
@@ -115,5 +140,6 @@ loadCartList(){
 
   }
 
+  
 }
 
