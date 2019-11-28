@@ -193,8 +193,7 @@ class Product {
 
     `
   }
-
-
+  
 
 
 
