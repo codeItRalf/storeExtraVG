@@ -9,19 +9,35 @@ class AdressInfo {
         $(window).scrollTop(0);
       }
     })
-
   }
-  verifyPayment(){
-    $('#payment-form').submit(function (e) {
+
+  submitPayment(){
+    $('#payment-form').on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        console.log('submit payment clicked')
+      } else {
+        console.log('submit payment clicked')
+         $('verify-payment').html(`
+         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+         <span class="sr-only">Loading...</span>
+         `)
+        setTimeout(this.animateConfirmButton(), 1000)
+      }
+    })
+  }
+
+
+  preventSubmit(){
+    $('form').submit(function (e) {
       console.log('payment form')
        e.preventDefault()
-     return false;
-    // setTimeout(this.animateConfirmButton, 1000)
     })
 
   }
-  animateConfirmButton(button){
-    button.css({text:'Payment verified', 'background-color':'green'})
+  animateConfirmButton(){
+    
+    button.css('background-color','green')
+    button.text("Payment Verified")
   }
   confirmAnimation(){
     $('#verifypayment').animate({})
@@ -33,17 +49,17 @@ class AdressInfo {
     console.log('clicked')
      $('#creditcard').on('click', ()=>{
       console.log('creditcard')
-      $('#confirm-button').hide()
+      $('#confirm-button').addClass("invisible")
       
      })
      $('#paypal').on('click',()=>{
       console.log('paypal')
-      $('#confirm-button').show()
+      $('#confirm-button').removeClass("invisible")
       
      })
      $('#bank').on('click',()=>{
       console.log('bank')
-      $('#confirm-button').show()
+      $('#confirm-button').removeClass("invisible")
      
      })
   }
@@ -233,7 +249,7 @@ class AdressInfo {
                   </div> <!-- form-group.// -->
               </div>
           </div> <!-- row.// -->
-          <button class="subscribe btn btn-primary btn-block" id="verifypayment" type="submit"> Confirm  </button>
+          <button class=" btn btn-primary btn-block" id="verify-payment" type="submit"> Confirm  </button>
           </form>
         </div> <!-- tab-pane.// -->
         <div class="tab-pane fade" id="nav-tab-paypal">
@@ -262,7 +278,7 @@ class AdressInfo {
         tempor incididunt ut labore et dolore magna aliqua. </p>
         </div> <!-- tab-pane.// -->
         </div> <!-- tab-content .// -->
-        <button class="btn btn-primary btn-block" id="confirm-button" type="submit">Continue to checkout</button>
+        <button class="btn btn-primary btn-block invisible" id="confirm-button" type="submit">Continue to checkout</button>
 
         </div> <!-- card-body.// -->
         </article> <!-- card.// -->
@@ -280,7 +296,8 @@ class AdressInfo {
   </div>
     `);
     this.submitAdress()
-    this.verifyPayment()
+    this.submitPayment()
+    this.preventSubmit()
     this.hideButton()
   }
 

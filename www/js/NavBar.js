@@ -1,5 +1,8 @@
 class NavBar {
 
+ 
+
+
   render() {
     $('header').html( /*html*/ `
     <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark fixed-top ">
@@ -42,23 +45,32 @@ class NavBar {
         </li>
       </ul>
     </div>
-
-    
-
   </nav>
     `);
+    this.collapseListener()
+  }
+
+  
+  collapseListener(){
+    $('#sub-nav').on('shown.bs.collapse', ()=>
+    this.animateNavLine() )
+    $('#sub-nav').on('hidden.bs.collapse', ()=> this.animateNavLine() )
+    $('#navbarSupportedContent').on('hidden.bs.collapse',  ()=> this.animateNavLine() ) 
+    $('#navbarSupportedContent').on('shown.bs.collapse',  ()=> this.animateNavLine() )
+    $(document).ready( ()=> this.animateNavLine())
   }
 
 
   subNavCollapse() {
     $('#sub-nav').collapse('hide')
-  }
+   }
 
-
+  
 
 
   animateNavLine() {
     //Animates nav line
+    console.log("navbar animation called")
     let element = $(`header nav .menu-link[class~="active"]`).not(".navbar-brand")[0]
     if (element) {
       let position = $(element).offset()
