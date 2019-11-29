@@ -53,7 +53,7 @@ class Product {
       this.cart.add(this);
 
       //Animate added product to cart
-      self.animateImage()
+      this.animateImage()
     })
 
   }
