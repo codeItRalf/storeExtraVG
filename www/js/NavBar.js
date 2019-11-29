@@ -7,11 +7,11 @@ class NavBar {
     $('header').html( /*html*/ `
     <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark fixed-top ">
     <a class=" navbar-brand" href="#">Chyvek-Data</a>
-    <div  id="nav-active-line"></div>
+   
     
    
     <div class="d-flex order-lg-3">
-    <div class="cart-icon navbar-nav" id="cart-button">
+    <div class="cart-icon navbar-nav " id="cart-button">
     <a class="fas fa-shopping-cart nav-link position-relative" href="#cart">
     <span class="cart-icon-number" id="cart-count"></span>
     </a>
@@ -27,8 +27,8 @@ class NavBar {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#"><span>Start</span></a>
-       
+          <a class="nav-link menu-link active" href="#"><span>Start</span></a>
+          <div  id="nav-active-line"></div>
         </li>
         <li class="nav-item">
           <a class="nav-link menu-link" href="#omoss"><span>Om oss</span></a>
@@ -79,8 +79,10 @@ class NavBar {
         top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
         width: $(element).find("span").css("width")
       }, 250, ()=>{
-        $("#nav-active-line").css('opacity', '1');
-      });
+        $("#nav-active-line").show();
+      })
+    }else{
+      $("#nav-active-line").hide()
     }
 
   }
