@@ -8,6 +8,11 @@ class Confirmation {
           <p>We hope you'll enjoy your products. </p>
         </div>
         `);
+        this.completeOrder();
+      }
+      completeOrder(){
+        store.cartProducts = [];
+        store.save();        
       }
     }
     
