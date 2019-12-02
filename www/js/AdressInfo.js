@@ -4,10 +4,25 @@ class AdressInfo {
   submitAdress(){
     $('#adress-form').on('submit', function (e) {
       if (e.isDefaultPrevented()) {
-      } else {
         $('#payment-button').trigger('click')
         $(window).scrollTop(0);
-      }
+
+        let customer = {
+          firstName : $('#firstName').val(),
+          lastName : $('#lastName').val(),
+          email : $('#email').val(),
+          adress : $('#addrress').val(),
+          country : $('#country').val(),
+          zip : $('#zip').val()
+        }
+        if (store.customer){
+          store.customer = {}
+        }
+        store.customer = customer;
+        store.save();
+      } else {
+        
+        }
     })
   }
 
