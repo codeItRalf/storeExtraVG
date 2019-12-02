@@ -23,6 +23,15 @@ class Product {
 
     if (amount > 0) {
       this.currentPrice = this.price * this.amount;
+      let [discountQuantity,forQuantity] = this.discount || [];
+      if(discountQuantity){
+        let numDiscountItem = Math.floor(this.amount/discountQuantity);
+        let discountSum = this.price * numDiscountItem;
+        console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
+        this.currentPrice -= discountSum;
+        //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
+        store.save();
+      }
     }
 
     this.removeProduct();
@@ -46,6 +55,7 @@ class Product {
       // since the buy button is sometimes inside a a-tag
       // in this case it prevents us from following the a-tag
       e.preventDefault();
+      e.stopImmediatePropagation();
       //e.target.innerText = "In cart";
       //e.target.disabled = true;
       // this.cart is an instance of Cart
@@ -143,7 +153,6 @@ class Product {
   }
 
   addPlusButtonClickListener() {
-    //console.log('addPlusButtonClickListener', this.id);
     // $(`#add-${this.id}`).unbind('click');
     $('body').on('click', `#add-${this.id}`, e => {
       e.stopImmediatePropagation();
@@ -151,7 +160,6 @@ class Product {
       this.amount = clickedItemInCart.amount;
 
       this.amount++;
-      console.log(this.amount);
       this.currentPrice= this.price * this.amount;
 
       //$(`#price-${this.id}`).html(`€  ${this.currentPrice}`);
@@ -165,20 +173,18 @@ class Product {
     $('body').on('click', `#remove-${this.id}`, e => {
       e.stopImmediatePropagation();
       let clickedItemInCart = store.cartProducts.find(cartItem => cartItem.id === this.id);
-      console.log('clicked',clickedItemInCart.amount);
       this.amount = clickedItemInCart.amount;
 
       this.amount -= 1;
       this.currentPrice= this.price * this.amount;
 
-      console.log('currentPrice', this.currentPrice);
-      $(`#price-${this.id}`).html('€ ' + this.currentPrice);
+      // $(`#price-${this.id}`).html('€ ' + this.currentPrice);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
          $(`.cart-content-${this.id}`).remove();
       }
-       $(`#amount-${this.id}`).html(this.amount);
+      //  $(`#amount-${this.id}`).html(this.amount);
 
       //this.cart.calculateTotal();
       this.cart.saveToStore(this);
