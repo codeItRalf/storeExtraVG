@@ -7,7 +7,8 @@
     "image": "https://shop.westerndigital.com/content/dam/store/en-us/assets/products/usb-flash-drives/cruzer-blade-usb-2-0/gallery/cruzer-blade-usb-2-0-angle.png.thumb.1280.1280.png",
     "description": "A great USB-stick for everyday use!",
     "weight": 9,
-    "category": "usb"
+    "category": "usb",
+    "discount":[3,2]
   },
   {
     
@@ -18,7 +19,8 @@
       "image": "https://www.7dayshop.com/media/catalog/product/cache/1/image/1000x/9df78eab33525d08d6e5fb8d27136e95/w/h/wh2-dt100g3_64gb_055.jpg",
       "description": "Bigger memory than our Sandisk USB-stick, it's a good pick if you need some more storage",
       "weight": 9,
-      "category": "usb"
+      "category": "usb",
+      "discount":[3,2]
   },
   {
     "id": 3,
@@ -38,7 +40,8 @@
       "image": "https://images-na.ssl-images-amazon.com/images/I/71w5zh6ob-L._SL1500_.jpg",
       "description": "A standard wireless gaming keyboard for a friendly price",
       "weight": 700,
-      "category": "usb"
+      "category": "usb",
+      "discount":[3,2]
   },
   {
     "id": 5,
