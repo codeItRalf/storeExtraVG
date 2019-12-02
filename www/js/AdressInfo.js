@@ -11,59 +11,67 @@ class AdressInfo {
     })
   }
 
+
   submitPayment(){
-    $('#payment-form').on('submit', function (e) {
-      if (e.isDefaultPrevented()) {
-        console.log('submit payment clicked')
+    console.log("submitPayment() called")
+    $('#payment-form').on('submit',  e =>{
+      if (e.isDefaultPrevented()) {    
+       this.verifyingPayment()
       } else {
-        console.log('submit payment clicked')
-         $('verify-payment').html(`
-         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-         <span class="sr-only">Loading...</span>
-         `)
-        setTimeout(this.animateConfirmButton(), 1000)
+        console.log("e.isDefaultPrevented() false")
+      
       }
     })
   }
 
 
+  verifyingPayment(){
+    $('#confirm-button').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span>Verifying...</span>`)
+    setTimeout(()=>{
+      this.toConfirmPage()
+    },3000)
+  }
+
+toConfirmPage(){
+  location.href = '#confirmation'
+}
+
+
+changeButtonType(){
+  
+ 
+   $('#creditcard').on('click', ()=>{
+    console.log('creditcard')
+    $('#confirm-button').attr("type","submit").unbind()
+    
+   
+   })
+   $('#paypal').on('click',()=>{
+    console.log('paypal')
+    $('#confirm-button').attr("type","button").on('click',()=>{
+      this.toConfirmPage()
+    })
+    
+   })
+   $('#bank').on('click',()=>{
+    console.log('bank')
+    $('#confirm-button').attr("type","button").on('click',()=>{
+      this.toConfirmPage()
+    })
+   
+   })
+}
+
   preventSubmit(){
     $('form').submit(function (e) {
-      console.log('payment form')
        e.preventDefault()
     })
 
   }
-  animateConfirmButton(){
-    
-    button.css('background-color','green')
-    button.text("Payment Verified")
-  }
-  confirmAnimation(){
-    $('#verifypayment').animate({})
-   //1. verify button becomes green change text 'payment verified', animation
-   //2 verify button  disapeers, confirm-button appears
-  }
 
-  hideButton(){
-    console.log('clicked')
-     $('#creditcard').on('click', ()=>{
-      console.log('creditcard')
-      $('#confirm-button').addClass("invisible")
-      
-     })
-     $('#paypal').on('click',()=>{
-      console.log('paypal')
-      $('#confirm-button').removeClass("invisible")
-      
-     })
-     $('#bank').on('click',()=>{
-      console.log('bank')
-      $('#confirm-button').removeClass("invisible")
-     
-     })
-  }
-  
+ 
+
 
 
   render() {
@@ -181,7 +189,7 @@ class AdressInfo {
       
 
 
-      <form data-toggle="validator"  role="form">
+      <form data-toggle="validator" id="payment-form" role="form">
       <div class="card">
       <div class="card-header" id="headingTwo">
         <h2 class="mb-0">
@@ -249,7 +257,7 @@ class AdressInfo {
                   </div> <!-- form-group.// -->
               </div>
           </div> <!-- row.// -->
-          <button class=" btn btn-primary btn-block" id="verify-payment" type="submit"> Confirm  </button>
+        
           </form>
         </div> <!-- tab-pane.// -->
         <div class="tab-pane fade" id="nav-tab-paypal">
@@ -278,7 +286,7 @@ class AdressInfo {
         tempor incididunt ut labore et dolore magna aliqua. </p>
         </div> <!-- tab-pane.// -->
         </div> <!-- tab-content .// -->
-        <button class="btn btn-primary btn-block invisible" id="confirm-button" type="submit">Continue to checkout</button>
+        <button class="btn btn-primary btn-block" id="confirm-button" type="submit">Continue to checkout</button>
 
         </div> <!-- card-body.// -->
         </article> <!-- card.// -->
@@ -294,11 +302,13 @@ class AdressInfo {
       </form>
     </div>
   </div>
+  </div>
     `);
-    this.submitAdress()
-    this.submitPayment()
+   
     this.preventSubmit()
-    this.hideButton()
+    this.submitAdress()
+    this. submitPayment()
+    this.changeButtonType()
   }
 
 
