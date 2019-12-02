@@ -2,8 +2,9 @@ class Cart {
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
-    this.totalPrice = 0;
+   // this.totalPrice = 0;
     this.calculateTotal();
+    this.shipping = 'free'
   }
 
   /*
@@ -21,17 +22,30 @@ class Cart {
     <h1>Shopping cart</h1>
   </div>
   </section>
-   <section class="row cart-items-info">${this.loadCartList()}
+   <section class="row">
+   ${this.loadCartList()}
   </section>
-  <div class = "row">
-      <div class = "col-8 total-price d-flex justify-content-end align-items-end py-5">
-          <h3 id="total-price">Total Price : € ${this.totalPrice}</h3>
-      </div>     
+  <div class = "row text-info">
+      <div class = "d-none d-sm-block col-md-6 total-price  py-5 w-25"></div>
+      <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
+          <h6>Sub-total  : </h6>
+          <h6>25% VAT  : </h6>
+          <h6>Shipping  : </h6>
+          <h5>Order Total  : </h5>
+      </div>
+      <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
+      <h6 id="total-price"> €${this.totalPrice}</h6>
+      <h6 id="tax"> €${this.tax}</h6>
+      <h6 id="shipping"> ${this.shipping}</h6>
+      <h5 id="Order-total"> €${this.orderTotal} </h5>
+
+      </div> 
+          
   </div>
   <div class="row py-3">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
-      <a class="btn btn-primary" href="#produkter" id="continueBuying">Continue buying</a>
-      <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
+      <a class="btn btn-info" href="#produkter" id="continueBuying">Continue buying</a>
+      <a class="btn btn-info" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
 `);
@@ -64,40 +78,23 @@ class Cart {
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
 
-    let selectedProduct = store.cartProducts.find(
-      storeProd => storeProd.id === product.id
-    );
-    if (selectedProduct) {
-      product.amount += 1;
-      //product.rowTotal= product.price * product.amount;
-      //console.log('rowTotal', product.rowTotal);
-      // $(`#price-${product.id}`).html(product.rowTotal);
-      //this.saveToStore();
+    
+    let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    if(selectedProduct){
+      selectedProduct += 1;
+      this.saveToStore(product);
 
-      //this.updateCartIconQty()
-    } else {
+    }
+
+    else{
       product.amount += 1;
       store.cartProducts.push(product);
+      this.saveToStore(product);
 
-      store.save();
-      this.calculateTotal();
-      //this.render();
-      console.log(store.cartProducts);
-      this.updateCartIconQty();
     }
-  }
-
-  calculateTotal() {
-    this.totalPrice = 0;
-    store.cartProducts.map(item => {
-      this.totalPrice += item.currentPrice;
-    });
-
-    $("#total-price").html("Total Price: €" + this.totalPrice);
     console.log(this.totalPrice);
-    //$('#total-price').html('Total Price : € ', this.totalPrice);
-    //this.render();
-  }
+
+    }
 
   removeFromStore(product) {
     let removedProduct = store.cartProducts.find(
@@ -107,8 +104,8 @@ class Cart {
       product => product != removedProduct
     );
     store.save();
-    this.render();
-    this.updateCartIconQty();
+    //this.render();
+    this.updateCartIconQty()
     this.calculateTotal();
   }
 
@@ -118,12 +115,45 @@ class Cart {
     );
     productInStore.amount = product.amount;
     productInStore.currentPrice = product.currentPrice;
-    store.save();
     //this.render();
+    $(`#amount-${product.id}`).html(product.amount);
     console.log(store.cartProducts);
     this.calculateTotal();
-    this.updateCartIconQty();
+    this.updateCartIconQty()
+    store.save();
+
   }
+
+  calculateTotal(){
+    this.totalPrice = 0;
+    this.calcDiscount();
+    this.calcTax();
+  }
+
+  calcDiscount(){
+    store.cartProducts.map(item => {
+      item.currentPrice = item.amount * item.price;
+      let [discountQuantity,forQuantity] = item.discount || [];
+      if(discountQuantity){
+        let numDiscountItem = Math.floor(item.amount/discountQuantity);
+        let discountSum = item.price * numDiscountItem;
+        console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
+        item.currentPrice -= discountSum;
+      }
+      this.totalPrice += item.currentPrice;
+      $(`#price-${item.id}`).html('€  ' + item.currentPrice);
+    });
+
+  }
+  
+  calcTax(){
+    this.tax = (0.025 * this.totalPrice).toFixed(2) ;
+    $('#tax').html('€' + this.tax);
+    $('#total-price').html('€' + this.totalPrice);
+
+  }
+
+
 
   updateCartIconQty() {
     let cartCount = 0;

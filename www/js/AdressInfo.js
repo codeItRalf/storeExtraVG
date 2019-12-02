@@ -334,22 +334,22 @@ loadCart(){
   let cartList = store.cartProducts
    
     cartList.forEach(product => {
-     listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
+      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
      <div>
-     <div id="thumb-nail">
-     <img class="my-0 img-responsive img-rounded mh-100 mw-auto" src="${product.image}">
-     </div>
-    <small class="text-muted">${product.name}  </small>
+        <div id="thumb-nail">
+        <img class="my-0 img-responsive img-rounded mh-100 mw-auto" src="${product.image}">
+        </div>
+        <small class="text-muted">${product.name}  </small>
     </div>
-    <span class="text-muted">${product.price}€</span>
+    <span class="text-muted">${product.price} €</span>
     <span class="text-muted">Pcs: ${product.amount} </span>
 </li>`
-  })
+    })
 
-  return listProducts
- 
+    return listProducts
 
-}
+
+  }
 
 
 }

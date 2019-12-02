@@ -17,7 +17,7 @@ class Product {
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
     // I add listeners to my buy-button(s)
-    console.log('amount in constructor', amount)
+    //console.log('amount in constructor', amount)
     this.amount = amount || 0;
     this.currentPrice = 0;
 
@@ -46,12 +46,11 @@ class Product {
       // since the buy button is sometimes inside a a-tag
       // in this case it prevents us from following the a-tag
       e.preventDefault();
-      e.target.innerText = "In cart";
-      e.target.disabled = true;
+      //e.target.innerText = "In cart";
+      //e.target.disabled = true;
       // this.cart is an instance of Cart
       // add me to that cart
       this.cart.add(this);
-
       //Animate added product to cart
       this.animateImage()
     })
@@ -111,10 +110,10 @@ class Product {
           <p>${this.description}</p>
           <p>Weight: ${this.weight}</p>
           <h4>${this.price} €</p>
-          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
+          <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
         </div>
         <div class="col-12 col-lg-3 product-image-${this.id}">
-          <img class="img-fluid border border-primary rounded" src="${this.image}">
+          <img class="img-fluid " src="${this.image}">
         </div>
       </section>
     `);
@@ -124,11 +123,11 @@ class Product {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return `
-      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
+      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static text-info">
         <a href="#${this.slug}">
-          <h4>${this.name} ${this.price} €</h4>
-          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
-          <img class="img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}">
+          <h5>${this.name} ${this.price} €</h5>
+          <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
+          <img class="img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}" >
         </a>
       </div>
     `
@@ -144,7 +143,7 @@ class Product {
   }
 
   addPlusButtonClickListener() {
-    console.log('addPlusButtonClickListener', this.id);
+    //console.log('addPlusButtonClickListener', this.id);
     // $(`#add-${this.id}`).unbind('click');
     $('body').on('click', `#add-${this.id}`, e => {
       e.stopImmediatePropagation();
@@ -155,8 +154,9 @@ class Product {
       console.log(this.amount);
       this.currentPrice= this.price * this.amount;
 
-      $(`#price-${this.id}`).html('€' + this.currentPrice);
-       $(`#amount-${this.id}`).html(this.amount);
+      //$(`#price-${this.id}`).html(`€  ${this.currentPrice}`);
+      //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
+       //$(`#amount-${this.id}`).html(this.amount);
       this.cart.saveToStore(this);
     });
   }
@@ -172,7 +172,7 @@ class Product {
       this.currentPrice= this.price * this.amount;
 
       console.log('currentPrice', this.currentPrice);
-      $(`#price-${this.id}`).html('€' + this.currentPrice);
+      $(`#price-${this.id}`).html('€ ' + this.currentPrice);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
@@ -189,37 +189,39 @@ class Product {
   renderInCart() {
 
     return `
-    <div class="col-12 cart-content-${this.id}" id="cart-info">
+    <div class="col-12 cart-content-${this.id} border-top border-secondary " id="cart-info">
+    <div class = "row py-3 d-flex justify-content-center w-75"> 
+    <div class=" col-12 col-md-2">
+    <img class="img-fluid rounded cart-image d-flex align-items-center " src="${this.image}" style="width: 50px; height: 50px;">
+    </div>
 
-      <div class="col-2">
-      <img class="img-fluid rounded cart-image" src="${this.image}">
-      </div>
-
-      <div class="col-4">
-      <h6>${this.name}</h6>
-      
-      </div>
-
-      
-      <div class="col-2">
-      <h5 id="price-${this.id}">€${this.currentPrice}</h5>
-      
-      </div>
-
-
-      <div class="col-2 d-flex flex-row">
-      <span class="oi oi-plus" id="add-${this.id}"></span>
-      <h5 class="px-2" id="amount-${this.id}">${this.amount}</h5>
-      <span class="oi oi-minus" id="remove-${this.id}"></span>
-      </div>
-
-    
-    <div class="col-2">
-      <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
+    <div class=" col-12 col-md-4 d-flex align-items-center my-1">
+    <h6>${this.name}</h6>
     
     </div>
-</div>
+
+    
+    <div class="col-6 col-md-2 d-flex align-items-center">
+    <h5 id="price-${this.id}">€${this.currentPrice}</h5>
+    
+    </div>
+
+
+    <div class=" col-6 col-md-2 d-flex align-items-center  flex-row py-2">
+    <span class="oi oi-minus" id="remove-${this.id}"></span>
+    <h5 class="px-2" id="amount-${this.id}">${this.amount}</h5>
+    <span class="oi oi-plus" id="add-${this.id}"></span>
+    </div>
+
   
+  <div class="col-12 col-md-2 d-flex align-items-center">
+    <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
+  
+  </div>
+
+    </div>
+
+</div>
     `
   }
   
