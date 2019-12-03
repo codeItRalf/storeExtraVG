@@ -92,6 +92,7 @@ loadCartList(){
       store.cartProducts.push(product);
 
     }
+    product.showDiscount();
     this.saveToStore(product);
     }
 
@@ -130,6 +131,7 @@ loadCartList(){
       if(discountQuantity){
         let numDiscountItem = Math.floor(item.amount/discountQuantity);
         let discountSum = item.price * numDiscountItem;
+        $(`#discount-${item.id}`).html('You saved €' + discountSum);
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
         $(`#price-${item.id}`).html('€  ' + item.currentPrice);
@@ -141,7 +143,7 @@ loadCartList(){
   }
   
   calcTax(){
-    this.tax = (0.20 * this.totalPrice).toFixed(2) ;
+    this.tax = (0.25 * this.totalPrice).toFixed(2) ;
     $('#tax').html('€' + this.tax);
     $('#total-price').html('€' + this.totalPrice);
 

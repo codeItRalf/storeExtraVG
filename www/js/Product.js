@@ -165,6 +165,7 @@ class Product {
       //$(`#price-${this.id}`).html(`€  ${this.currentPrice}`);
       //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
        //$(`#amount-${this.id}`).html(this.amount);
+       this.showDiscount()
       this.cart.saveToStore(this);
     });
   }
@@ -187,10 +188,22 @@ class Product {
       //  $(`#amount-${this.id}`).html(this.amount);
 
       //this.cart.calculateTotal();
+      this.showDiscount();
       this.cart.saveToStore(this);
     });
   }
 
+  showDiscount() {
+    //let [ discountQuantity, forQuantity]= this.discount || [];
+    if(this.discount){
+      if ((this.amount + 1) % 3 === 0 ){
+        $(`#3for2-${this.id}`).html('(3 for 2) Add one more for free!')
+      }
+      else {
+        $(`#3for2-${this.id}`).html('');
+      }
+    }
+  }
 
   renderInCart() {
 
@@ -201,14 +214,22 @@ class Product {
     <img class="img-fluid rounded cart-image d-flex align-items-center " src="${this.image}" style="width: 50px; height: 50px;">
     </div>
 
-    <div class=" col-12 col-md-4 d-flex align-items-center my-1">
-    <h6>${this.name}</h6>
+    <div class=" col-12 col-md-4 d-flex flex-column align-items-center my-1">
+      <h6>${this.name}</h6>
+  
+      <div>
+        <p class="text-danger" id="3for2-${this.id}"></p>
+      </div>
     
     </div>
 
     
-    <div class="col-6 col-md-2 d-flex align-items-center">
-    <h5 id="price-${this.id}">€${this.currentPrice}</h5>
+    <div class="col-6 col-md-2 d-flex flex-column align-items-center">
+      <h5 id="price-${this.id}">€${this.currentPrice}</h5>
+
+      <div>
+        <p class="text-danger" id="discount-${this.id}"></p>
+      </div>
     
     </div>
 
