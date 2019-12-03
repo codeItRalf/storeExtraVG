@@ -251,8 +251,7 @@ class Product {
 </div>
     `
   }
-
-
+  
 
 
 

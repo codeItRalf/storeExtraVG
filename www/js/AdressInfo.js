@@ -1,4 +1,94 @@
 class AdressInfo {
+
+
+  submitAdress(){
+    $('#adress-form').on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        $('#payment-button').trigger('click')
+        $(window).scrollTop(0);
+
+        let customer = {
+          firstName : $('#firstName').val(),
+          lastName : $('#lastName').val(),
+          email : $('#email').val(),
+          adress : $('#addrress').val(),
+          country : $('#country').val(),
+          zip : $('#zip').val()
+        }
+        if (store.customer){
+          store.customer = {}
+        }
+        store.customer = customer;
+        store.save();
+      } else {
+        
+        }
+    })
+  }
+
+
+  submitPayment(){
+    console.log("submitPayment() called")
+    $('#payment-form').on('submit',  e =>{
+      if (e.isDefaultPrevented()) {    
+       this.verifyingPayment()
+      } else {
+        console.log("e.isDefaultPrevented() false")
+      
+      }
+    })
+  }
+
+
+  verifyingPayment(){
+    $('#confirm-button').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span>Verifying...</span>`)
+    setTimeout(()=>{
+      this.toConfirmPage()
+    },3000)
+  }
+
+toConfirmPage(){
+  location.href = '#confirmation'
+}
+
+
+changeButtonType(){
+  
+ 
+   $('#creditcard').on('click', ()=>{
+    console.log('creditcard')
+    $('#confirm-button').attr("type","submit").unbind()
+    
+   
+   })
+   $('#paypal').on('click',()=>{
+    console.log('paypal')
+    $('#confirm-button').attr("type","button").on('click',()=>{
+      this.toConfirmPage()
+    })
+    
+   })
+   $('#bank').on('click',()=>{
+    console.log('bank')
+    $('#confirm-button').attr("type","button").on('click',()=>{
+      this.toConfirmPage()
+    })
+   
+   })
+}
+
+  preventSubmit(){
+    $('form').submit(function (e) {
+       e.preventDefault()
+    })
+
+  }
+
+ 
+
+
+
   render() {
     $("main").html(/*html*/ `
     <div class="row">
@@ -20,27 +110,38 @@ class AdressInfo {
         </div>
       </form>
     </div>
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" novalidate="">
+
+
+    <div class="accordion col-md-8 order-md-1" id="accordionExample">
+    
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h4 class="mb-3">Shipping/Billing address</h4>
+          </button>
+        </h2>
+      </div>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+    <div class="mw-100">   
+      <form data-toggle="validator" id="adress-form" role="form">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
           </div>
         </div>
-
-       
 
         <div class="mb-3">
           <label for="email">Email </label>
@@ -52,7 +153,7 @@ class AdressInfo {
 
         <div class="mb-3">
           <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
@@ -66,7 +167,7 @@ class AdressInfo {
         <div class="row">
           <div class="col-md-5 mb-3">
             <label for="country">Country</label>
-            <select class="custom-select d-block w-100" id="country" required="">
+            <select class="custom-select d-block w-100" id="country" required>
               <option value="">Choose...</option>
               <option>Sweden</option>
               <option>Denmark</option>
@@ -79,54 +180,72 @@ class AdressInfo {
           </div>
           <div class="col-md-3 mb-3">
             <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" required="">
+            <input type="text" class="form-control" id="zip" placeholder="" required>
             <div class="invalid-feedback">
               Zip code required.
             </div>
           </div>
         </div>
         <hr class="mb-4">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="same-address">
-          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-        </div>
+     
         <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" id="save-info">
           <label class="custom-control-label" for="save-info">Save this information for next time</label>
         </div>
-        <hr class="mb-4">
+        <div class="mt-4">
+        <button id="adress-next"  type="submit" class="btn btn-primary">Next</button>
+        </div>
+       
+        </form>
+        </div>
+        </div>
+      </div>
+  
+      
+
+
+      <form data-toggle="validator" id="payment-form" role="form">
+      <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" id="payment-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h4 class="mb-3">Payment</h4>
+          </button>
+        </h2>
+      </div>
+
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+
         <div class="row">
-        <div class="col-md-8 mx-auto">
-        <h4 class="mb-3">Payment</h4>
-        
-        <article class="card">
-        <div class="card-body p-5">
+        <div class=" mx-auto">
+        <article class="">
+        <div class="card-body">
         
         <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
-          <li class="nav-item">
+          <li class="nav-item" id="creditcard">
             <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
-            <i class="fa fa-credit-card"></i> Credit Card</a></li>
-          <li class="nav-item">
+            <i class="fa fa-credit-card" ></i> Credit Card</a></li>
+          <li class="nav-item" id="paypal">
             <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
             <i class="fab fa-paypal"></i>  Paypal</a></li>
-          <li class="nav-item">
+          <li class="nav-item" id="bank">
             <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
             <i class="fa fa-university"></i>  Bank Transfer</a></li>
         </ul>
         
         <div class="tab-content">
         <div class="tab-pane fade show active" id="nav-tab-card">
-          <p class="alert alert-success">Some text success or error</p>
-          <form role="form">
+          <form role="form" id="payment-form">
           <div class="form-group">
             <label for="username">Full name (on the card)</label>
-            <input type="text" class="form-control" name="username" placeholder="" required="">
+            <input type="text" class="form-control" name="username" placeholder="" required>
           </div> <!-- form-group.// -->
         
           <div class="form-group">
             <label for="cardNumber">Card number</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="cardNumber" placeholder="">
+              <input type="text" class="form-control" name="cardNumber" placeholder="" required>
               <div class="input-group-append">
                 <span class="input-group-text text-muted">
                   <i class="fab fa-cc-visa"></i>   <i class="fab fa-cc-amex"></i>   
@@ -149,11 +268,11 @@ class AdressInfo {
               <div class="col-sm-4">
                   <div class="form-group">
                       <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
-                      <input type="number" class="form-control" required="">
+                      <input type="number" class="form-control" required>
                   </div> <!-- form-group.// -->
               </div>
           </div> <!-- row.// -->
-          <button class="subscribe btn btn-primary btn-block" type="button"> Confirm  </button>
+        
           </form>
         </div> <!-- tab-pane.// -->
         <div class="tab-pane fade" id="nav-tab-paypal">
@@ -182,26 +301,38 @@ class AdressInfo {
         tempor incididunt ut labore et dolore magna aliqua. </p>
         </div> <!-- tab-pane.// -->
         </div> <!-- tab-content .// -->
-        
+        <button class="btn btn-primary btn-block" id="confirm-button" type="submit">Continue to checkout</button>
+
         </div> <!-- card-body.// -->
         </article> <!-- card.// -->
         
         
           </div> <!-- col.// -->
           </div>
-        <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+
+          </div>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>
+  </div>
     `);
+   
+    this.preventSubmit()
+    this.submitAdress()
+    this. submitPayment()
+    this.changeButtonType()
   }
 
 
-  loadCart() {
-    let listProducts = ""
-    let cartList = store.cartProducts
 
+
+loadCart(){
+  let listProducts = ""
+  let cartList = store.cartProducts
+   
     cartList.forEach(product => {
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
      <div>
