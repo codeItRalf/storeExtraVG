@@ -1,5 +1,4 @@
 class Cart {
-
   constructor() {
     store.cartProducts = store.cartProducts || [];
     store.save();
@@ -17,7 +16,7 @@ class Cart {
   */
 
   render() {
-    $('main').html(/*html*/`
+    $("main").html(/*html*/ `
   <section class="row">
   <div class="col d-flex justify-content-center">
     <h1>Shopping cart</h1>
@@ -49,21 +48,20 @@ class Cart {
       <a class="btn btn-info" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
-`)
+`);
+  }
 
-}
+  loadCartList() {
+    let tempArray = [];
 
-loadCartList(){
-  let tempArray = []
-  
-  store.cartProducts.map(cartItem => {
-    tempArray.push (new Product(cartItem, this, cartItem.amount))
-  })
-  return tempArray.map(item => item.renderInCart()).join('')
-}
+    store.cartProducts.map(cartItem => {
+      tempArray.push(new Product(cartItem, this, cartItem.amount));
+    });
+    return tempArray.map(item => item.renderInCart()).join("");
+  }
 
   add(product) {
-  
+    console.log("cart.add");
     // We are doing a json stringify of the product
     // minus the cart property of a product
     // (which is just a reference to the cart)
@@ -98,10 +96,13 @@ loadCartList(){
 
     }
 
-
-   removeFromStore(product){
-    let removedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
-    store.cartProducts = store.cartProducts.filter(product => product != removedProduct);
+  removeFromStore(product) {
+    let removedProduct = store.cartProducts.find(
+      storeProd => storeProd.id === product.id
+    );
+    store.cartProducts = store.cartProducts.filter(
+      product => product != removedProduct
+    );
     store.save();
     //this.render();
     this.updateCartIconQty()
@@ -109,7 +110,9 @@ loadCartList(){
   }
 
   saveToStore(product) {
-    let productInStore = store.cartProducts.find(storeProd => storeProd.id === product.id);
+    let productInStore = store.cartProducts.find(
+      storeProd => storeProd.id === product.id
+    );
     productInStore.amount = product.amount;
     productInStore.currentPrice = product.currentPrice;
     //this.render();
@@ -152,21 +155,17 @@ loadCartList(){
 
 
 
-  updateCartIconQty(){
+  updateCartIconQty() {
     let cartCount = 0;
-    let cartList = store.cartProducts
-    console.log(cartList)
+    let cartList = store.cartProducts;
+    console.log(cartList);
     cartList.forEach(product => {
-     cartCount += product.amount
-   });
-   if(cartCount > 0){
-     $('#cart-count').html(cartCount)
-   }else{
-    $('#cart-count').html("")
-   }
-
+      cartCount += product.amount;
+    });
+    if (cartCount > 0) {
+      $("#cart-count").html(cartCount);
+    } else {
+      $("#cart-count").html("");
+    }
   }
-
-  
 }
-

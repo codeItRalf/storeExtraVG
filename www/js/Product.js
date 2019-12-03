@@ -224,8 +224,7 @@ class Product {
 </div>
     `
   }
-
-
+  
 
 
 

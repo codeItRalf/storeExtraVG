@@ -23,8 +23,7 @@ class App {
       'page404': new Page404(),
       'cart' : new Cart(),
       'adressinfo' : new AdressInfo(),
-      'payment-info': new PaymentInfo(),
-      'confirmation' : new Confirmation()
+      'payment-info': new PaymentInfo()
     };
     
     //save window width to keep track on responsive changes
@@ -41,7 +40,8 @@ class App {
 
     // A shop should always have a cart
     
-    this.cart = new Cart();
+    this.cart = this.routes.cart;
+    this.routes.confirmation = new Confirmation(this.cart);
     $(window).ready(this.cart.updateCartIconQty())
     // Store a new class CartCounter through its constructor in this.cartCounter
     // this.cartCounter is able to call for the method render() in class CartCounter
