@@ -113,7 +113,7 @@ class Product {
           <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
         </div>
         <div class="col-12 col-lg-3 product-image-${this.id}">
-          <img class="img-fluid " src="${this.image}">
+          <img class="img-fluid" src="${this.image}">
         </div>
       </section>
     `);
