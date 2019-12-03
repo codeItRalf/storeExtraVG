@@ -13,6 +13,7 @@ class Confirmation {
           <p> Thank you for shopping at Chyvek Data! </p>
           <a>See your order here: <span id="order"></span></a>
           <p> An email with your order and an order confirmation has been sent to your registrered email-adress. </p>
+          <p>You can follow your order <a href="#orderhistory">here</a></p>
           <p>We hope you'll enjoy your products. </p>
         </div>
         </section>
@@ -31,12 +32,30 @@ class Confirmation {
     $("#order").html(this.orderNumber);
     //this.cart = store.cartProducuc
     this.customer = store.customer;
-    console.log(this.orderNumber);
-    console.log(this.cart);
-    console.log(this.customer);
-
-    let purchase = new OrderHistory(this.cart, this.orderNumber, this.customer);
-    store.purchases = purchase;
+    
+    
+    this.pushOrder(new Order(this.clone( this.cart), this.orderNumber, this.customer));
+    
     store.save();
   }
+
+  pushOrder(order){
+    let list = []
+
+    if(store.purchases){
+     list = store.purchases
+    }
+    list.push(order)
+    store.purchases = list
+  }
+
+
+  clone(obj) {
+    return Object.create(
+      Object.getPrototypeOf(obj), 
+      Object.getOwnPropertyDescriptors(obj) 
+    );
+  }
+   
+
 }
