@@ -23,6 +23,15 @@ class Product {
 
     if (amount > 0) {
       this.currentPrice = this.price * this.amount;
+      let [discountQuantity,forQuantity] = this.discount || [];
+      if(discountQuantity){
+        let numDiscountItem = Math.floor(this.amount/discountQuantity);
+        let discountSum = this.price * numDiscountItem;
+        console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
+        this.currentPrice -= discountSum;
+        //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
+        store.save();
+      }
     }
 
     this.removeProduct();
@@ -46,6 +55,7 @@ class Product {
       // since the buy button is sometimes inside a a-tag
       // in this case it prevents us from following the a-tag
       e.preventDefault();
+      e.stopImmediatePropagation();
       //e.target.innerText = "In cart";
       //e.target.disabled = true;
       // this.cart is an instance of Cart
@@ -143,7 +153,6 @@ class Product {
   }
 
   addPlusButtonClickListener() {
-    //console.log('addPlusButtonClickListener', this.id);
     // $(`#add-${this.id}`).unbind('click');
     $('body').on('click', `#add-${this.id}`, e => {
       e.stopImmediatePropagation();
@@ -151,12 +160,12 @@ class Product {
       this.amount = clickedItemInCart.amount;
 
       this.amount++;
-      console.log(this.amount);
       this.currentPrice= this.price * this.amount;
 
       //$(`#price-${this.id}`).html(`€  ${this.currentPrice}`);
       //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
        //$(`#amount-${this.id}`).html(this.amount);
+       this.showDiscount()
       this.cart.saveToStore(this);
     });
   }
@@ -165,26 +174,36 @@ class Product {
     $('body').on('click', `#remove-${this.id}`, e => {
       e.stopImmediatePropagation();
       let clickedItemInCart = store.cartProducts.find(cartItem => cartItem.id === this.id);
-      console.log('clicked',clickedItemInCart.amount);
       this.amount = clickedItemInCart.amount;
 
       this.amount -= 1;
       this.currentPrice= this.price * this.amount;
 
-      console.log('currentPrice', this.currentPrice);
-      $(`#price-${this.id}`).html('€ ' + this.currentPrice);
+      // $(`#price-${this.id}`).html('€ ' + this.currentPrice);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
          $(`.cart-content-${this.id}`).remove();
       }
-       $(`#amount-${this.id}`).html(this.amount);
+      //  $(`#amount-${this.id}`).html(this.amount);
 
       //this.cart.calculateTotal();
+      this.showDiscount();
       this.cart.saveToStore(this);
     });
   }
 
+  showDiscount() {
+    //let [ discountQuantity, forQuantity]= this.discount || [];
+    if(this.discount){
+      if ((this.amount + 1) % 3 === 0 ){
+        $(`#3for2-${this.id}`).html('(3 for 2) Add one more for free!')
+      }
+      else {
+        $(`#3for2-${this.id}`).html('');
+      }
+    }
+  }
 
   renderInCart() {
 
@@ -195,14 +214,22 @@ class Product {
     <img class="img-fluid rounded cart-image d-flex align-items-center " src="${this.image}" style="width: 50px; height: 50px;">
     </div>
 
-    <div class=" col-12 col-md-4 d-flex align-items-center my-1">
-    <h6>${this.name}</h6>
+    <div class=" col-12 col-md-4 d-flex flex-column align-items-center my-1">
+      <h6>${this.name}</h6>
+  
+      <div>
+        <p class="text-danger" id="3for2-${this.id}"></p>
+      </div>
     
     </div>
 
     
-    <div class="col-6 col-md-2 d-flex align-items-center">
-    <h5 id="price-${this.id}">€${this.currentPrice}</h5>
+    <div class="col-6 col-md-2 d-flex flex-column align-items-center">
+      <h5 id="price-${this.id}">€${this.currentPrice}</h5>
+
+      <div>
+        <p class="text-danger" id="discount-${this.id}"></p>
+      </div>
     
     </div>
 

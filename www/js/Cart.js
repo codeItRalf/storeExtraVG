@@ -28,7 +28,7 @@ class Cart {
   <div class = "row text-info">
       <div class = "d-none d-sm-block col-md-6 total-price  py-5 w-25"></div>
       <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-          <h6>Sub-total  : </h6>
+          <h5>Sub-total  : </h5>
           <h6>25% VAT  : </h6>
           <h6>Shipping  : </h6>
           <h5>Order Total  : </h5>
@@ -81,19 +81,16 @@ class Cart {
     
     let selectedProduct = store.cartProducts.find(storeProd => storeProd.id === product.id);
     if(selectedProduct){
-      selectedProduct += 1;
-      this.saveToStore(product);
-
+      product.amount += 1;
     }
 
     else{
       product.amount += 1;
       store.cartProducts.push(product);
-      this.saveToStore(product);
 
     }
-    console.log(this.totalPrice);
-
+    product.showDiscount();
+    this.saveToStore(product);
     }
 
   removeFromStore(product) {
@@ -115,12 +112,11 @@ class Cart {
     );
     productInStore.amount = product.amount;
     productInStore.currentPrice = product.currentPrice;
+    store.save();
     //this.render();
     $(`#amount-${product.id}`).html(product.amount);
-    console.log(store.cartProducts);
     this.calculateTotal();
     this.updateCartIconQty()
-    store.save();
 
   }
 
@@ -137,17 +133,19 @@ class Cart {
       if(discountQuantity){
         let numDiscountItem = Math.floor(item.amount/discountQuantity);
         let discountSum = item.price * numDiscountItem;
+        $(`#discount-${item.id}`).html('You saved €' + discountSum);
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
+        $(`#price-${item.id}`).html('€  ' + item.currentPrice);
+        //store.save();
       }
       this.totalPrice += item.currentPrice;
-      $(`#price-${item.id}`).html('€  ' + item.currentPrice);
     });
 
   }
   
   calcTax(){
-    this.tax = (0.025 * this.totalPrice).toFixed(2) ;
+    this.tax = (0.25 * this.totalPrice).toFixed(2) ;
     $('#tax').html('€' + this.tax);
     $('#total-price').html('€' + this.totalPrice);
 
