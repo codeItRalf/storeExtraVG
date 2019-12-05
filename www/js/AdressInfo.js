@@ -12,6 +12,7 @@ class AdressInfo {
           lastName : $('#lastName').val(),
           email : $('#email').val(),
           adress : $('#address').val(),
+          city : $('#city').val(),
           country : $('#country').val(),
           zip : $('#zip').val()
         }
@@ -160,8 +161,8 @@ changeButtonType(){
         </div>
 
         <div class="mb-3">
-          <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+          <label for="address2">City</label>
+          <input type="text" class="form-control" id="city" placeholder="City">
         </div>
 
         <div class="row">
