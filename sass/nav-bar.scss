@@ -22,7 +22,7 @@ body { padding-top: 70px; }
   }
 
   #sub-nav{
-   background-color:  var(--secondary);
+  //  background-color:  var(--secondary);
    padding: 10px;
    border-radius: 7px;
 
@@ -44,7 +44,9 @@ body { padding-top: 70px; }
 
 }
 
-
+.navbar-header {
+  background: #00467F;
+}
 
 
 

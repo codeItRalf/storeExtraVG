@@ -135,9 +135,13 @@ class Product {
     return `
       <div class="col-12 col-md-6 col-lg-4 mt-5 position-static text-info">
         <a href="#${this.slug}">
-          <h5>${this.name} ${this.price} €</h5>
-          <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
-          <img class="img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}" >
+         <div class="d-flex justify-content-between"> 
+            <h3 class ="m-0 d-flex align-items-center text-info">€ ${this.price}</h3>
+            <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
+          </div>
+
+          <img class="img-product-page img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}" >
+          <h5 class="mt-2 text-info">${this.name}</h5>
         </a>
       </div>
     `
@@ -197,10 +201,15 @@ class Product {
     //let [ discountQuantity, forQuantity]= this.discount || [];
     if(this.discount){
       if ((this.amount + 1) % 3 === 0 ){
-        $(`#3for2-${this.id}`).html('(3 for 2) Add one more for free!')
+        $(`#tooltip-${this.id}`).tooltip({
+          trigger: 'manual'
+        })
+        $(`#tooltip-${this.id}`).tooltip('show');
+        // $(`#3for2-${this.id}`).html('(3 for 2) Add one more for free!')
       }
       else {
-        $(`#3for2-${this.id}`).html('');
+        // $(`#3for2-${this.id}`).html('');
+        $(`#tooltip-${this.id}`).tooltip('hide');
       }
     }
   }
@@ -215,7 +224,10 @@ class Product {
     </div>
 
     <div class=" col-12 col-md-4 d-flex flex-column align-items-center my-1">
-      <h6>${this.name}</h6>
+        <h6>${this.name}</h6>
+
+        <a id="tooltip-${this.id}" class="tool-tip" data-toggle="tooltip" data-placement="bottom" title="(3 for 2) Add one more for free!" data-html="true">
+        </a>
   
       <div>
         <p class="text-danger" id="3for2-${this.id}"></p>
@@ -251,7 +263,8 @@ class Product {
 </div>
     `
   }
-  
+
+
 
 
 

@@ -99,6 +99,7 @@ class App {
     $(`header nav a[href="#${hashFirstPart}"]`).not(".navbar-brand").addClass('active');
  
     // Render content
+    $('.tooltip').remove();
     pageToShow.render();
 
     this.navBar.animateNavLine()

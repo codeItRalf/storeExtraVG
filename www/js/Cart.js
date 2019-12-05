@@ -4,7 +4,7 @@ class Cart {
     store.save();
    // this.totalPrice = 0;
     this.calculateTotal();
-    this.shipping = 'free'
+    // this.shipping = 'free'
   }
 
   /*
@@ -37,7 +37,7 @@ class Cart {
       <h6 id="total-price"> €${this.totalPrice}</h6>
       <h6 id="tax"> €${this.tax}</h6>
       <h6 id="shipping"> ${this.shipping}</h6>
-      <h5 id="Order-total"> €${this.orderTotal} </h5>
+      <h5 id="order-total"> €${this.orderTotal} </h5>
 
       </div> 
           
@@ -49,6 +49,7 @@ class Cart {
     </div>
   </div>
 `);
+    this.calcDiscount();
   }
 
   loadCartList() {
@@ -124,6 +125,8 @@ class Cart {
     this.totalPrice = 0;
     this.calcDiscount();
     this.calcTax();
+    this.calcShipping();
+    this.calcOrderTotal();
   }
 
   calcDiscount(){
@@ -133,7 +136,12 @@ class Cart {
       if(discountQuantity){
         let numDiscountItem = Math.floor(item.amount/discountQuantity);
         let discountSum = item.price * numDiscountItem;
-        $(`#discount-${item.id}`).html('You saved €' + discountSum);
+        if(item.amount < 3){
+          $(`#discount-${item.id}`).html('');
+        }
+        else{
+          $(`#discount-${item.id}`).html('You saved €' + discountSum)
+        }
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
         $(`#price-${item.id}`).html('€  ' + item.currentPrice);
@@ -143,6 +151,7 @@ class Cart {
     });
 
   }
+
   
   calcTax(){
     this.tax = (0.25 * this.totalPrice).toFixed(2) ;
@@ -151,7 +160,31 @@ class Cart {
 
   }
 
+  calcShipping() {
+    this.totalWeight = 0;
+    store.cartProducts.map(item =>{
+      this.totalWeight += (item.weight * item.amount);
 
+    })
+    if(this.totalWeight < 1){
+      this.shipping = 'free';
+      $('#shipping').html(this.shipping);
+    }
+    else{
+      this.shipping = (4 * this.totalWeight).toFixed(2);
+      $('#shipping').html('€' + this.shipping);
+    }
+  }
+
+  calcOrderTotal() {
+    if(this.totalWeight < 1) {
+      this.orderTotal = this.totalPrice;
+    }
+    else{
+      this.orderTotal = parseFloat(this.totalPrice) + parseFloat(this.shipping);
+    }
+    $('#order-total').html('€' + this.orderTotal);
+  }
 
   updateCartIconQty() {
     let cartCount = 0;
