@@ -142,7 +142,7 @@ class Product {
 
           <img class="img-product-page img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}" >
           <h5 class="mt-2 main-color">${this.name}</h5>
-          <p ${this.discount ? 'class="sticker-discount"' : ""}>3 for 2</p>
+          ${this.discount ? '<p class="sticker-discount">3 for 2</p>' : ""}
 
         </a>
       </div>
