@@ -11,7 +11,7 @@ class AdressInfo {
           firstName : $('#firstName').val(),
           lastName : $('#lastName').val(),
           email : $('#email').val(),
-          adress : $('#addrress').val(),
+          adress : $('#address').val(),
           country : $('#country').val(),
           zip : $('#zip').val()
         }
