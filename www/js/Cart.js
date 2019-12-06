@@ -105,6 +105,8 @@ class Cart {
     //this.render();
     this.updateCartIconQty()
     this.calculateTotal();
+    $('.tooltip').remove();
+  
   }
 
   saveToStore(product) {
@@ -154,7 +156,7 @@ class Cart {
 
   
   calcTax(){
-    this.tax = (0.25 * this.totalPrice).toFixed(2) ;
+    this.tax = (0.20 * this.totalPrice).toFixed(2) ;
     $('#tax').html('€' + this.tax);
     $('#total-price').html('€' + this.totalPrice);
 
