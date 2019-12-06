@@ -125,6 +125,7 @@ class Cart {
 
   calculateTotal(){
     this.totalPrice = 0;
+    this.totalDiscount = 0;
     this.calcDiscount();
     this.calcTax();
     this.calcShipping();
@@ -147,6 +148,8 @@ class Cart {
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
         $(`#price-${item.id}`).html('€  ' + item.currentPrice);
+        this.totalDiscount += discountSum;
+
         //store.save();
       }
       this.totalPrice += item.currentPrice;
