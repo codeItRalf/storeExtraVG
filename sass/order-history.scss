@@ -13,3 +13,55 @@
     cursor: pointer;
     color: lightgray;
 }
+.detail-info{
+    color: black;
+}
+.detail-discount{
+    color: red;
+}
+.order-date-sm{
+    display: none;
+}
+.order-date-lg{
+    cursor: pointer;
+}
+
+
+
+
+@media (max-width: 1085px){
+    .customer-adress{
+        display: none;
+    }
+}
+@media(max-width: 850px){
+   .customer-location{
+       display: none;
+   }
+}
+@media (max-width: 775px){
+   .delivery-status{
+       display: none;
+   }
+}
+@media (max-width: 530px){
+    .customer{
+        display: none;
+    }
+ }
+ @media (max-width: 440px){
+    .order-date-lg{
+        display: none;
+    }
+    .order-date-sm{
+        display: inline-block;
+    }
+ }
+ @media (max-width: 320px){
+    .order-date-sm{
+        display: inline-block;
+        text-align: right;
+        padding-right: 20px;
+    }
+ }
+ 

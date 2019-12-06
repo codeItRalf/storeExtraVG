@@ -1,17 +1,33 @@
 class OrderHistory {
+
+
+  constructor(){
+  this.sort = false
+  }
   render() {
+
     $("main").html(/*html*/ `
         <div class="container">
       <div class="row d-flex flex-column">
       
           <div class="col-12 d-flex flex-row justify-content-around">
             <span class="wide-item">#</span>
-            <span class="wide-item">Customer</span>
-            <span class="wide-item">Adress</span>
-            <span class="wide-item">Location</span>
-            <span class="wide-item">Order Date</span>
-            <span class="wide-item">Status</span>
-            <span class="wide-item">Net Amount</span>
+            <span class="wide-item customer">Customer</span>
+            <span class="wide-item customer-adress">Adress</span>
+            <span class="wide-item customer-location">Location</span>
+            <div class="history-sorter mx-auto">
+            <div class="wide-item order-date-lg d-flex justify-content-center" id="toggle-order">
+            <span> Order Date</span>
+            <div>
+             ${this.sort ? '<div class="fas fa-sort-up sort-history"></div>' : '<div class="fas fa-sort-down sort-history"></div>'} 
+            </div>
+          
+            </div>
+            </div>
+            
+            <span class="wide-item order-date-sm"><i class="fas fa-calendar-day"></i></span>
+            <span class="wide-item delivery-status">Status</span>
+            <span class="wide-item">Amount</span>
           </div>
        
 
@@ -30,27 +46,36 @@ class OrderHistory {
         console.log(e.target);
 
         this.getOrderDetails(e.target);
-      }.bind(this)
-    );
+      }.bind(this));
+
+
+    $("#toggle-order" ).click(function(e) {
+      store.purchases.reverse()
+      this.sort = !this.sort
+      this.render()
+    }.bind(this))
+    
   }
+
+
 
   renderInList(order) {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
-    return /*html*/ `<section class="list-group-item col-12  d-flex flex-row justify-content-around pl-0 pr-0">
-        <div class="wide-item detail-button "><a
+    return /*html*/ `<section class="list-group-item col-12 d-flex flex-row justify-content-around pl-0 pr-0">
+        <div class="wide-item detail-button"><a
             title="View Details"
             data-toggle="tooltip">${order.orderNumber}</a></div>
-        <div class="wide-item">
+        <div class="wide-item customer">
         <span>${order.customer.firstName} ${order.customer.lastName}</span>
           
         </div>
-        <div class="wide-item">${order.customer.adress}</div>
-        <div class="wide-item">${order.customer.country}</div>
-        <div class="wide-item">${this.unixToDate(
+        <div class="wide-item customer-adress">${order.customer.adress}</div>
+        <div class="wide-item customer-location">${order.customer.country}</div>
+        <div class="wide-item order-date-lg">${this.unixToDate(
           parseInt(order.orderNumber) + 3600000
         )}</div>
-        <div class="wide-item"><span class="status text-warning">&bull;</span> Pending</div>
+        <div class="wide-item delivery-status"><span class="status text-warning">&bull;</span> Pending</div>
         <div class="wide-item">${order.cart.cartValue.totalPrice}€</div>
         
       </section>`;
@@ -78,18 +103,33 @@ class OrderHistory {
     <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Purchased items</span>
+        <span class="text-muted">#${orderItem.orderNumber}</span>
         
       </h4>
       <ul class="list-group mb-3´´">
        ${this.loadCart(orderItem)}
       <li class="list-group-item d-flex justify-content-between lh-condensed">
-      <div class = "col-6 col-md-3 total-price d-flex flex-column justify-content-center py-5">
-          <div class="main-color">Sub-total: </div>
-          <div class="main-color">Total discount: </div>
-          <div class="main-color">25% VAT: </div>
-          <div class="main-color">Shipping: </div>
-          <div class="main-color">Order Total: </div>
+      <div class = "col-md-12 total-price d-flex flex-column justify-content-center py-5">
+        <div class="d-flex justify-content-between mb-1">
+          <div class="main-color">Sub-total:</div>
+          <span class="detail-info"> ${orderItem.cart.cartValue.totalPrice}€ </span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+          <div class="main-color">Total discount:</div>
+          <span class="detail-discount">-${orderItem.cart.cartValue.totalDiscount}€ </span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+          <div class="main-color">25% VAT:</div>
+          <span class="detail-info"> ${orderItem.cart.cartValue.tax}€ </span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+          <div class="main-color">Shipping:</div>
+          <span class="detail-info"> ${orderItem.cart.cartValue.shipping == "free" ? orderItem.cart.cartValue.shipping : orderItem.cart.cartValue.shipping + "€"} </span>
+          </div>
+          <div class="d-flex justify-content-between">
+          <div class="main-color">Order Total:</div>
+          <span class="detail-info"> ${orderItem.cart.cartValue.orderTotal}€ </span>
+          </div>
       </div>
       </li>
       </ul>
