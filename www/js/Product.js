@@ -140,10 +140,14 @@ class Product {
             <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
           </div>
 
-          <img class="img-product-page img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}" >
-          <h5 class="mt-2 main-color">${this.name}</h5>
-          ${this.discount ? '<p class="sticker-discount">3 for 2</p>' : ""}
-
+          <div class="product-image-${this.id}">
+            <div class="position-relative">
+              ${this.discount ? '<p class="sticker-discount">3 for 2</p>' : ""}
+              <img class="img-product-page img-fluid border border-primary rounded" src="${this.image}" >
+            </div> 
+            <h5 class="mt-2 main-color">${this.name}</h5>
+            
+          </div
         </a>
       </div>
     `
@@ -221,41 +225,33 @@ class Product {
     return `
     <div class="col-12 cart-content-${this.id} border-top border-secondary " id="cart-info">
     <div class = "row py-3 d-flex justify-content-center w-75"> 
-    <div class=" col-12 col-md-2">
-    <img class="img-fluid rounded cart-image d-flex align-items-center " src="${this.image}" style="width: 50px; height: 50px;">
+    <div class=" col-5 col-md-2 d-flex justify-content-center align-items-center">
+    <img class="img-fluid rounded cart-image" src="${this.image}" style="width: 50px; height: 50px;">
     </div>
 
-    <div class=" col-12 col-md-4 d-flex flex-column align-items-center my-1">
-        <h6>${this.name}</h6>
+    <div class=" col-7 col-md-4 d-flex flex-column justify-content-center align-items-center my-1">
+        <h5>${this.name}</h5>
 
         <a id="tooltip-${this.id}" class="tool-tip" data-toggle="tooltip" data-placement="bottom" title="(3 for 2) Add one more for free!" data-html="true">
         </a>
-  
-      <div>
-        <p class="text-danger" id="3for2-${this.id}"></p>
-      </div>
     
     </div>
 
     
-    <div class="col-6 col-md-2 d-flex flex-column align-items-center">
+    <div class="col-5 col-md-2 d-flex flex-column align-items-center justify-content-center pt-3">
       <h5 id="price-${this.id}">€${this.currentPrice}</h5>
-
-      <div>
-        <p class="text-danger" id="discount-${this.id}"></p>
-      </div>
-    
+      <p class="text-danger" id="discount-${this.id}"></p>
     </div>
 
 
-    <div class=" col-6 col-md-2 d-flex align-items-center  flex-row py-2">
+    <div class=" col-7 col-md-2 d-flex align-items-center flex-row py-2">
     <span class="oi oi-minus" id="remove-${this.id}"></span>
     <h5 class="px-2" id="amount-${this.id}">${this.amount}</h5>
     <span class="oi oi-plus" id="add-${this.id}"></span>
     </div>
 
   
-  <div class="col-12 col-md-2 d-flex align-items-center">
+  <div class="col-12 col-md-2  d-flex justify-content-center align-items-center">
     <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
   
   </div>
