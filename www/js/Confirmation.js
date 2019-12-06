@@ -1,6 +1,5 @@
 class Confirmation {
-  
-  constructor(cart){
+  constructor(cart) {
     this.cart = cart;
   }
 
@@ -11,7 +10,7 @@ class Confirmation {
         <div class="col confirmationtext">
           <h2> Order confirmed! </h2>
           <p> Thank you for shopping at Chyvek Data! </p>
-          <a>See your order here: <span id="order"></span></a>
+          <a>Your order number is: <span id="order"></span></a>
           <p> An email with your order and an order confirmation has been sent to your registrered email-adress. </p>
           <p>You can follow your order <a href="#orderhistory">here</a></p>
           <p>We hope you'll enjoy your products. </p>
@@ -30,32 +29,34 @@ class Confirmation {
   saveOrder() {
     this.orderNumber = Date.now();
     $("#order").html(this.orderNumber);
-    //this.cart = store.cartProducuc
+    //this.cart = store.cartProducts
     this.customer = store.customer;
-    
-    
-    this.pushOrder(new Order(this.clone( this.cart), this.orderNumber, this.customer));
-    
+
+    let order = {
+      cartValue: this.clone(this.cart),
+      orderList: store.cartProducts
+    };
+    this.pushOrder(
+      new Order(order, this.orderNumber, this.customer)
+    );
+
     store.save();
   }
 
-  pushOrder(order){
-    let list = []
-
-    if(store.purchases){
-     list = store.purchases
+  pushOrder(order) {
+    let list = [];
+    if (store.purchases) {
+      list = store.purchases;
     }
-    list.push(order)
-    store.purchases = list
-  }
+    list.push(order);
+    store.purchases = list;
 
+  }
 
   clone(obj) {
     return Object.create(
-      Object.getPrototypeOf(obj), 
-      Object.getOwnPropertyDescriptors(obj) 
+      Object.getPrototypeOf(obj),
+      Object.getOwnPropertyDescriptors(obj)
     );
   }
-   
-
 }

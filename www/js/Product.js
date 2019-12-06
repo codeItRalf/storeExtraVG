@@ -133,15 +133,17 @@ class Product {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return `
-      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static text-info">
+      <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
          <div class="d-flex justify-content-between"> 
-            <h3 class ="m-0 d-flex align-items-center text-info">€ ${this.price}</h3>
+            <h3 class = "m-0 d-flex align-items-center main-color">€ ${this.price}</h3>
             <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
           </div>
 
           <img class="img-product-page img-fluid border border-primary rounded product-image-${this.id}" src="${this.image}" >
-          <h5 class="mt-2 text-info">${this.name}</h5>
+          <h5 class="mt-2 main-color">${this.name}</h5>
+          ${this.discount ? '<p class="sticker-discount">3 for 2</p>' : ""}
+
         </a>
       </div>
     `

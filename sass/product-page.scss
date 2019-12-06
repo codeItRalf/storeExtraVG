@@ -6,3 +6,20 @@ a:link, a:hover {
     height: 330px;
     width: 100%;
 }
+
+.sticker-discount {
+    position: relative;
+    background: black;
+    color: white;
+    top: -360px;
+    left: 220px;
+    border: 2px black solid;
+    border-radius: 100%;
+    font-size: 1.5rem;
+    margin: 0;
+    height: 120px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

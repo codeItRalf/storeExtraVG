@@ -28,16 +28,16 @@ class Cart {
   <div class = "row text-info">
       <div class = "d-none d-sm-block col-md-6 total-price  py-5 w-25"></div>
       <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-          <h5>Sub-total  : </h5>
-          <h6>25% VAT  : </h6>
-          <h6>Shipping  : </h6>
-          <h5>Order Total  : </h5>
+          <h5 class="main-color">Sub-total  : </h5>
+          <h6 class="main-color">25% VAT  : </h6>
+          <h6 class="main-color">Shipping  : </h6>
+          <h5 class="main-color">Order Total  : </h5>
       </div>
       <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-      <h6 id="total-price"> €${this.totalPrice}</h6>
-      <h6 id="tax"> €${this.tax}</h6>
-      <h6 id="shipping"> ${this.shipping}</h6>
-      <h5 id="order-total"> €${this.orderTotal} </h5>
+      <h6 id="total-price" class="main-color"> €${this.totalPrice}</h6>
+      <h6 id="tax" class="main-color"> €${this.tax}</h6>
+      <h6 id="shipping" class="main-color"> ${this.shipping}</h6>
+      <h5 id="order-total" class="main-color"> €${this.orderTotal} </h5>
 
       </div> 
           
