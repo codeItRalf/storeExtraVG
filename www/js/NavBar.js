@@ -6,6 +6,7 @@ class NavBar {
   render() {
     $('header').html( /*html*/ `
     <nav class="navbar-header-color navbar navbar-expand-lg navbar-light navbar-dark fixed-top ">
+    <i class="fas fa-laptop"></i>
     <a class=" navbar-brand" href="#">Chyvek-Data</a>
    
     

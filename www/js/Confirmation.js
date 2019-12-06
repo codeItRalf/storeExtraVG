@@ -48,8 +48,10 @@ class Confirmation {
     if (store.purchases) {
       list = store.purchases;
     }
+    console.log('push order is called')
     list.push(order);
     store.purchases = list;
+
 
   }
 

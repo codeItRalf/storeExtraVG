@@ -14,7 +14,7 @@ class StartPage {
         </section>
         <section class="row">
         <div class="col">
-        <img src="https://charlotteagenda-charlotteagenda.netdna-ssl.com/wp-content/uploads/2015/08/IMG_7603.jpg" class="homepage-img">
+          <img src="https://charlotteagenda-charlotteagenda.netdna-ssl.com/wp-content/uploads/2015/08/IMG_7603.jpg" class="homepage-img">
         </div>
       </section>
     `);

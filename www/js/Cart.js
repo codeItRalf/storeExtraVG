@@ -5,6 +5,7 @@ class Cart {
    // this.totalPrice = 0;
     this.calculateTotal();
     // this.shipping = 'free'
+    this.removeToolTipListener();
   }
 
   /*
@@ -36,8 +37,8 @@ class Cart {
       <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
       <h6 id="total-price" class="main-color"> €${this.totalPrice}</h6>
       <h6 id="tax" class="main-color"> €${this.tax}</h6>
-      <h6 id="shipping" class="main-color"> ${this.shipping}</h6>
-      <h5 id="order-total" class="main-color"> €${this.orderTotal} </h5>
+      <h6 id="shipping" class="main-color">€${this.shipping}</h6>
+      <h5 id="order-total" class="main-color"> €${this.orderTotal.toFixed(2).replace(".",",")} </h5>
 
       </div> 
           
@@ -147,11 +148,13 @@ class Cart {
         }
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
-        $(`#price-${item.id}`).html('€  ' + item.currentPrice);
+        //$(`#price-${item.id}`).html('€  ' + item.currentPrice);
         this.totalDiscount += discountSum;
 
         //store.save();
       }
+      $(`#price-${item.id}`).html('€  ' + item.currentPrice);
+
       this.totalPrice += item.currentPrice;
     });
 
@@ -159,7 +162,7 @@ class Cart {
 
   
   calcTax(){
-    this.tax = (0.20 * this.totalPrice).toFixed(2) ;
+    this.tax = (0.20 * this.totalPrice).toFixed(2).replace(".", ",");
     $('#tax').html('€' + this.tax);
     $('#total-price').html('€' + this.totalPrice);
 
@@ -176,7 +179,7 @@ class Cart {
       $('#shipping').html(this.shipping);
     }
     else{
-      this.shipping = (4 * this.totalWeight).toFixed(2);
+      this.shipping = (4 * this.totalWeight).toFixed(2).replace(".", ",");
       $('#shipping').html('€' + this.shipping);
     }
   }
@@ -186,9 +189,15 @@ class Cart {
       this.orderTotal = this.totalPrice;
     }
     else{
-      this.orderTotal = parseFloat(this.totalPrice) + parseFloat(this.shipping);
+      this.orderTotal = (parseFloat(this.totalPrice) + parseFloat(this.shipping.replace(",", ".")));
     }
-    $('#order-total').html('€' + this.orderTotal);
+    $('#order-total').html('€' + this.orderTotal.toFixed(2).replace(".", ","));
+  }
+
+  removeToolTipListener() {
+    $('body').on('click', e => {
+      $('.tooltip').remove();
+    })
   }
 
   updateCartIconQty() {

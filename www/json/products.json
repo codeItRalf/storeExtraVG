@@ -2,7 +2,7 @@
   {
     "id": 1,
     "slug": "produkter-sandisk-usb",
-    "name": "Sandisk Cruzer Blade USB stick 16gb",
+    "name": "Sandisk Blade USB stick 16gb",
     "price": 59,
     "image": "https://shop.westerndigital.com/content/dam/store/en-us/assets/products/usb-flash-drives/cruzer-blade-usb-2-0/gallery/cruzer-blade-usb-2-0-angle.png.thumb.1280.1280.png",
     "description": "A great USB-stick for everyday use!",
@@ -51,7 +51,8 @@
       "image": "https://assets.logitech.com/assets/64365/2/wireless-mouse-m185.png",
       "description": "A standard wireless mouse from Logitech",
       "weight": 0.1,
-      "category": "usb"
+      "category": "usb",
+      "discount":[3,2]
   },
   {
     "id": 6,
