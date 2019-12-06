@@ -21,10 +21,13 @@ class Confirmation {
     this.completeOrder();
   }
   completeOrder() {
+    console.log(store.cartProducts);
+    if (store.cartProducts.length > 0){
     this.saveOrder();
     store.cartProducts = [];
     store.save();
     this.cart.updateCartIconQty();
+    }
   }
   saveOrder() {
     this.orderNumber = Date.now();

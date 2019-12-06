@@ -12,6 +12,7 @@ class NavBar {
     
    
     <div class="d-flex order-lg-3">
+    
     <div class="cart-icon navbar-nav " id="cart-button">
     <a class="fas fa-shopping-cart nav-link position-relative" href="#cart">
     <span class="cart-icon-number" id="cart-count"></span>
@@ -34,6 +35,9 @@ class NavBar {
         <li class="nav-item">
           <a class="nav-link menu-link" href="#omoss"><span>About us</span></a>
         </li>
+        <li class="nav-item">
+        <a class="nav-link menu-link" href="#orderhistory"><span>Order history</span></a>
+      </li>
         <li class="nav-item">
           <a class="nav-link menu-link" href="#produkter" id="produkter" role="button" data-toggle="collapse" data-target="#sub-nav" ><span>Products</span></a>
            <div class="collapse" id="sub-nav">
