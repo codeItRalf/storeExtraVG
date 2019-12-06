@@ -1,6 +1,4 @@
 class OrderHistory {
-
- 
   render() {
     $("main").html(/*html*/ `
         <div class="container">
@@ -25,12 +23,15 @@ class OrderHistory {
         </ol>
       </div>
     </div>
-    `); 
-    $('.detail-button').on('click', (function (e) {
-      console.log(e.target);
-      
-      this.getOrderDetails(e.target)
-    }).bind(this))
+    `);
+    $(".detail-button").on(
+      "click",
+      function(e) {
+        console.log(e.target);
+
+        this.getOrderDetails(e.target);
+      }.bind(this)
+    );
   }
 
   renderInList(order) {
@@ -46,51 +47,54 @@ class OrderHistory {
         </div>
         <div class="wide-item">${order.customer.adress}</div>
         <div class="wide-item">${order.customer.country}</div>
-        <div class="wide-item">${this.unixToDate(parseInt(order.orderNumber) + 3600000)}</div>
+        <div class="wide-item">${this.unixToDate(
+          parseInt(order.orderNumber) + 3600000
+        )}</div>
         <div class="wide-item"><span class="status text-warning">&bull;</span> Pending</div>
         <div class="wide-item">${order.cart.cartValue.totalPrice}€</div>
         
       </section>`;
   }
 
-
-
   unixToDate(unixTimestamp) {
     return new Date(unixTimestamp).toUTCString("sv-SV").slice(5, 22);
   }
-  
-  
-  getOrderDetails(orderNr){
-   let number = $(orderNr).text()
-   console.log(store.purchases)
-   console.log(number)
-   const orderDetail = store.purchases.filter(orderItem => { 
-     
-     if (orderItem.orderNumber == number){
-       return orderItem
-     }}
 
-   )
-   this.renderOrderDetails(orderDetail[0])
-    
-}
+  getOrderDetails(orderNr) {
+    let number = $(orderNr).text();
+    console.log(store.purchases);
+    console.log(number);
+    const orderDetail = store.purchases.filter(orderItem => {
+      if (orderItem.orderNumber == number) {
+        return orderItem;
+      }
+    });
+    this.renderOrderDetails(orderDetail[0]);
+  }
 
-
-
-renderOrderDetails(orderItem){
-  console.log(orderItem)
-  $("main").html(/*html*/ `
+  renderOrderDetails(orderItem) {
+    console.log(orderItem);
+    $("main").html(/*html*/ `
     <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Purchased items</span>
         
       </h4>
-      <ul class="list-group mb-3">
+      <ul class="list-group mb-3´´">
        ${this.loadCart(orderItem)}
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <div class = "col-6 col-md-3 total-price d-flex flex-column justify-content-center py-5">
+          <div class="main-color">Sub-total: </div>
+          <div class="main-color">Total discount: </div>
+          <div class="main-color">25% VAT: </div>
+          <div class="main-color">Shipping: </div>
+          <div class="main-color">Order Total: </div>
+      </div>
+      </li>
       </ul>
-
-      
+    
+     
     </div>
     <div class="col-md-8 order-md-1">
     
@@ -108,7 +112,9 @@ renderOrderDetails(orderItem){
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name:</label>
-            <span type="text" class="" id="firstName">${orderItem.customer.firstName}</span>
+            <span type="text" class="" id="firstName">${
+              orderItem.customer.firstName
+            }</span>
             
           </div>
           <div class="col-md-6 mb-3">
@@ -125,7 +131,9 @@ renderOrderDetails(orderItem){
         </div>
         <div class="col-md-6 mb-3 pl-0">
             <label for="city">City:</label>
-            <span type="text" class="" id="city">${orderItem.customer.city}</span>
+            <span type="text" class="" id="city">${
+              orderItem.customer.city
+            }</span>
             
           </div>
 
@@ -151,17 +159,16 @@ renderOrderDetails(orderItem){
         <div class="mt-4">
         <button type="button" class="btn btn-primary" id="back-button">Back</button>
         </div>
-    `)
-    $('#back-button').on('click', ()=> this.render())
+    `);
+    $("#back-button").on("click", () => this.render());
+  }
+  loadCart(cart) {
+    let object = cart;
+    let listProducts = "";
+    let cartList = [];
+    cartList = object.cart.orderList;
 
-}
-loadCart(cart){
-  let object = cart
-  let listProducts = ""
-  let cartList = []
-  cartList = object.cart.orderList
-  
-  console.log(object.cart.orderList);
+    console.log(object.cart.orderList);
 
     cartList.map(product => {
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -174,13 +181,9 @@ loadCart(cart){
     <span class="text-muted">${product.price} €</span>
     <span class="text-muted">Qty: ${product.amount} </span>
     
-</li>`
-    })
+</li>`;
+    });
 
-    return listProducts
-
-
+    return listProducts;
   }
-
 }
-
