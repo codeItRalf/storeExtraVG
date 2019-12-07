@@ -1,6 +1,8 @@
 class NavBar {
 
- 
+ constructor(){
+   this.isOpen = true;
+ }
 
 
   render() {
@@ -53,8 +55,8 @@ class NavBar {
   </nav>
     `);
     this.collapseListener()
+    this.responsiveListener()  
   }
-
   
   collapseListener(){
     $('#sub-nav').on('shown.bs.collapse', ()=>
@@ -63,11 +65,30 @@ class NavBar {
     $('#navbarSupportedContent').on('hidden.bs.collapse',  ()=> this.animateNavLine() ) 
     $('#navbarSupportedContent').on('shown.bs.collapse',  ()=> this.animateNavLine() )
     $(document).ready( ()=> this.animateNavLine())
+ 
   }
 
+  
 
+  responsiveListener(){
+    $('.menu-link').on('click', (e)=> {
+      if($(".navbar-expand-lg .navbar-toggler").is(":visible")){
+        if(e.currentTarget.id != "produkter"){
+          this.navCollapse();
+        }
+       
+      
+    } 
+
+    })
+  }
   subNavCollapse() {
     $('#sub-nav').collapse('hide')
+   }
+  
+   
+  navCollapse() {
+    $('#navbarSupportedContent').collapse('hide')
    }
 
   
