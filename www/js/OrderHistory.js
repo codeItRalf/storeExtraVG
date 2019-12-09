@@ -32,7 +32,9 @@ class OrderHistory {
        
 
         <ol class="col-12" id="history-list">
-        ${store.purchases.map(order => this.renderInList(order)).join("")}
+
+
+        ${store.purchases ? store.purchases.map(order => this.renderInList(order)).join(""):""} 
         
           
 
@@ -40,6 +42,7 @@ class OrderHistory {
       </div>
     </div>
     `);
+    if(!store.purchases)  $('#history-list').html('<section class="list-group-item col-12 d-flex flex-row justify-content-around pl-0 pr-0">No Order History</section>')
     $(".detail-button").on(
       "click",
       function(e) {
