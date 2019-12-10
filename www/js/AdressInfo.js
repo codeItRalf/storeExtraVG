@@ -343,7 +343,7 @@ loadCart(){
         <small class="text-muted">${product.name}  </small>
     </div>
     <span class="text-muted">${product.price} €</span>
-    <span class="text-muted">Pcs: ${product.amount} </span>
+    <span class="text-muted">Qty: ${product.amount} </span>
 </li>`
     })
 

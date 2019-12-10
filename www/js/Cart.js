@@ -26,23 +26,28 @@ class Cart {
    <section class="row">
    ${this.loadCartList()}
   </section>
-  <div class = "row text-info">
-      <div class = "d-none d-sm-block col-md-6 total-price  py-5 w-25"></div>
-      <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-          <h5 class="main-color">Sub-total  : </h5>
-          <h6 class="main-color">25% VAT  : </h6>
-          <h6 class="main-color">Shipping  : </h6>
-          <h5 class="main-color">Order Total  : </h5>
-      </div>
-      <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-      <h6 id="total-price" class="main-color"> €${this.totalPrice}</h6>
-      <h6 id="tax" class="main-color"> €${this.tax}</h6>
-      <h6 id="shipping" class="main-color">€${this.shipping}</h6>
-      <h5 id="order-total" class="main-color"> €${this.orderTotal.toFixed(2).replace(".",",")} </h5>
+   <section class="container"> 
+   <div class = "row text-info">
+   <div class = "d-none d-md-block col-md-6 total-price  py-5 w-25"></div>
+   <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
+       <h5 class="main-color">Sub-total  : </h5>
+       <h6 class="text-danger">Total-discount  : </h6>
+       <h6 class="main-color">25% VAT  : </h6>
+       <h6 class="main-color">Shipping  : </h6>
+       <h5 class="main-color">Order Total  : </h5>
+   </div>
+   <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
+       <h6 id="total-price" class="main-color">0,00 € </h6>
+       <h6 id="total-discount" class="text-danger">0.00 €</h6>
+       <h6 id="tax" class="main-color"> </h6>
+       <h6 id="shipping" class="main-color"> </h6>
+       <h5 id="order-total" class="main-color">0,00 € </h5>
 
-      </div> 
-          
-  </div>
+   </div> 
+       
+</div>
+
+   </section>
   <div class="row py-3">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
       <a class="btn btn-info" href="#produkter" id="continueBuying">Continue buying</a>
@@ -50,7 +55,7 @@ class Cart {
     </div>
   </div>
 `);
-    this.calcDiscount();
+    this.calculateTotal();
   }
 
   loadCartList() {
@@ -102,12 +107,14 @@ class Cart {
     store.cartProducts = store.cartProducts.filter(
       product => product != removedProduct
     );
-    store.save();
-    //this.render();
+
     this.updateCartIconQty()
     this.calculateTotal();
     $('.tooltip').remove();
   
+
+    store.save();
+    //this.render();
   }
 
   saveToStore(product) {
@@ -144,7 +151,7 @@ class Cart {
           $(`#discount-${item.id}`).html('');
         }
         else{
-          $(`#discount-${item.id}`).html('You saved €' + discountSum)
+          $(`#discount-${item.id}`).html('You saved ' + discountSum + '€')
         }
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
@@ -153,18 +160,19 @@ class Cart {
 
         //store.save();
       }
-      $(`#price-${item.id}`).html('€  ' + item.currentPrice);
-
       this.totalPrice += item.currentPrice;
+
+      $(`#price-${item.id}`).html(this.format(item.currentPrice) + ' €' );
+      $('#total-price').html( this.format(this.totalPrice) + ' €');
+      $('#total-discount').html( this.format(this.totalDiscount) + ' €');
+
     });
 
   }
-
   
   calcTax(){
-    this.tax = (0.20 * this.totalPrice).toFixed(2).replace(".", ",");
-    $('#tax').html('€' + this.tax);
-    $('#total-price').html('€' + this.totalPrice);
+    this.tax = (0.20 * this.totalPrice);
+    $('#tax').html( this.format(this.tax) + ' €');
 
   }
 
@@ -175,12 +183,12 @@ class Cart {
 
     })
     if(this.totalWeight < 1){
-      this.shipping = 'free';
-      $('#shipping').html(this.shipping);
+      this.shipping = 0;
+      $('#shipping').html(this.format(this.shipping) + ' €');
     }
     else{
-      this.shipping = (4 * this.totalWeight).toFixed(2).replace(".", ",");
-      $('#shipping').html('€' + this.shipping);
+      this.shipping = (4 * this.totalWeight);
+      $('#shipping').html(this.format(this.shipping) + ' €');
     }
   }
 
@@ -189,9 +197,10 @@ class Cart {
       this.orderTotal = this.totalPrice;
     }
     else{
-      this.orderTotal = (parseFloat(this.totalPrice) + parseFloat(this.shipping.replace(",", ".")));
+      this.orderTotal = (parseFloat(this.totalPrice) + parseFloat(this.shipping));
     }
-    $('#order-total').html('€' + this.orderTotal.toFixed(2).replace(".", ","));
+    //$('#order-total').html(this.orderTotal.toFixed(2).replace(".", ",") + ' €');
+    $('#order-total').html(this.format(this.orderTotal) + ' €');
   }
 
   removeToolTipListener() {
@@ -213,4 +222,11 @@ class Cart {
       $("#cart-count").html("");
     }
   }
+
+  format(n) {
+    return n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    
+  }
+
+
 }
