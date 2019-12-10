@@ -80,7 +80,7 @@
       "name": "LG 24 inch FULL HD monitor",
       "price": 149,
       "image": "https://www.lg.com/in/images/monitors/md05772287/gallery/medium01.jpg",
-      "description": "24 inch FULL HD monitor from LG",
+      "description": "24 inch full HD monitor from LG",
       "weight": 3.5,
       "category": "monitor"
 
@@ -102,7 +102,7 @@
       "name": "LG 34 inch Full HD Curved Led Gaming monitor",
       "price": 800,
       "image": "https://images-na.ssl-images-amazon.com/images/I/81fk%2BcshV-L._SX466_.jpg",
-      "description": "34 inch FULL HD curved LED gaming monitor from LG",
+      "description": "34 inch full hd curved LED gaming monitor from LG",
       "weight": 7.5,
       "category": "monitor"
 
@@ -132,7 +132,7 @@
   {
     "id": 13,
       "slug": "produkter-hp250-laptop",
-      "name": "HP 250 G7 Core i5-8265U 8GB 256GB SSD 15.6 Inch",
+      "name": "HP 250 G7 Core i5-8265U 8GB 256GB ssd 15.6 Inch",
       "price": 799,
       "image": "https://westore.mv/wp-content/uploads/2019/07/g7-m.jpg",
       "description": "A laptop from HP, can be used to play less demanding games",
@@ -143,7 +143,7 @@
   {
     "id": 14,
       "slug": "produkter-acer-laptop",
-      "name": "15.6 inch i5 8GB RAM 256GB SSD Nvidia Geforce GTX 1050",
+      "name": "15.6 inch i5 8GB ram 256GB SSD Nvidia Geforce GTX 1050",
       "price": 899,
       "image": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6344/6344383_sd.jpg",
       "description": "A gaming laptop from Acer",
@@ -154,7 +154,7 @@
   {
     "id": 15,
       "slug": "produkter-asus-laptop",
-      "name": "ASUS ROG Strix SCAR III i7-9750H 16GB RAM 512GB SSD NVIDIA RTX 2060",
+      "name": "ASUS ROG Strix SCAR III i7-9750H 16GB ram 512GB SSD nvidia RTX 2060",
       "price": 1799,
       "image": "https://img-us1.asus.com/A/show/AW000706/2019/0530/AM0000003/201905AM300000003_15591704692232090023263.jpg!t500x500",
       "description": "A crazy potent gaming laptop from Asus",

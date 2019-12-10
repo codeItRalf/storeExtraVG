@@ -118,7 +118,7 @@ class Product {
       <section class="row">
         <div class="col-12 col-lg-9">
           <p>${this.description}</p>
-          <p>Weight: ${this.weight}</p>
+          <p>Weight: ${this.weight} kg</p>
           <h4>${this.price} €</p>
           <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
         </div>
@@ -136,7 +136,7 @@ class Product {
       <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
          <div class="d-flex justify-content-between"> 
-            <h3 class = "m-0 d-flex align-items-center main-color">€ ${this.price}</h3>
+            <h3 class = "m-0 d-flex align-items-center main-color"> ${this.price} €</h3>
             <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
           </div>
 
@@ -229,7 +229,7 @@ class Product {
     <img class="img-fluid rounded cart-image" src="${this.image}" style="width: 50px; height: 50px;">
     </div>
 
-    <div class=" col-7 col-md-4 d-flex flex-column justify-content-center align-items-center my-1">
+    <div class=" col-7 col-md-3 d-flex flex-column justify-content-center align-items-center my-1">
         <h5>${this.name}</h5>
 
         <a id="tooltip-${this.id}" class="tool-tip" data-toggle="tooltip" data-placement="bottom" title="(3 for 2) Add one more for free!" data-html="true">
@@ -238,20 +238,20 @@ class Product {
     </div>
 
     
-    <div class="col-5 col-md-2 d-flex flex-column align-items-center justify-content-center pt-3">
+    <div class="col-5 col-md-3 d-flex flex-column align-items-center justify-content-center pt-3">
       <h5 id="price-${this.id}">€${this.currentPrice}</h5>
       <p class="text-danger" id="discount-${this.id}"></p>
     </div>
 
 
-    <div class=" col-7 col-md-2 d-flex align-items-center flex-row py-2">
+    <div class=" col-7 col-md-3 d-flex align-items-center flex-row py-2">
     <span class="oi oi-minus" id="remove-${this.id}"></span>
     <h5 class="px-2" id="amount-${this.id}">${this.amount}</h5>
     <span class="oi oi-plus" id="add-${this.id}"></span>
     </div>
 
   
-  <div class="col-12 col-md-2  d-flex justify-content-center align-items-center">
+  <div class="col-12 col-md-1  d-flex justify-content-center align-items-center">
     <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
   
   </div>
