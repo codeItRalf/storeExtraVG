@@ -118,7 +118,7 @@ class Product {
       <section class="row">
         <div class="col-12 col-lg-9">
           <p>${this.description}</p>
-          <p>Weight: ${this.weight}</p>
+          <p>Weight: ${this.weight} kg</p>
           <h4>${this.price} €</p>
           <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
         </div>
@@ -136,7 +136,7 @@ class Product {
       <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
          <div class="d-flex justify-content-between"> 
-            <h3 class = "m-0 d-flex align-items-center main-color">€ ${this.price}</h3>
+            <h3 class = "m-0 d-flex align-items-center main-color"> ${this.price} €</h3>
             <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
           </div>
 

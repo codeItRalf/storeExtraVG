@@ -35,10 +35,10 @@ class Cart {
           <h5 class="main-color">Order Total  : </h5>
       </div>
       <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-      <h6 id="total-price" class="main-color"> €${this.totalPrice}</h6>
-      <h6 id="tax" class="main-color"> €${this.tax}</h6>
-      <h6 id="shipping" class="main-color">€${this.shipping}</h6>
-      <h5 id="order-total" class="main-color"> €${this.orderTotal.toFixed(2).replace(".",",")} </h5>
+      <h6 id="total-price" class="main-color"> ${this.format(this.totalPrice)} €</h6>
+      <h6 id="tax" class="main-color"> ${this.format(this.tax)} €</h6>
+      <h6 id="shipping" class="main-color">${this.format(this.shipping)} €</h6>
+      <h5 id="order-total" class="main-color"> ${this.format(this.orderTotal)} € </h5>
 
       </div> 
           
@@ -144,7 +144,7 @@ class Cart {
           $(`#discount-${item.id}`).html('');
         }
         else{
-          $(`#discount-${item.id}`).html('You saved €' + discountSum)
+          $(`#discount-${item.id}`).html('You saved ' + discountSum + '€')
         }
         console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
         item.currentPrice -= discountSum;
@@ -153,18 +153,17 @@ class Cart {
 
         //store.save();
       }
-      $(`#price-${item.id}`).html('€  ' + item.currentPrice);
+      $(`#price-${item.id}`).html(this.format(item.currentPrice) + ' €' );
 
       this.totalPrice += item.currentPrice;
     });
 
   }
-
   
   calcTax(){
-    this.tax = (0.20 * this.totalPrice).toFixed(2).replace(".", ",");
-    $('#tax').html('€' + this.tax);
-    $('#total-price').html('€' + this.totalPrice);
+    this.tax = (0.20 * this.totalPrice);
+    $('#tax').html( this.format(this.tax) + ' €');
+    $('#total-price').html( this.format(this.totalPrice) + ' €');
 
   }
 
@@ -179,8 +178,8 @@ class Cart {
       $('#shipping').html(this.shipping);
     }
     else{
-      this.shipping = (4 * this.totalWeight).toFixed(2).replace(".", ",");
-      $('#shipping').html('€' + this.shipping);
+      this.shipping = (4 * this.totalWeight);
+      $('#shipping').html(this.format(this.shipping) + ' €');
     }
   }
 
@@ -189,9 +188,10 @@ class Cart {
       this.orderTotal = this.totalPrice;
     }
     else{
-      this.orderTotal = (parseFloat(this.totalPrice) + parseFloat(this.shipping.replace(",", ".")));
+      this.orderTotal = (parseFloat(this.totalPrice) + parseFloat(this.shipping));
     }
-    $('#order-total').html('€' + this.orderTotal.toFixed(2).replace(".", ","));
+    //$('#order-total').html(this.orderTotal.toFixed(2).replace(".", ",") + ' €');
+    $('#order-total').html(this.format(this.orderTotal) + ' €');
   }
 
   removeToolTipListener() {
@@ -213,4 +213,11 @@ class Cart {
       $("#cart-count").html("");
     }
   }
+
+  format(n) {
+    return n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    
+  }
+
+
 }
