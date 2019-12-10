@@ -99,7 +99,7 @@ class Cart {
     this.saveToStore(product);
     }
     
-  }
+
 
    
   removeFromStore(product) {
