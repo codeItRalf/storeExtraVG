@@ -38,12 +38,11 @@ class Confirmation {
 
     let order = {
       cartValue: this.clone(this.cart),
-      orderList: store.cartProducts
+      orderList: this.clone(store.cartProducts) 
     };
     this.pushOrder(
       new Order(order, this.orderNumber, this.customer)
     );
-
     store.save();
   }
 
