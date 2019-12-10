@@ -186,8 +186,8 @@ class Cart {
 
     })
     if(this.totalWeight < 1){
-      this.shipping = 0;
-      $('#shipping').html(this.format(this.shipping) + ' €');
+      this.shipping = 'free';
+      $('#shipping').html(this.shipping);
     }
     else{
       this.shipping = (4 * this.totalWeight);
