@@ -120,23 +120,23 @@ class OrderHistory {
       <div class = "col-md-12 total-price d-flex flex-column justify-content-center py-5">
         <div class="d-flex justify-content-between mb-1">
           <div class="main-color">Sub-total:</div>
-          <span class="detail-info"> ${orderItem.cart.cartValue.totalPrice}€ </span>
+          <span class="detail-info"> ${this.format(orderItem.cart.cartValue.totalPrice)}€ </span>
           </div>
           <div class="d-flex justify-content-between mb-1">
           <div class="main-color">Total discount:</div>
-          <span class="detail-discount">-${orderItem.cart.cartValue.totalDiscount}€ </span>
+          <span class="detail-discount">-${this.format(orderItem.cart.cartValue.totalDiscount)}€ </span>
           </div>
           <div class="d-flex justify-content-between mb-1">
           <div class="main-color">25% VAT:</div>
-          <span class="detail-info"> ${orderItem.cart.cartValue.tax}€ </span>
+          <span class="detail-info"> ${this.format(orderItem.cart.cartValue.tax)}€ </span>
           </div>
           <div class="d-flex justify-content-between mb-1">
           <div class="main-color">Shipping:</div>
-          <span class="detail-info"> ${orderItem.cart.cartValue.shipping == "free" ? orderItem.cart.cartValue.shipping : orderItem.cart.cartValue.shipping + "€"} </span>
+          <span class="detail-info"> ${orderItem.cart.cartValue.shipping == "free" ? orderItem.cart.cartValue.shipping : this.format(orderItem.cart.cartValue.shipping) + "€"} </span>
           </div>
           <div class="d-flex justify-content-between">
           <div class="main-color">Order Total:</div>
-          <span class="detail-info"> ${orderItem.cart.cartValue.orderTotal}€ </span>
+          <span class="detail-info"> ${this.format(orderItem.cart.cartValue.orderTotal)}€ </span>
           </div>
       </div>
       </li>
@@ -234,4 +234,10 @@ class OrderHistory {
 
     return listProducts;
   }
+
+  format(n) {
+    return n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    
+  }
+
 }
