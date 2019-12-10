@@ -10,18 +10,15 @@ class OrderHistory {
         <div class="">
       <div class="row d-flex flex-column">
       
-          <div class="col-12 d-flex flex-row justify-content-around">
-            <span class="wide-item">#</span>
+          <div class="col-12 d-flex flex-row justify-content-between">
+            <span class="wide-item d-none d-sm-block">#</span>
             <span class="wide-item customer">Customer</span>
             <span class="wide-item customer-adress">Adress</span>
             <span class="wide-item customer-location">Location</span>
-            <div class="history-sorter mx-auto">
-            <div class="wide-item order-date-lg d-flex justify-content-center" id="toggle-order">
+            <div class="wide-item  d-flex justify-content-center" id="toggle-order">
             <span>Order Date</span>
             <div>
              ${this.sort ? ' <span class="oi oi-data-transfer-upload sort-history"></span>' : ' <span class="oi oi-data-transfer-download sort-history"></span>'} 
-            </div>
-          
             </div>
             </div>
             <span class="wide-item delivery-status">Status</span>
@@ -63,14 +60,20 @@ class OrderHistory {
   renderInList(order) {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
-    return /*html*/ `<section class="list-group-item col-12 d-flex flex-row justify-content-between pl-0 pr-0">
+    return /*html*/ `<section class="list-group-item col-12 d-flex flex-column justify-content-between  pl-0 pr-0">
         
-        <div class=" wide-item detail-button"><a
+        <div class="wide-item d-flex  d-block mx-auto d-sm-none">
+        <span># </span>
+        <div class="detail-button"> <a title="View Details"
+        data-toggle="tooltip"> ${order.orderNumber}</a></div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-between pl-0 pr-0">   
+         
+        <div class=" wide-item detail-button d-none  d-sm-block"><a
             title="View Details"
             data-toggle="tooltip">${order.orderNumber}</a>
         </div>
-
-        <div class="d-flex flex-row justify-content-around pl-0 pr-0">   
         <div class="wide-item customer">
         <span>${order.customer.firstName} ${order.customer.lastName}</span>
           
