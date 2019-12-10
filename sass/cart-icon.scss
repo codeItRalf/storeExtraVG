@@ -1,0 +1,18 @@
+.cart-icon {
+    display: flex;
+    align-items: center;
+    
+}
+
+.cart-icon .fas {
+    font-size: 1.8em;
+}
+
+.amount .fas{
+    font-size: 10px;
+}
+#cart-info{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

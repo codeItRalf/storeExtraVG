@@ -1,0 +1,52 @@
+.wide-item{
+    width: 125px;
+    text-align: center;
+}
+.icon-item{
+    width: 50px;
+    text-align: center;
+}
+.detail-button{
+    color: blue;
+}
+.detail-button:hover{
+    cursor: pointer;
+    color: lightgray;
+}
+.detail-info{
+    color: black;
+}
+.detail-discount{
+    color: red;
+}
+
+#toggle-order{
+    cursor: pointer;
+}
+
+
+
+
+@media (max-width: 1085px){
+    .customer-adress{
+        display: none;
+    }
+}
+@media(max-width: 992px){
+   .customer-location{
+       display: none;
+   }
+}
+@media (max-width: 775px){
+   .delivery-status{
+       display: none;
+   }
+}
+@media (max-width: 530px){
+    .customer{
+        display: none;
+    }
+ }
+
+ 
+ 
