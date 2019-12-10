@@ -1,5 +1,5 @@
 .wide-item{
-    width: 150px;
+    width: 125px;
     text-align: center;
 }
 .icon-item{
@@ -19,10 +19,8 @@
 .detail-discount{
     color: red;
 }
-.order-date-sm{
-    display: none;
-}
-.order-date-lg{
+
+#toggle-order{
     cursor: pointer;
 }
 
@@ -34,7 +32,7 @@
         display: none;
     }
 }
-@media(max-width: 850px){
+@media(max-width: 992px){
    .customer-location{
        display: none;
    }
@@ -49,19 +47,6 @@
         display: none;
     }
  }
- @media (max-width: 440px){
-    .order-date-lg{
-        display: none;
-    }
-    .order-date-sm{
-        display: inline-block;
-    }
- }
- @media (max-width: 320px){
-    .order-date-sm{
-        display: inline-block;
-        text-align: right;
-        padding-right: 20px;
-    }
- }
+
+ 
  
