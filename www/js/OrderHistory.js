@@ -48,13 +48,34 @@ class OrderHistory {
 
 
     $("#toggle-order" ).click(function(e) {
-      store.purchases.reverse()
+      store.purchases.sort(compare)
       this.sort = !this.sort
       this.render()
     }.bind(this))
     
   }
 
+ compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const orderA = a.orderNumber;
+    const orderB = b.orderNumber;
+  
+    let comparison = 0;
+    if(this.sort){
+      if (orderA > orderB) {
+        comparison = 1;
+      } else if (orderA < orderB) {
+        comparison = -1;
+      }
+    }else{
+      if (orderA > orderB) {
+        comparison = 1;
+      } else if (orderA < orderB) {
+        comparison = -1;
+      }
+    }
+    return comparison;
+  }
 
 
   renderInList(order) {
