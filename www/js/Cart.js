@@ -15,7 +15,7 @@ class Cart {
     I want to be a shopping-cart
     but so far I am really stupid... 😢
   */
-
+  
   render() {
     $("main").html(/*html*/ `
   <section class="row">
@@ -58,7 +58,7 @@ class Cart {
 
     store.cartProducts.map(cartItem => {
       tempArray.push(new Product(cartItem, this, cartItem.amount));
-    });
+      });
     return tempArray.map(item => item.renderInCart()).join("");
   }
 
@@ -128,12 +128,14 @@ class Cart {
     this.totalPrice = 0;
     this.totalDiscount = 0;
     this.calcDiscount();
-    this.calcTax();
     this.calcShipping();
+    this.calcTax();
     this.calcOrderTotal();
   }
 
   calcDiscount(){
+    this.totalPrice = 0;
+    this.totalDiscount = 0;
     store.cartProducts.map(item => {
       item.currentPrice = item.amount * item.price;
       let [discountQuantity,forQuantity] = item.discount || [];
@@ -165,7 +167,6 @@ class Cart {
     this.tax = (0.20 * this.totalPrice).toFixed(2).replace(".", ",");
     $('#tax').html('€' + this.tax);
     $('#total-price').html('€' + this.totalPrice);
-
   }
 
   calcShipping() {
