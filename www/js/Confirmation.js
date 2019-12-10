@@ -4,6 +4,7 @@ class Confirmation {
   }
 
   render() {
+
     $("main").html(/*html*/ `
         <main class="container">
         <section class="row">
