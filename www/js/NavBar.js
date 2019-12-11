@@ -54,16 +54,38 @@ class NavBar {
     </div>
   </nav>
     `);
-     this.collapseListener()
-      this.responsiveListener()  
-
+   
+     $(document).ready( ()=> this.refreshListener())
+      
   }
 
   refreshListener(){
-    this.animateNavLine()
-   if(location.hash == '#produkter'){
-     $('#produkter').trigger('click')
-   }
+    this.responsiveListener()  
+    this.collapseListener()
+ 
+    let hash = location.hash.replace(/#/g, '');
+    let firstHash  = hash.split('&')[0]
+    let subHash = hash.split('&')[1]
+    if(firstHash == 'produkter'){
+      $('#produkter').trigger('click')
+    }
+  
+  setTimeout(()=>this.extendSub(subHash),200)
+  }
+
+  extendSub(subHash){
+
+    switch(subHash){
+      case "laptop":
+         $('#product-laptop')[0].click()
+        break
+        case "monitor":
+            $('#product-monitor')[0].click()
+        break
+        case "usb":
+            $('#product-usb')[0].click()
+        break
+    }
   }
   
   collapseListener(){
@@ -77,7 +99,7 @@ class NavBar {
     }.bind(this))
     $('#navbarSupportedContent').on('hidden.bs.collapse',  ()=> this.animateNavLine() ) 
     $('#navbarSupportedContent').on('shown.bs.collapse',  ()=> this.animateNavLine() )
-    $(document).ready( ()=> this.refreshListener())
+   
  
   }
 
