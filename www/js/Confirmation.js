@@ -38,7 +38,8 @@ class Confirmation {
 
     let order = {
       cartValue: this.clone(this.cart),
-      orderList: this.clone(store.cartProducts) 
+      //Making a deep copy of array with $.extend
+      orderList: $.extend(true, [], store.cartProducts)  
     };
     this.pushOrder(
       new Order(order, this.orderNumber, this.customer)
@@ -51,10 +52,8 @@ class Confirmation {
     if (store.purchases) {
       list = store.purchases;
     }
-    console.log('push order is called')
     list.push(order);
     store.purchases = list;
-
 
   }
 

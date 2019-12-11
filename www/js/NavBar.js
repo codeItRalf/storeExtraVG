@@ -1,7 +1,7 @@
 class NavBar {
 
  constructor(){
-   this.isOpen = true;
+ 
  }
 
 
@@ -78,10 +78,18 @@ class NavBar {
         }
        
       
-    } 
+    }})
 
-    })
+    $('main, footer').on('click', (e)=> {
+      if($(".navbar-expand-lg .navbar-toggler").is(":visible")){
+       
+          this.navCollapse();
+        
+       
+      
+    }})
   }
+  
   subNavCollapse() {
     $('#sub-nav').collapse('hide')
    }
@@ -96,7 +104,7 @@ class NavBar {
 
   animateNavLine() {
     //Animates nav line
-    console.log("navbar animation called")
+  
     let element = $(`header nav .menu-link[class~="active"]`).not(".navbar-brand")[0]
     if (element) {
       let position = $(element).offset()
