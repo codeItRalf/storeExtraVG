@@ -31,7 +31,7 @@ class OrderHistory {
         <ol class="col-12" id="history-list">
 
 
-        ${ this.checkOrderHistories() ? this.orderCopy.map(order => this.renderInList(order)).join(""):store.purchases.map(order => this.renderInList(order)).join("")} 
+        ${this.checkOrderHistories() ? this.orderCopy.map(order => this.renderInList(order)).join(""):this.orderListHandler()} 
         
           
 
@@ -57,8 +57,17 @@ class OrderHistory {
     })
     
   }
+ orderListHandler(){
+   let orderList = store.purchases.map(order => this.renderInList(order)).join("")
+   if (orderList){
+     return orderList;
+   }
+   else {
+     return ""
+   }
+ }
  checkOrderHistories(){
-    if (store.purchases.length > this.orderCopy.length){
+    if (store.purchases && store.purchases.length > this.orderCopy.length){
       this.sort = false;
       return false;
     }
