@@ -237,6 +237,7 @@ class OrderHistory {
 
     // hack to convert cartList to array
     // (should have been an array already, where did that go wrong?)
+    
     // let newCartList = [];
     // for(let key in cartList){
     //   newCartList[key] = cartList[key];

@@ -1,7 +1,7 @@
 class NavBar {
 
  constructor(){
-   this.isOpen = true;
+ 
  }
 
 
@@ -78,10 +78,18 @@ class NavBar {
         }
        
       
-    } 
+    }})
 
-    })
+    $('main, footer').on('click', (e)=> {
+      if($(".navbar-expand-lg .navbar-toggler").is(":visible")){
+       
+          this.navCollapse();
+        
+       
+      
+    }})
   }
+  
   subNavCollapse() {
     $('#sub-nav').collapse('hide')
    }
