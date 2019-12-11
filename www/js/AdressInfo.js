@@ -131,33 +131,21 @@ changeButtonType(){
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
             <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Last name</label>
             <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Valid last name is required.
-            </div>
           </div>
         </div>
 
         <div class="mb-3">
           <label for="email">Email </label>
           <input type="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
-          </div>
         </div>
 
         <div class="mb-3">
           <label for="address">Address</label>
           <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
         </div>
 
         <div class="mb-3">
@@ -335,15 +323,21 @@ loadCart(){
   let cartList = store.cartProducts
    
     cartList.forEach(product => {
-      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
-     <div>
-        <div id="thumb-nail">
-        <img class="my-0 img-responsive img-rounded mh-100 mw-auto" src="${product.image}">
-        </div>
-        <small class="text-muted">${product.name}  </small>
-    </div>
-    <span class="text-muted">${product.price} €</span>
-    <span class="text-muted">Qty: ${product.amount} </span>
+      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed container">
+      <div class="row">
+          <div class="col">
+              <div id="thumb-nail">
+              <img class="my-0 img-responsive img-rounded mh-100 mw-auto w-75" src="${product.image}">
+              </div>
+              <small class="text-muted">${product.name}  </small>
+          </div>
+          <div class="col d-flex justify-content-between">
+              <span class="text-muted ">${product.price} €</span>
+              <span class="text-muted ">Qty: ${product.amount} </span>
+
+          </div>
+
+       </div>
 </li>`
     })
 

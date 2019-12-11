@@ -248,15 +248,21 @@ class OrderHistory {
 
     cartList.map(product => {
     
-      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
-     <div>
-        <div id="thumb-nail">
-        <img class="my-0 img-responsive img-rounded mh-100 mw-auto" src="${product.image}">
+      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed container">
+      <div class="row">
+        <div class = "col">
+            <div id="thumb-nail">
+            <img class="my-0 img-responsive img-rounded mh-100 mw-auto w-100" src="${product.image}">
+            </div>
+            <small class="text-muted my-0">${product.name} </small>
         </div>
-        <small class="text-muted">${product.name} </small>
-    </div>
-    <span class="text-muted">${product.price} €</span>
-    <span class="text-muted">Qty: ${product.amount} </span>
+        <div class="col d-flex justify-content-between">
+            <span class="text-muted">${product.price} €</span>
+            <span class="text-muted">Qty: ${product.amount} </span>
+
+        </div>
+
+      </div>
     
 </li>`;
     });
