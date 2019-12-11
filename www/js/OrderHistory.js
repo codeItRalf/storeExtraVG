@@ -47,14 +47,33 @@ class OrderHistory {
       }.bind(this));
 
 
-    $("#toggle-order" ).click(function(e) {
-      store.purchases.reverse()
+    $("#toggle-order" ).click( ()=> {
+      let historyList =  store.purchases
+      historyList.sort(this.compare.bind(this.sort))
+      console.log(historyList)
+      store.save()
       this.sort = !this.sort
       this.render()
-    }.bind(this))
+    })
     
   }
 
+ compare(a, b) {
+
+    const orderA = a.orderNumber;
+    const orderB = b.orderNumber;
+    
+    let comparison = 0;
+
+      if (orderA > orderB) {
+        comparison = this ? 1 : -1;
+      } else if (orderA < orderB) {
+        comparison= this ? -1 : 1;
+      }
+  
+    return comparison;
+  }
+ 
 
 
   renderInList(order) {
@@ -216,9 +235,19 @@ class OrderHistory {
     let cartList = [];
     cartList = object.cart.orderList;
 
-    console.log(object.cart.orderList);
+    // hack to convert cartList to array
+    // (should have been an array already, where did that go wrong?)
+    
+    // let newCartList = [];
+    // for(let key in cartList){
+    //   newCartList[key] = cartList[key];
+    // }
+    // cartList = newCartList;
+
+    console.log(cartList);
 
     cartList.map(product => {
+    
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
      <div>
         <div id="thumb-nail">
