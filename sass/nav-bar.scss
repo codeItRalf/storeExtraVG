@@ -14,6 +14,10 @@ body { padding-top: 70px; }
     font-size: 90%;
   }
 
+  #produkter{
+    outline: none;
+  }
+
   #nav-active-line{
       position: absolute;
       border-bottom: 1px solid white;
@@ -22,12 +26,20 @@ body { padding-top: 70px; }
     
   }
 
+  .icon-size{
+    margin-left: 5px;
+    font-size: 15px;
+  }
+ 
+
   #sub-nav{
   //  background-color:  var(--secondary);
    padding: 10px;
    border-radius: 7px;
 
   }
+
+
   
 
   @media screen and (min-width: 992px) {

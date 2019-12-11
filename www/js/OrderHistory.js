@@ -261,7 +261,7 @@ class OrderHistory {
         <div id="thumb-nail">
         <img class="my-0 img-responsive img-rounded mh-100 mw-auto" src="${product.image}">
         </div>
-        <small class="text-muted">${product.name}  </small>
+        <small class="text-muted">${product.name} </small>
     </div>
     <span class="text-muted">${product.price} €</span>
     <span class="text-muted">Qty: ${product.amount} </span>

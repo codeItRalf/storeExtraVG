@@ -8,7 +8,7 @@ class NavBar {
   render() {
     $('header').html( /*html*/ `
     <nav class="navbar-header-color navbar navbar-expand-lg navbar-light navbar-dark fixed-top ">
-    <i class="fas fa-laptop"></i>
+    <i class="fas fa-laptop" id="logo"></i>
     <a class=" navbar-brand" href="#">Chyvek-Data</a>
    
     
@@ -41,7 +41,7 @@ class NavBar {
         <a class="nav-link menu-link" href="#orderhistory"><span>Order history</span></a>
       </li>
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#produkter" id="produkter" role="button" data-toggle="collapse" data-target="#sub-nav" ><span>Products</span></a>
+          <a class="nav-link menu-link" href="#produkter" id="produkter" role="button" data-toggle="collapse" data-target="#sub-nav" ><span>Products</span><span id="sub-toggler"> <i class="fas icon-size fa-angle-up"></i></span></a>
            <div class="collapse" id="sub-nav">
            <div class="d-lg-flex" id="sub-menu">
            <a class="nav-link menu-link navbar-header-color" id="product-laptop" href="#produkter&laptop"><span>Laptops</span></a>
@@ -54,17 +54,30 @@ class NavBar {
     </div>
   </nav>
     `);
-    this.collapseListener()
-    this.responsiveListener()  
+     this.collapseListener()
+      this.responsiveListener()  
+
+  }
+
+  refreshListener(){
+    this.animateNavLine()
+   if(location.hash == '#produkter'){
+     $('#produkter').trigger('click')
+   }
   }
   
   collapseListener(){
-    $('#sub-nav').on('shown.bs.collapse', ()=>
-    this.animateNavLine() )
-    $('#sub-nav').on('hidden.bs.collapse', ()=> this.animateNavLine() )
+    $('#sub-nav').on('shown.bs.collapse',function() {
+      this.animateNavLine()
+      $('#sub-toggler').html('<i class="fas icon-size fa-angle-up"></i>')
+    }.bind(this))
+    $('#sub-nav').on('hidden.bs.collapse', function() {
+      this.animateNavLine()
+      $('#sub-toggler').html('<i class="fas icon-size fa-angle-down"></i>')
+    }.bind(this))
     $('#navbarSupportedContent').on('hidden.bs.collapse',  ()=> this.animateNavLine() ) 
     $('#navbarSupportedContent').on('shown.bs.collapse',  ()=> this.animateNavLine() )
-    $(document).ready( ()=> this.animateNavLine())
+    $(document).ready( ()=> this.refreshListener())
  
   }
 
@@ -76,17 +89,11 @@ class NavBar {
         if(e.currentTarget.id != "produkter"){
           this.navCollapse();
         }
-       
-      
     }})
 
     $('main, footer').on('click', (e)=> {
       if($(".navbar-expand-lg .navbar-toggler").is(":visible")){
-       
           this.navCollapse();
-        
-       
-      
     }})
   }
   
