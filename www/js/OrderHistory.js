@@ -47,35 +47,33 @@ class OrderHistory {
       }.bind(this));
 
 
-    $("#toggle-order" ).click(function(e) {
-      store.purchases.sort(compare)
+    $("#toggle-order" ).click( ()=> {
+      let historyList =  store.purchases
+      historyList.sort(this.compare.bind(this.sort))
+      console.log(historyList)
+      store.save()
       this.sort = !this.sort
       this.render()
-    }.bind(this))
+    })
     
   }
 
  compare(a, b) {
-    // Use toUpperCase() to ignore character casing
+
     const orderA = a.orderNumber;
     const orderB = b.orderNumber;
-  
+    
     let comparison = 0;
-    if(this.sort){
+
       if (orderA > orderB) {
-        comparison = 1;
+        comparison = this ? 1 : -1;
       } else if (orderA < orderB) {
-        comparison = -1;
+        comparison= this ? -1 : 1;
       }
-    }else{
-      if (orderA > orderB) {
-        comparison = 1;
-      } else if (orderA < orderB) {
-        comparison = -1;
-      }
-    }
+  
     return comparison;
   }
+ 
 
 
   renderInList(order) {

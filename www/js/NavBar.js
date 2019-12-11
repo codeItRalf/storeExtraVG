@@ -96,7 +96,7 @@ class NavBar {
 
   animateNavLine() {
     //Animates nav line
-    console.log("navbar animation called")
+  
     let element = $(`header nav .menu-link[class~="active"]`).not(".navbar-brand")[0]
     if (element) {
       let position = $(element).offset()
