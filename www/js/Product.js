@@ -252,7 +252,7 @@ class Product {
 
   
   <div class="col-12 col-md-1  d-flex justify-content-center align-items-center">
-    <button id="remove-button-${this.id}" class="btn btn-secondary my-2">remove</button>
+    <button id="remove-button-${this.id}" class="btn btn-secondary my-2">Remove</button>
   
   </div>
 
