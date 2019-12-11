@@ -235,9 +235,18 @@ class OrderHistory {
     let cartList = [];
     cartList = object.cart.orderList;
 
-    console.log(object.cart.orderList);
+    // hack to convert cartList to array
+    // (should have been an array already, where did that go wrong?)
+    let newCartList = [];
+    for(let key in cartList){
+      newCartList[key] = cartList[key];
+    }
+    cartList = newCartList;
+
+    console.log(cartList);
 
     cartList.map(product => {
+    
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
      <div>
         <div id="thumb-nail">
