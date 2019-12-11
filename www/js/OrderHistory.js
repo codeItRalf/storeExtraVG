@@ -1,8 +1,10 @@
+
 class OrderHistory {
 
 
   constructor(){
-  this.sort = false
+  this.sort = false;
+  this.orderCopy = []
   }
   render() {
 
@@ -29,7 +31,7 @@ class OrderHistory {
         <ol class="col-12" id="history-list">
 
 
-        ${store.purchases ? store.purchases.map(order => this.renderInList(order)).join(""):""} 
+        ${ this.checkOrderHistories() ? this.orderCopy.map(order => this.renderInList(order)).join(""):store.purchases.map(order => this.renderInList(order)).join("")} 
         
           
 
@@ -48,16 +50,22 @@ class OrderHistory {
 
 
     $("#toggle-order" ).click( ()=> {
-      let historyList =  store.purchases
-      historyList.sort(this.compare.bind(this.sort))
-      console.log(historyList)
-      store.save()
+      this.orderCopy = $.extend(true, [], store.purchases)
+      this.orderCopy.sort(this.compare.bind(this.sort))
       this.sort = !this.sort
       this.render()
     })
     
   }
-
+ checkOrderHistories(){
+    if (store.purchases.length > this.orderCopy.length){
+      this.sort = false;
+      return false;
+    }
+    else  {
+      return true;
+    }
+ }
  compare(a, b) {
 
     const orderA = a.orderNumber;
@@ -248,15 +256,21 @@ class OrderHistory {
 
     cartList.map(product => {
     
-      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed">
-     <div>
-        <div id="thumb-nail">
-        <img class="my-0 img-responsive img-rounded mh-100 mw-auto" src="${product.image}">
+      listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed container">
+      <div class="row">
+        <div class = "col">
+            <div id="thumb-nail">
+            <img class="my-0 img-responsive img-rounded mh-100 mw-auto w-100" src="${product.image}">
+            </div>
+            <small class="text-muted my-0">${product.name} </small>
         </div>
-        <small class="text-muted">${product.name} </small>
-    </div>
-    <span class="text-muted">${product.price} €</span>
-    <span class="text-muted">Qty: ${product.amount} </span>
+        <div class="col d-flex justify-content-between">
+            <span class="text-muted">${product.price} €</span>
+            <span class="text-muted">Qty: ${product.amount} </span>
+
+        </div>
+
+      </div>
     
 </li>`;
     });
