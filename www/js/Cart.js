@@ -29,9 +29,9 @@ class Cart {
   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   ${this.cartName}
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <div class="dropdown-menu" id="cart-droplist" aria-labelledby="dropdownMenuButton">
       ${this.cartsForDropDown()}
-    <a class="dropdown-item" data-toggle="modal" data-target="#cartListModal" href="">Create Cart +</a>
+  
   </div>
 </div>
     <h1>Shopping cart</h1>
@@ -72,12 +72,14 @@ class Cart {
   ${this.cartListModal()}
 `);
     this.calculateTotal();
+    this.addNewCart()
   }
 
 
   cartsForDropDown() {
-    return store.carts.map(cart => this.cartName != cart.name ? /*html*/ `<a class="dropdown-item" href="">${cart.name}</a>` : "").join("")
-
+    let droplist = store.carts.map(cart => this.cartName != cart.name ? /*html*/ `<a class="dropdown-item drop-cart-item" >${cart.name}</a>` : "").join("")
+    droplist +=  '<a class="dropdown-item" data-toggle="modal" data-target="#cartListModal" href="">Create Cart +</a>'
+    return droplist
   }
 
   getCartObject() {
@@ -259,6 +261,9 @@ class Cart {
 
   }
 
+
+
+
   cartListModal() {
     return /*html*/ `
     <!-- Modal -->
@@ -273,16 +278,16 @@ class Cart {
           </button>
         </div>
         <div class="modal-body">
-          <ul class="list-group">
-            <li class="list-group-item">Default Cart</li>
-            ${this.cartsForModal()}
+          <ul class="list-group" id="modal-cart-list">
+          ${this.cartsForModal()}
           </ul>
           <div class="input-group mb-3 mt-5">
-          <input type="text" class="form-control" placeholder="Name On New Cart" aria-label="Name On New Cart" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Name On New Cart" aria-label="Name On New Cart" aria-describedby="basic-addon2" id="modal-input">
          <div class="input-group-append">
-           <button class="btn btn-outline-secondary" type="button"><i class="fas fa-cart-plus"></i></button>
+           <button class="btn btn-outline-secondary" type="button" id="modal-add-button"><i class="fas fa-cart-plus"></i></button>
          </div>
           </div>  
+          <small class="text-danger invisible" id="modal-warning">Name need to be unique</small>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -291,13 +296,35 @@ class Cart {
     </div>
   </div>
     `
+    
   }
 
   addNewCart(){
-    
+    $(document).on('click','.drop-cart-item',(e)=>{
+    this.cartName =  e.target.text
+     this.render()
+     this.updateCartIconQty()
+    })
+   $("#modal-add-button").on("click",()=>{
+    let string = $("#modal-input").val()
+    if(this.ifCartExists(string)){
+      $("#modal-warning").removeClass("invisible")
+    }else{
+      store.carts.push(new CartList(string))
+      store.save()
+      $("#modal-input").val("")
+      $("#modal-cart-list").append( `<li class="list-group-item">${string}</li>`)
+      $("#cart-droplist").html(this.cartsForDropDown())
+    }
+   })
   }
+
+  ifCartExists(cartName) {
+   return store.carts.find(cart => cart.name.toLowerCase() === cartName.toLowerCase())
+  }
+
   cartsForModal() {
-    return store.carts.map(cart => this.cartName != "Default Cart" ? /*html*/ `<li class="list-group-item">${cart.name}</li>` : "").join("")
+   return store.carts.map(cart => /*html*/ `<li class="list-group-item">${cart.name}</li>`).join("")
   }
 
 
