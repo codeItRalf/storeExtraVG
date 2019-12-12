@@ -19,7 +19,16 @@ class Cart {
   render() {
     $("main").html(/*html*/ `
   <section class="row">
-  <div class="col d-flex justify-content-center">
+  <div class="col d-flex flex-column align-items-center">
+  <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Default Cart
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Create Cart +</a>
+    
+  </div>
+</div>
     <h1>Shopping cart</h1>
   </div>
   </section>
@@ -27,21 +36,21 @@ class Cart {
    ${this.loadCartList()}
   </section>
    <section class="container"> 
-   <div class = "row text-info">
+   <div class = "row ">
    <div class = "d-none d-md-block col-md-6 total-price  py-5 w-25"></div>
    <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-       <h5 class="main-color">Sub-total  : </h5>
+       <h5>Sub-total  : </h5>
        <h6 class="text-danger">Total-discount  : </h6>
-       <h6 class="main-color">25% VAT  : </h6>
-       <h6 class="main-color">Shipping  : </h6>
-       <h5 class="main-color">Order Total  : </h5>
+       <h6>25% VAT  : </h6>
+       <h6 >Shipping  : </h6>
+       <h5 >Order Total  : </h5>
    </div>
    <div class = " col-6 col-md-3 total-price d-flex flex-column justify-content-center align-items-start py-5">
-       <h5 id="total-price" class="main-color">0,00 € </h5>
+       <h5 id="total-price" >0,00 € </h5>
        <h6 id="total-discount" class="text-danger">0,00 €</h6>
-       <h6 id="tax" class="main-color"> </h6>
-       <h6 id="shipping" class="main-color"> </h6>
-       <h5 id="order-total" class="main-color">0,00 € </h5>
+       <h6 id="tax"> </h6>
+       <h6 id="shipping" > </h6>
+       <h5 id="order-total">0,00 € </h5>
 
    </div> 
        
@@ -50,8 +59,8 @@ class Cart {
    </section>
   <div class="row py-3">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
-      <a class="btn btn-info" href="#produkter" id="continueBuying">Continue buying</a>
-      <a class="btn btn-info" href="#adressinfo" id="checkOut">Checkout</a>
+      <a class="btn btn-primary" href="#produkter" id="continueBuying">Continue buying</a>
+      <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
 `);
@@ -158,7 +167,7 @@ class Cart {
         else{
           $(`#discount-${item.id}`).html('You saved ' + discountSum + '€')
         }
-        console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
+       
         item.currentPrice -= discountSum;
         //$(`#price-${item.id}`).html('€  ' + item.currentPrice);
         this.totalDiscount += discountSum;

@@ -120,7 +120,7 @@ class Product {
           <p>${this.description}</p>
           <p>Weight: ${this.weight} kg</p>
           <h4>${this.price} €</p>
-          <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
+          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
         </div>
         <div class="col-12 col-lg-3 product-image-${this.id}">
           <img class="img-fluid" src="${this.image}">
@@ -136,8 +136,8 @@ class Product {
       <div class="col-12 col-md-6 col-lg-4 mt-5 position-static">
         <a href="#${this.slug}">
          <div class="d-flex justify-content-between"> 
-            <h3 class = "m-0 d-flex align-items-center main-color"> ${this.price} €</h3>
-            <button id="buy-button-${this.id}" class="btn btn-info my-2">Add to cart</button>
+            <h3 class = "m-0 d-flex align-items-center"> ${this.price} €</h3>
+            <button id="buy-button-${this.id}" class="btn btn-primary my-2">Add to cart</button>
           </div>
 
           <div class="product-image-${this.id}">
@@ -145,7 +145,7 @@ class Product {
               ${this.discount ? '<p class="sticker-discount">3 for 2</p>' : ""}
               <img class="img-product-page img-fluid border border-primary rounded" src="${this.image}" >
             </div> 
-            <h5 class="mt-2 main-color">${this.name}</h5>
+            <h5 class="mt-2 ">${this.name}</h5>
             
           </div
         </a>

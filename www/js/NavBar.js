@@ -7,7 +7,7 @@ class NavBar {
 
   render() {
     $('header').html( /*html*/ `
-    <nav class="navbar-header-color navbar navbar-expand-lg navbar-light navbar-dark fixed-top ">
+    <nav class="bg-primary navbar navbar-expand-lg navbar-light navbar-dark fixed-top ">
     <i class="fas fa-laptop" id="logo"></i>
     <a class=" navbar-brand" href="#">Chyvek-Data</a>
    
@@ -44,9 +44,9 @@ class NavBar {
           <a class="nav-link menu-link" href="#produkter" id="produkter" role="button" data-toggle="collapse" data-target="#sub-nav" ><span>Products</span><span id="sub-toggler"> <i class="fas icon-size fa-angle-up"></i></span></a>
            <div class="collapse" id="sub-nav">
            <div class="d-lg-flex" id="sub-menu">
-           <a class="nav-link menu-link navbar-header-color" id="product-laptop" href="#produkter&laptop"><span>Laptops</span></a>
-           <a class="nav-link menu-link navbar-header-color" id="product-monitor" href="#produkter&monitor"><span>Screens</span></a>
-           <a class="nav-link menu-link navbar-header-color" id="product-usb" href="#produkter&usb"><span>USB-accessories</span></a>
+           <a class="nav-link menu-link" id="product-laptop" href="#produkter&laptop"><span>Laptops</span></a>
+           <a class="nav-link menu-link" id="product-monitor" href="#produkter&monitor"><span>Screens</span></a>
+           <a class="nav-link menu-link" id="product-usb" href="#produkter&usb"><span>USB-accessories</span></a>
            </div>
            </div>
         </li>
