@@ -22,10 +22,9 @@ class Confirmation {
     this.completeOrder();
   }
   completeOrder() {
-    console.log(store.cartProducts);
-    if (store.cartProducts.length > 0){
+    if (this.cart.getCartObject().cartProducts.length > 0){
     this.saveOrder();
-    store.cartProducts = [];
+    this.cart.getCartObject().cartProducts = [];
     store.save();
     this.cart.updateCartIconQty();
     }
@@ -33,13 +32,12 @@ class Confirmation {
   saveOrder() {
     this.orderNumber = Date.now();
     $("#order").html(this.orderNumber);
-    //this.cart = store.cartProducts
     this.customer = store.customer;
 
     let order = {
       cartValue: this.clone(this.cart),
       //Making a deep copy of array with $.extend
-      orderList: $.extend(true, [], store.cartProducts)  
+      orderList: $.extend(true, [], this.cart.getCartObject().cartProducts)  
     };
     this.pushOrder(
       new Order(order, this.orderNumber, this.customer)

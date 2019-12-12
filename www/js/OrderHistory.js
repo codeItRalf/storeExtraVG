@@ -155,23 +155,23 @@ class OrderHistory {
       <li class="list-group-item d-flex justify-content-between lh-condensed">
       <div class = "col-md-12 total-price d-flex flex-column justify-content-center py-5">
         <div class="d-flex justify-content-between mb-1">
-          <div class="bg-primary">Sub-total:</div>
+          <div >Sub-total:</div>
           <span class="detail-info"> ${this.format(orderItem.cart.cartValue.totalPrice)}€ </span>
           </div>
           <div class="d-flex justify-content-between mb-1">
-          <div class="bg-primary">Total discount:</div>
+          <div>Total discount:</div>
           <span class="detail-discount">-${this.format(orderItem.cart.cartValue.totalDiscount)}€ </span>
           </div>
           <div class="d-flex justify-content-between mb-1">
-          <div class="bg-primary">25% VAT:</div>
+          <div >25% VAT:</div>
           <span class="detail-info"> ${this.format(orderItem.cart.cartValue.tax)}€ </span>
           </div>
           <div class="d-flex justify-content-between mb-1">
-          <div class="bg-primary">Shipping:</div>
+          <div>Shipping:</div>
           <span class="detail-info"> ${orderItem.cart.cartValue.shipping == "free" ? orderItem.cart.cartValue.shipping : this.format(orderItem.cart.cartValue.shipping) + "€"} </span>
           </div>
           <div class="d-flex justify-content-between">
-          <div class="bg-primary">Order Total:</div>
+          <div>Order Total:</div>
           <span class="detail-info"> ${this.format(orderItem.cart.cartValue.orderTotal)}€ </span>
           </div>
       </div>

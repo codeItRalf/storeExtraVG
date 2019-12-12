@@ -22,7 +22,6 @@ class App {
       'omoss': new AboutUs(),
       'page404': new Page404(),
       'cart' : new Cart(),
-      'adressinfo' : new AdressInfo(),
       'payment-info': new PaymentInfo(),
       'orderhistory' : new OrderHistory()
     };
@@ -43,6 +42,7 @@ class App {
     
     this.cart = this.routes.cart;
     this.routes.confirmation = new Confirmation(this.cart);
+    this.routes.adressinfo = new AdressInfo(this.cart);
     $(window).ready(this.cart.updateCartIconQty())
     // Store a new class CartCounter through its constructor in this.cartCounter
     // this.cartCounter is able to call for the method render() in class CartCounter

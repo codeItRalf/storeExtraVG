@@ -1,8 +1,13 @@
 class Cart {
   constructor() {
-    store.cartProducts = store.cartProducts || [];
+    this.cartName = "Default Cart"
+    store.carts = store.carts || [];
+    if (store.carts.length < 1) {
+      store.carts.push(new CartList(this.cartName))
+    }
+
     store.save();
-   // this.totalPrice = 0;
+    // this.totalPrice = 0;
     this.calculateTotal();
     // this.shipping = 'free'
     this.removeToolTipListener();
@@ -15,18 +20,18 @@ class Cart {
     I want to be a shopping-cart
     but so far I am really stupid... 😢
   */
-  
+
   render() {
-    $("main").html(/*html*/ `
+    $("main").html( /*html*/ `
   <section class="row">
   <div class="col d-flex flex-column align-items-center">
   <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  Default Cart
+  ${this.cartName}
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Create Cart +</a>
-    
+      ${this.cartsForDropDown()}
+    <a class="dropdown-item" data-toggle="modal" data-target="#cartListModal" href="">Create Cart +</a>
   </div>
 </div>
     <h1>Shopping cart</h1>
@@ -63,16 +68,30 @@ class Cart {
       <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
+
+  ${this.cartListModal()}
 `);
     this.calculateTotal();
   }
 
+
+  cartsForDropDown() {
+    return store.carts.map(cart => this.cartName != cart.name ? /*html*/ `<a class="dropdown-item" href="">${cart.name}</a>` : "").join("")
+
+  }
+
+  getCartObject() {
+    let cartObject = store.carts.find(cart =>
+      cart.name === this.cartName)
+    console.log("Cart object = ", cartObject)
+    return cartObject
+  }
+
   loadCartList() {
     let tempArray = [];
-
-    store.cartProducts.map(cartItem => {
+    this.getCartObject().cartProducts.map(cartItem => {
       tempArray.push(new Product(cartItem, this, cartItem.amount));
-      });
+    });
     return tempArray.map(item => item.renderInCart()).join("");
   }
 
@@ -94,43 +113,43 @@ class Cart {
     //   // remove all extra spaces after a new-line
     // `.replace(/\n\s*/g, '\n'))
 
-    
-    let selectedProduct =  store.cartProducts.find(storeProd => storeProd.id === product.id);
-    if(selectedProduct){
+
+    let selectedProduct = this.getCartObject().cartProducts.find(storeProd => storeProd.id === product.id);
+    if (selectedProduct) {
       product = new Product(selectedProduct, this, selectedProduct.amount)
       product.amount += 1;
-    
-    }else{
+
+    } else {
       product.amount += 1;
-      store.cartProducts.push(product);
+      this.getCartObject().cartProducts.push(product);
 
     }
     product.showDiscount();
     this.saveToStore(product);
-    }
-    
+  }
 
 
-   
+
+
   removeFromStore(product) {
-    let removedProduct = store.cartProducts.find(
+    let removedProduct = this.getCartObject().cartProducts.find(
       storeProd => storeProd.id === product.id
     );
-    store.cartProducts = store.cartProducts.filter(
+    store.cartProducts = this.getCartObject().cartProducts.filter(
       product => product != removedProduct
     );
 
     this.updateCartIconQty()
     this.calculateTotal();
     $('.tooltip').remove();
-  
+
 
     store.save();
     this.render();
   }
 
   saveToStore(product) {
-    let productInStore = store.cartProducts.find(
+    let productInStore = this.getCartObject().cartProducts.find(
       storeProd => storeProd.id === product.id
     );
     productInStore.amount = product.amount;
@@ -143,7 +162,7 @@ class Cart {
 
   }
 
-  calculateTotal(){
+  calculateTotal() {
     this.totalPrice = 0;
     this.totalDiscount = 0;
     this.calcDiscount();
@@ -152,22 +171,21 @@ class Cart {
     this.calcOrderTotal();
   }
 
-  calcDiscount(){
+  calcDiscount() {
     this.totalPrice = 0;
     this.totalDiscount = 0;
-    store.cartProducts.map(item => {
+    this.getCartObject().cartProducts.map(item => {
       item.currentPrice = item.amount * item.price;
-      let [discountQuantity,forQuantity] = item.discount || [];
-      if(discountQuantity){
-        let numDiscountItem = Math.floor(item.amount/discountQuantity);
+      let [discountQuantity, forQuantity] = item.discount || [];
+      if (discountQuantity) {
+        let numDiscountItem = Math.floor(item.amount / discountQuantity);
         let discountSum = item.price * numDiscountItem;
-        if(item.amount < 3){
+        if (item.amount < 3) {
           $(`#discount-${item.id}`).html('');
-        }
-        else{
+        } else {
           $(`#discount-${item.id}`).html('You saved ' + discountSum + '€')
         }
-       
+
         item.currentPrice -= discountSum;
         //$(`#price-${item.id}`).html('€  ' + item.currentPrice);
         this.totalDiscount += discountSum;
@@ -176,42 +194,40 @@ class Cart {
       }
       this.totalPrice += item.currentPrice;
 
-      $(`#price-${item.id}`).html(this.format(item.currentPrice) + ' €' );
-      $('#total-price').html( this.format(this.totalPrice) + ' €');
-      $('#total-discount').html('- '+ this.format(this.totalDiscount) + ' €');
+      $(`#price-${item.id}`).html(this.format(item.currentPrice) + ' €');
+      $('#total-price').html(this.format(this.totalPrice) + ' €');
+      $('#total-discount').html('- ' + this.format(this.totalDiscount) + ' €');
 
     });
 
   }
-  
-  calcTax(){
+
+  calcTax() {
 
     this.tax = (0.20 * this.totalPrice);
-    $('#tax').html( this.format(this.tax) + ' €');
+    $('#tax').html(this.format(this.tax) + ' €');
 
   }
 
   calcShipping() {
     this.totalWeight = 0;
-    store.cartProducts.map(item =>{
+    this.getCartObject().cartProducts.map(item => {
       this.totalWeight += (item.weight * item.amount);
 
     })
-    if(this.totalWeight < 1){
+    if (this.totalWeight < 1) {
       this.shipping = 'free';
       $('#shipping').html(this.shipping);
-    }
-    else{
+    } else {
       this.shipping = (4 * this.totalWeight);
       $('#shipping').html(this.format(this.shipping) + ' €');
     }
   }
 
   calcOrderTotal() {
-    if(this.totalWeight < 1) {
+    if (this.totalWeight < 1) {
       this.orderTotal = this.totalPrice;
-    }
-    else{
+    } else {
       this.orderTotal = (parseFloat(this.totalPrice) + parseFloat(this.shipping));
     }
     //$('#order-total').html(this.orderTotal.toFixed(2).replace(".", ",") + ' €');
@@ -226,7 +242,7 @@ class Cart {
 
   updateCartIconQty() {
     let cartCount = 0;
-    let cartList = store.cartProducts;
+    let cartList = this.getCartObject().cartProducts;
     console.log(cartList);
     cartList.forEach(product => {
       cartCount += product.amount;
@@ -240,7 +256,48 @@ class Cart {
 
   format(n) {
     return n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+  }
+
+  cartListModal() {
+    return /*html*/ `
+    <!-- Modal -->
+  <div class="modal fade" id="cartListModal" tabindex="-1" role="dialog" aria-labelledby="cartListModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cartListModalLabel">Carts</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li class="list-group-item">Default Cart</li>
+            ${this.cartsForModal()}
+          </ul>
+          <div class="input-group mb-3 mt-5">
+          <input type="text" class="form-control" placeholder="Name On New Cart" aria-label="Name On New Cart" aria-describedby="basic-addon2">
+         <div class="input-group-append">
+           <button class="btn btn-outline-secondary" type="button"><i class="fas fa-cart-plus"></i></button>
+         </div>
+          </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    `
+  }
+
+  addNewCart(){
     
+  }
+  cartsForModal() {
+    return store.carts.map(cart => this.cartName != "Default Cart" ? /*html*/ `<li class="list-group-item">${cart.name}</li>` : "").join("")
   }
 
 

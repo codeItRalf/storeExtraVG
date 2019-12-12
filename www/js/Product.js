@@ -166,7 +166,7 @@ class Product {
     // $(`#add-${this.id}`).unbind('click');
     $('body').on('click', `#add-${this.id}`, e => {
       e.stopImmediatePropagation();
-      let clickedItemInCart = store.cartProducts.find(cartItem => cartItem.id === this.id);
+      let clickedItemInCart = this.cart.getCartObject().cartProducts.find(cartItem => cartItem.id === this.id);
       this.amount = clickedItemInCart.amount;
 
       this.amount++;
@@ -183,7 +183,7 @@ class Product {
   addMinusButtonClickListener() {
     $('body').on('click', `#remove-${this.id}`, e => {
       e.stopImmediatePropagation();
-      let clickedItemInCart = store.cartProducts.find(cartItem => cartItem.id === this.id);
+      let clickedItemInCart = this.cart.getCartObject().cartProducts.find(cartItem => cartItem.id === this.id);
       this.amount = clickedItemInCart.amount;
 
       this.amount -= 1;

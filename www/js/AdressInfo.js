@@ -1,6 +1,10 @@
 class AdressInfo {
 
 
+  constructor(cart){
+    this.cart = cart
+  }
+
   submitAdress(){
     $('#adress-form').on('submit', function (e) {
       if (e.isDefaultPrevented()) {
@@ -317,7 +321,7 @@ changeButtonType(){
 
 loadCart(){
   let listProducts = ""
-  let cartList = store.cartProducts
+  let cartList = this.cart.getCartObject().cartProducts
    
     cartList.forEach(product => {
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed container">
