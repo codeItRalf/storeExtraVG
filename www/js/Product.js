@@ -67,22 +67,32 @@ class Product {
 
   }
 
+  animateStickerSize(sticker, size = 1){
+    sticker.css({transform: `scale(${size}`})
+    if(size > .1){
+      setTimeout(()=> this.animateStickerSize(sticker, size - .1),40)
+    }
+  }
+
+
+
   animateImage() {
-    let image = $(`.product-image-${this.id}`)[0]
+    let image = $(`.product-image-${this.id}`);
     if(image){
-      let imagePosition = $(image).offset()
-      let clonedImage = $(image).clone()
-     
+      let imagePosition = image.offset()
+      let clonedImage = image.clone()
       $(clonedImage).css({position :"absolute",
          top : imagePosition.top,
          left : imagePosition.left,
          "z-index" : 3000,
-        width : image.width,
-        height : image.height})
-         $(clonedImage).appendTo($(image).parent())
-         console.log(clonedImage)
+        width : image.width(),
+        height : image.height()
+      })
+      $(clonedImage).appendTo(image.parent())
+      console.log(clonedImage)
       let position = $("#cart-button").offset() 
-     console.log(position)
+      console.log(position)
+      this.animateStickerSize(clonedImage.find('.sticker-discount'))
       $(clonedImage).animate({
           left:   position.left,  
           top:   position.top,
