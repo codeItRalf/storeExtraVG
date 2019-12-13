@@ -68,7 +68,7 @@ class Cart {
   }
 
   add(product) {
-    product = new Product(product, this, product.amount)
+    product = new Product(product, this, 0)
     // We are doing a json stringify of the product
     // minus the cart property of a product
     // (which is just a reference to the cart)
