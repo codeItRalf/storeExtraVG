@@ -287,7 +287,7 @@ class Cart {
            <button class="btn btn-outline-secondary" type="button" id="modal-add-button"><i class="fas fa-cart-plus"></i></button>
          </div>
           </div>  
-          <small class="text-danger invisible" id="modal-warning">Name need to be unique</small>
+          <small class="text-danger invisible" id="modal-warning">Need to be a unique name</small>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -312,6 +312,7 @@ class Cart {
     }else{
       store.carts.push(new CartList(string))
       store.save()
+      $("#modal-warning").addClass("invisible")
       $("#modal-input").val("")
       $("#modal-cart-list").append( `<li class="list-group-item">${string}</li>`)
       $("#cart-droplist").html(this.cartsForDropDown())
@@ -320,7 +321,7 @@ class Cart {
   }
 
   ifCartExists(cartName) {
-   return store.carts.find(cart => cart.name.toLowerCase() === cartName.toLowerCase())
+   return store.carts.find(cart => cart.name.toLowerCase() === cartName.toLowerCase()) || cartName.length < 1
   }
 
   cartsForModal() {
