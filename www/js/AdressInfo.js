@@ -27,7 +27,18 @@ class AdressInfo {
     })
   }
 
-
+  formChecker(){
+    $('#payment-button').hide()
+    $('#adress-next').on('click', () => {
+      if ($('#firstName').val() == "" || $('#lastName').val() == "" || $('#email').val() == ""
+      || $('#address').val() == "" || $('#country').val() == "" || $('#zip').val() == ""){
+      }
+      else{
+        $('#payment-button').show()
+        return;
+      }
+    })
+  }
   submitPayment(){
     console.log("submitPayment() called")
     $('#payment-form').on('submit',  e =>{
@@ -83,7 +94,6 @@ changeButtonType(){
     $('form').submit(function (e) {
        e.preventDefault()
     })
-
   }
 
  
@@ -307,8 +317,9 @@ changeButtonType(){
     `);
    
     this.preventSubmit()
+    this.formChecker()
     this.submitAdress()
-    this. submitPayment()
+    this.submitPayment()
     this.changeButtonType()
   }
 
