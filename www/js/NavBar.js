@@ -8,7 +8,7 @@ class NavBar {
   render() {
     $('header').html( /*html*/ `
     <nav class="navbar-header-color navbar navbar-expand-lg navbar-light navbar-dark fixed-top ">
-    <i class="fas fa-laptop" id="logo"></i>
+    <img src="../laptop-solid.svg" alt="icon name"  id="logo">
     <a class=" navbar-brand" href="#">Chyvek-Data</a>
    
     
