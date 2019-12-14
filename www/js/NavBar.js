@@ -41,7 +41,7 @@ class NavBar {
         <a class="nav-link menu-link" href="#orderhistory"><span>Order history</span></a>
       </li>
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#produkter" id="produkter" role="button" data-toggle="collapse" data-target="#sub-nav" ><span>Products</span><span id="sub-toggler"> <i class="fas icon-size fa-angle-up"></i></span></a>
+          <a class="nav-link menu-link" href="#produkter" id="produkter" role="button" data-toggle="collapse" data-target="#sub-nav" ><span>Products</span><span id="sub-toggler"> <i class="fas icon-size fa-angle-down"></i></span></a>
            <div class="collapse" id="sub-nav">
            <div class="d-lg-flex" id="sub-menu">
            <a class="nav-link menu-link navbar-header-color" id="product-laptop" href="#produkter&laptop"><span>Laptops</span></a>
