@@ -65,7 +65,7 @@ class Cart {
   <div class="row py-3">
     <div class = "col-12 total-price d-flex justify-content-between align-items-end">
       <a class="btn btn-primary" href="#produkter" id="continueBuying">Continue buying</a>
-      <a class="btn btn-primary" href="#adressinfo" id="checkOut">Checkout</a>
+      <a class="btn btn-primary ${this.totalPrice == 0 ? "disabled" : ""}" href="#adressinfo" id="checkOut">Checkout</a>
     </div>
   </div>
 

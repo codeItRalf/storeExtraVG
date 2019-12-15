@@ -26,6 +26,7 @@ class Confirmation {
     if (this.cart.getCartObject().cartProducts.length > 0) {
       this.saveOrder();
       if (this.cart.cartName == "Default Cart") {
+        this.cart.totalPrice = 0
         this.cart.getCartObject().cartProducts = [];
       } else {
         let index = store.carts.findIndex(item => item === this.cart.getCartObject())
