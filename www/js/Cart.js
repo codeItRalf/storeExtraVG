@@ -137,7 +137,7 @@ class Cart {
     let removedProduct = this.getCartObject().cartProducts.find(
       storeProd => storeProd.id === product.id
     );
-    store.cartProducts = this.getCartObject().cartProducts.filter(
+    this.getCartObject().cartProducts = this.getCartObject().cartProducts.filter(
       product => product != removedProduct
     );
 
