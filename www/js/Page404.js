@@ -9,7 +9,7 @@ class Page404 {
   */
 
   render() {
-    $('main').html(/*html*/`
+    $('main').html( /*html*/ `
       <section class="row">
         <div class="col">
           <h1>Vi hittade inte sidan 😢...</h1>

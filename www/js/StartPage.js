@@ -5,7 +5,7 @@ class StartPage {
   */
 
   render() {
-    $("main").html(/*html*/ `
+    $("main").html( /*html*/ `
       <section class="row">
         <div class="col welcometext">
           <h1>Welcome to Chyvek Data!</h1>

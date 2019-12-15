@@ -1,4 +1,3 @@
-
 class Product {
 
 
@@ -23,11 +22,11 @@ class Product {
 
     if (amount > 0) {
       this.currentPrice = this.price * this.amount;
-      let [discountQuantity,forQuantity] = this.discount || [];
-      if(discountQuantity){
-        let numDiscountItem = Math.floor(this.amount/discountQuantity);
+      let [discountQuantity, forQuantity] = this.discount || [];
+      if (discountQuantity) {
+        let numDiscountItem = Math.floor(this.amount / discountQuantity);
         let discountSum = this.price * numDiscountItem;
-        console.log('discount',discountQuantity,'for',forQuantity, 'you saved',discountSum)
+        console.log('discount', discountQuantity, 'for', forQuantity, 'you saved', discountSum)
         this.currentPrice -= discountSum;
         //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
         store.save();
@@ -67,10 +66,12 @@ class Product {
 
   }
 
-  animateStickerSize(sticker, size = 1){
-    sticker.css({transform: `scale(${size}`})
-    if(size > .1){
-      setTimeout(()=> this.animateStickerSize(sticker, size - .1),40)
+  animateStickerSize(sticker, size = 1) {
+    sticker.css({
+      transform: `scale(${size}`
+    })
+    if (size > .1) {
+      setTimeout(() => this.animateStickerSize(sticker, size - .1), 40)
     }
   }
 
@@ -78,38 +79,39 @@ class Product {
 
   animateImage() {
     let image = $(`.product-image-${this.id}`);
-    if(image){
+    if (image) {
       let imagePosition = image.offset()
       let clonedImage = image.clone()
-      $(clonedImage).css({position :"absolute",
-         top : imagePosition.top,
-         left : imagePosition.left,
-         "z-index" : 3000,
-        width : image.width(),
-        height : image.height()
+      $(clonedImage).css({
+        position: "absolute",
+        top: imagePosition.top,
+        left: imagePosition.left,
+        "z-index": 3000,
+        width: image.width(),
+        height: image.height()
       })
       $(clonedImage).appendTo(image.parent())
       console.log(clonedImage)
-      let position = $("#cart-button").offset() 
+      let position = $("#cart-button").offset()
       console.log(position)
       this.animateStickerSize(clonedImage.find('.sticker-discount'))
       $(clonedImage).animate({
-          left:   position.left,  
-          top:   position.top,
-          opacity: 30,
-          width: 10,
-          height: 10
-       }, 400,()=>{
+        left: position.left,
+        top: position.top,
+        opacity: 30,
+        width: 10,
+        height: 10
+      }, 400, () => {
         $(clonedImage).remove()
-  
-        let cart =  $("#cart-button").animate({
+
+        let cart = $("#cart-button").animate({
           opacity: "0"
-        },100,()=>{
+        }, 100, () => {
           cart.animate({
             opacity: "1"
-          },100)
+          }, 100)
         })
-       });
+      });
     }
 
   }
@@ -119,7 +121,7 @@ class Product {
   render() {
     // This is how I render myself on a product-detail page
     // there it only me
-    $('main').html(/*html*/`
+    $('main').html( /*html*/ `
      <section class="row">
         <div class="col">
           <h1>${this.name}</h1>
@@ -180,12 +182,12 @@ class Product {
       this.amount = clickedItemInCart.amount;
 
       this.amount++;
-      this.currentPrice= this.price * this.amount;
+      this.currentPrice = this.price * this.amount;
 
       //$(`#price-${this.id}`).html(`€  ${this.currentPrice}`);
       //$(`#price-${this.id}`).html('€  ' + this.currentPrice);
-       //$(`#amount-${this.id}`).html(this.amount);
-       this.showDiscount()
+      //$(`#amount-${this.id}`).html(this.amount);
+      this.showDiscount()
       this.cart.saveToStore(this);
     });
   }
@@ -197,13 +199,13 @@ class Product {
       this.amount = clickedItemInCart.amount;
 
       this.amount -= 1;
-      this.currentPrice= this.price * this.amount;
+      this.currentPrice = this.price * this.amount;
 
       // $(`#price-${this.id}`).html('€ ' + this.currentPrice);
 
       if (this.amount <= 0) {
         this.cart.removeFromStore(this);
-         $(`.cart-content-${this.id}`).remove();
+        $(`.cart-content-${this.id}`).remove();
       }
       //  $(`#amount-${this.id}`).html(this.amount);
 
@@ -215,15 +217,14 @@ class Product {
 
   showDiscount() {
     //let [ discountQuantity, forQuantity]= this.discount || [];
-    if(this.discount){
-      if ((this.amount + 1) % 3 === 0 ){
+    if (this.discount) {
+      if ((this.amount + 1) % 3 === 0) {
         $(`#tooltip-${this.id}`).tooltip({
           trigger: 'manual'
         })
         $(`#tooltip-${this.id}`).tooltip('show');
         // $(`#3for2-${this.id}`).html('(3 for 2) Add one more for free!')
-      }
-      else {
+      } else {
         // $(`#3for2-${this.id}`).html('');
         $(`#tooltip-${this.id}`).tooltip('hide');
       }

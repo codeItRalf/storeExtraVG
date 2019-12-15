@@ -21,11 +21,11 @@ class App {
       '': new StartPage(),
       'omoss': new AboutUs(),
       'page404': new Page404(),
-      'cart' : new Cart(),
-      'adressinfo' : new AdressInfo(),
-      'orderhistory' : new OrderHistory()
+      'cart': new Cart(),
+      'adressinfo': new AdressInfo(),
+      'orderhistory': new OrderHistory()
     };
-    
+
     //save window width to keep track on responsive changes
     this.fullScreen = false
 
@@ -33,13 +33,15 @@ class App {
     this.navBar = new NavBar()
     this.navBar.render()
     //Changes location hash thru javascript due Href doent work when using bootstrap collapse class
-    $('header').on('click', '#produkter', ()=>{  location.hash = "#produkter"})
-  
+    $('header').on('click', '#produkter', () => {
+      location.hash = "#produkter"
+    })
+
 
 
 
     // A shop should always have a cart
-    
+
     this.cart = this.routes.cart;
     this.routes.confirmation = new Confirmation(this.cart);
     this.routes.adressinfo = new AdressInfo(this.cart);
@@ -50,7 +52,7 @@ class App {
     // 
     // this.cartCounter = new CartCounter();
     // this.cartCounter.render();
-    
+
     // Listen to hash changes - rerender...
     $(window).on('hashchange', () => this.changeRoute());
     // Load the products from JSON
@@ -58,20 +60,20 @@ class App {
     this.windowSizeListener()
   }
 
-  windowSizeListener(){
-      //Everytime width of the window is changed this gets called
-      $(window).resize(()=> {
-        //This is used when the window width is over 992px and the #sub-menu display flex
-       if(parseFloat($(window).width()) > 992 &&  this.fullScreen && $("#sub-menu").css("display") == "flex"){
+  windowSizeListener() {
+    //Everytime width of the window is changed this gets called
+    $(window).resize(() => {
+      //This is used when the window width is over 992px and the #sub-menu display flex
+      if (parseFloat($(window).width()) > 992 && this.fullScreen && $("#sub-menu").css("display") == "flex") {
         this.fullScreen = !this.fullScreen
         this.navBar.animateNavLine()
         //This is used when the window width is under 992px and the #sub-menu display block
-       }else if(parseFloat($(window).width()) <= 992 && !this.fullScreen && $("#sub-menu").css("display") == "block"){
+      } else if (parseFloat($(window).width()) <= 992 && !this.fullScreen && $("#sub-menu").css("display") == "block") {
         this.fullScreen = !this.fullScreen
         this.navBar.animateNavLine()
-       }
-      });
-     
+      }
+    });
+
   }
 
   changeRoute() {
@@ -82,14 +84,15 @@ class App {
 
     //split hash at "&" second string is subcategory
     this.subCategory = hash.split('&')[1]
-    if(!this.subCategory){this.navBar.subNavCollapse()
+    if (!this.subCategory) {
+      this.navBar.subNavCollapse()
     }
 
     //Each time the method gets called filter and make new list the sub category from the list which is created in loadProducts()
-    if(this.subCategory){
-    this.routes.produkter = new ProductList(this.products.filter(product => product.category ==  this.subCategory));
-    }else if(hashFirstPart == "produkter")
-    this.routes.produkter = new ProductList(this.products)
+    if (this.subCategory) {
+      this.routes.produkter = new ProductList(this.products.filter(product => product.category == this.subCategory));
+    } else if (hashFirstPart == "produkter")
+      this.routes.produkter = new ProductList(this.products)
 
     // Look up the "page to show" - the instance to call render on
     // if we do not find any page set the page to 'page404'
@@ -98,7 +101,7 @@ class App {
     // (the css selector finds a-tags with matching hrefs)
     $('header nav a').removeClass('active');
     $(`header nav a[href="#${hashFirstPart}"]`).not(".navbar-brand").addClass('active');
- 
+
     // Render content
     $('.tooltip').remove();
     pageToShow.render();
@@ -129,7 +132,7 @@ class App {
 
     // Make a new product list with all of our products
     // and add it to our routes
-    
+
     // Now we are ready to call changeRoute and display
     // the correct page on initial page load..
     this.changeRoute();

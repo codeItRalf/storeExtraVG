@@ -5,7 +5,7 @@ class Confirmation {
 
   render() {
 
-    $("main").html(/*html*/ `
+    $("main").html( /*html*/ `
         <main class="container">
         <section class="row">
         <div class="col confirmationtext">
@@ -21,12 +21,21 @@ class Confirmation {
         `);
     this.completeOrder();
   }
+
   completeOrder() {
-    if (this.cart.getCartObject().cartProducts.length > 0){
-    this.saveOrder();
-    this.cart.getCartObject().cartProducts = [];
-    store.save();
-    this.cart.updateCartIconQty();
+    if (this.cart.getCartObject().cartProducts.length > 0) {
+      this.saveOrder();
+      if (this.cart.cartName == "Default Cart") {
+        this.cart.getCartObject().cartProducts = [];
+      } else {
+        let index = store.carts.findIndex(item => item === this.cart.getCartObject())
+        console.log(index)
+        this.cart.cartName = "Default Cart"
+        store.carts.splice(index, 1)
+      }
+
+      store.save();
+      this.cart.updateCartIconQty();
     }
   }
   saveOrder() {
@@ -37,7 +46,7 @@ class Confirmation {
     let order = {
       cartValue: this.clone(this.cart),
       //Making a deep copy of array with $.extend
-      orderList: $.extend(true, [], this.cart.getCartObject().cartProducts)  
+      orderList: $.extend(true, [], this.cart.getCartObject().cartProducts)
     };
     this.pushOrder(
       new Order(order, this.orderNumber, this.customer)

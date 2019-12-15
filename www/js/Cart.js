@@ -25,16 +25,16 @@ class Cart {
     $("main").html( /*html*/ `
   <section class="row">
   <div class="col d-flex flex-column align-items-center">
-  <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  ${this.cartName}
-  </button>
-  <div class="dropdown-menu" id="cart-droplist" aria-labelledby="dropdownMenuButton">
-      ${this.cartsForDropDown()}
-  
-  </div>
-</div>
     <h1>Shopping cart</h1>
+    <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ${this.cartName}
+    </button>
+    <div class="dropdown-menu" id="cart-droplist" aria-labelledby="dropdownMenuButton">
+        ${this.cartsForDropDown()}
+    
+    </div>
+  </div>
   </div>
   </section>
    <section class="row">
@@ -78,7 +78,7 @@ class Cart {
 
   cartsForDropDown() {
     let droplist = store.carts.map(cart => this.cartName != cart.name ? /*html*/ `<a class="dropdown-item drop-cart-item" >${cart.name}</a>` : "").join("")
-    droplist +=  '<a class="dropdown-item" data-toggle="modal" data-target="#cartListModal" href="">Create Cart +</a>'
+    droplist += '<a class="dropdown-item" data-toggle="modal" data-target="#cartListModal" href="">Create Cart +</a>'
     return droplist
   }
 
@@ -245,7 +245,7 @@ class Cart {
   updateCartIconQty() {
     let cartCount = 0;
     let cartList = this.getCartObject().cartProducts;
-    console.log(cartList);
+
     cartList.forEach(product => {
       cartCount += product.amount;
     });
@@ -296,37 +296,68 @@ class Cart {
     </div>
   </div>
     `
-    
+
   }
 
-  addNewCart(){
-    $(document).on('click','.drop-cart-item',(e)=>{
-    this.cartName =  e.target.text
-     this.render()
-     this.updateCartIconQty()
+  addNewCart() {
+    $('#cartListModal').on('hidden.bs.modal', () => {
+      this.render()
     })
-   $("#modal-add-button").on("click",()=>{
-    let string = $("#modal-input").val()
-    if(this.ifCartExists(string)){
-      $("#modal-warning").removeClass("invisible")
-    }else{
-      store.carts.push(new CartList(string))
-      store.save()
-      $("#modal-warning").addClass("invisible")
-      $("#modal-input").val("")
-      $("#modal-cart-list").append( `<li class="list-group-item">${string}</li>`)
-      $("#cart-droplist").html(this.cartsForDropDown())
-    }
-   })
+    $(document).on('click', '.drop-cart-item', (e) => {
+      this.cartName = e.target.text
+      this.render()
+      this.updateCartIconQty()
+    })
+    this.deleteCart()
+    $("#modal-add-button").on("click", () => {
+      let string = $("#modal-input").val()
+      if (this.ifCartExists(string)) {
+        $("#modal-warning").removeClass("invisible")
+      } else {
+        store.carts.push(new CartList(string))
+        store.save()
+        $("#modal-warning").addClass("invisible")
+        $("#modal-input").val("")
+        $("#modal-cart-list").append(`<li class="list-group-item d-flex justify-content-between"><span>${string}</span> <span class="oi oi-trash text-danger delete-cross"></span></li>`)
+        $("#cart-droplist").html(this.cartsForDropDown())
+      }
+    })
   }
 
   ifCartExists(cartName) {
-   return store.carts.find(cart => cart.name.toLowerCase() === cartName.toLowerCase()) || cartName.length < 1
+    return store.carts.find(cart => cart.name.toLowerCase() === cartName.toLowerCase()) || cartName.length < 1
   }
 
   cartsForModal() {
-   return store.carts.map(cart => /*html*/ `<li class="list-group-item">${cart.name}</li>`).join("")
+    return store.carts.map(cart => /*html*/ `<li class="list-group-item ${cart.name != "Default Cart" ? "d-flex justify-content-between" : ""}"><span>${cart.name}</span> ${cart.name != "Default Cart" ? '<span class="oi oi-trash text-danger delete-cross"></span>' : ""}</li>`).join("")
   }
 
+  removeCart(cartToDelete) {
+    if (cartToDelete.toLowerCase().trim() == this.cartName.toLowerCase().trim()) {
+      this.cartName = "Default Cart"
+      this.updateCartIconQty()
+    }
+    console.log(cartToDelete)
+    for (let i = 0; i < store.carts.length; i++) {
+      if (store.carts[i].name.toLowerCase().trim() == cartToDelete.toLowerCase().trim()) {
+        console.log("object found")
+        store.carts.splice(i, 1);
+      }
+      $("#modal-cart-list li").remove(`:contains(${cartToDelete})`);
+    }
+    store.save()
+  }
+
+
+  deleteCart() {
+    $('#cartListModal').on('click', '.delete-cross', (e) => {
+      e.stopPropagation()
+      let cartToDelete = $(e.target).parent().first().text()
+      let result = confirm(`Want to delete ${cartToDelete} cart?`)
+      if (result) {
+        this.removeCart(cartToDelete)
+      }
+    })
+  }
 
 }

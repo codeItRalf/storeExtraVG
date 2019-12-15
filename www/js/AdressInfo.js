@@ -1,113 +1,112 @@
 class AdressInfo {
 
 
-  constructor(cart){
+  constructor(cart) {
     this.cart = cart
   }
 
-  submitAdress(){
+  submitAdress() {
     $('#adress-form').on('submit', function (e) {
       if (e.isDefaultPrevented()) {
         $('#payment-button').trigger('click')
         $(window).scrollTop(0);
 
         let customer = {
-          firstName : $('#firstName').val(),
-          lastName : $('#lastName').val(),
-          email : $('#email').val(),
-          adress : $('#address').val(),
-          city : $('#city').val(),
-          country : $('#country').val(),
-          zip : $('#zip').val()
+          firstName: $('#firstName').val(),
+          lastName: $('#lastName').val(),
+          email: $('#email').val(),
+          adress: $('#address').val(),
+          city: $('#city').val(),
+          country: $('#country').val(),
+          zip: $('#zip').val()
         }
-        if (store.customer){
+        if (store.customer) {
           store.customer = {}
         }
         store.customer = customer;
         store.save();
       } else {
-        
-        }
+
+      }
     })
   }
 
-  formChecker(){
-    $('#payment-button').on('click', function(e) {
-      if ($('#firstName').val() == "" || $('#lastName').val() == "" || $('#email').val() == ""
-      || $('#address').val() == "" || $('#country').val() == "" || $('#zip').val() == ""){
+  formChecker() {
+    $('#payment-button').on('click', function (e) {
+      if ($('#firstName').val() == "" || $('#lastName').val() == "" || $('#email').val() == "" ||
+        $('#address').val() == "" || $('#country').val() == "" || $('#zip').val() == "") {
         e.preventDefault()
         e.stopPropagation()
         $("#adress-next").trigger("click")
-        
-      }
-      else{
+
+      } else {
         $("#adress-next").trigger("click")
       }
     })
   }
 
-  
-  submitPayment(){
+
+  submitPayment() {
     console.log("submitPayment() called")
-    $('#payment-form').on('submit',  e =>{
-      if (e.isDefaultPrevented()) {    
-       this.verifyingPayment()
+    $('#payment-form').on('submit', e => {
+      if (e.isDefaultPrevented()) {
+        this.verifyingPayment()
       } else {
         console.log("e.isDefaultPrevented() false")
-      
+
       }
     })
   }
 
 
-  verifyingPayment(){
+  verifyingPayment() {
     $('#confirm-button').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     <span>Verifying...</span>`)
-    setTimeout(()=>{
+    setTimeout(() => {
       this.toConfirmPage()
-    },3000)
+    }, 3000)
   }
 
-toConfirmPage(){
-  location.href = '#confirmation'
-}
+  toConfirmPage() {
+    location.href = '#confirmation'
+  }
 
 
-changeButtonType(){
-   $('#creditcard').on('click', ()=>{
-    console.log('creditcard')
-    $('#confirm-button').attr("type","submit").unbind()
-    
-   
-   })
-   $('#paypal').on('click',()=>{
-    console.log('paypal')
-    $('#confirm-button').attr("type","button").on('click',()=>{
-      this.toConfirmPage()
+  changeButtonType() {
+    $('#creditcard').on('click', () => {
+      console.log('creditcard')
+      $('#confirm-button').attr("type", "submit").unbind()
+
+
     })
-    
-   })
-   $('#bank').on('click',()=>{
-    console.log('bank')
-    $('#confirm-button').attr("type","button").on('click',()=>{
-      this.toConfirmPage()
-    })
-   
-   })
-}
+    $('#paypal').on('click', () => {
+      console.log('paypal')
+      $('#confirm-button').attr("type", "button").on('click', () => {
+        this.toConfirmPage()
+      })
 
-  preventSubmit(){
+    })
+    $('#bank').on('click', () => {
+      console.log('bank')
+      $('#confirm-button').attr("type", "button").on('click', () => {
+        this.toConfirmPage()
+      })
+
+    })
+  }
+
+  preventSubmit() {
     $('form').submit(function (e) {
-       e.preventDefault()
+      e.preventDefault()
     })
   }
 
- 
+
 
 
 
   render() {
-    $("main").html(/*html*/ `
+    $("main").html( /*html*/ `
     <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -321,7 +320,7 @@ changeButtonType(){
   </div>
   </div>
     `);
-   
+
     this.preventSubmit()
     this.formChecker()
     this.submitAdress()
@@ -332,10 +331,10 @@ changeButtonType(){
 
 
 
-loadCart(){
-  let listProducts = ""
-  let cartList = this.cart.getCartObject().cartProducts
-   
+  loadCart() {
+    let listProducts = ""
+    let cartList = this.cart.getCartObject().cartProducts
+
     cartList.forEach(product => {
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed container">
       <div class="row">
@@ -362,8 +361,3 @@ loadCart(){
 
 
 }
-
-
-
-
-

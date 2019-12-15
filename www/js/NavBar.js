@@ -1,8 +1,8 @@
 class NavBar {
 
- constructor(){
- 
- }
+  constructor() {
+
+  }
 
 
   render() {
@@ -54,86 +54,88 @@ class NavBar {
     </div>
   </nav>
     `);
-   
-     $(document).ready( ()=> this.refreshListener())
-      
+
+    $(document).ready(() => this.refreshListener())
+
   }
 
-  refreshListener(){
-    this.responsiveListener()  
+  refreshListener() {
+    this.responsiveListener()
     this.collapseListener()
- 
+
     let hash = location.hash.replace(/#/g, '');
-    let firstHash  = hash.split('&')[0]
+    let firstHash = hash.split('&')[0]
     let subHash = hash.split('&')[1]
-    if(firstHash == 'produkter'){
+    if (firstHash == 'produkter') {
       $('#produkter').trigger('click')
     }
-  
-  setTimeout(()=>this.extendSub(subHash),200)
+
+    setTimeout(() => this.extendSub(subHash), 200)
   }
 
-  extendSub(subHash){
+  extendSub(subHash) {
 
-    switch(subHash){
+    switch (subHash) {
       case "laptop":
-         $('#product-laptop')[0].click()
+        $('#product-laptop')[0].click()
         break
-        case "monitor":
-            $('#product-monitor')[0].click()
+      case "monitor":
+        $('#product-monitor')[0].click()
         break
-        case "usb":
-            $('#product-usb')[0].click()
+      case "usb":
+        $('#product-usb')[0].click()
         break
     }
   }
-  
-  collapseListener(){
-    $('#sub-nav').on('shown.bs.collapse',function() {
+
+  collapseListener() {
+    $('#sub-nav').on('shown.bs.collapse', function () {
       this.animateNavLine()
       $('#sub-toggler').html('<i class="fas icon-size fa-angle-up"></i>')
     }.bind(this))
-    $('#sub-nav').on('hidden.bs.collapse', function() {
+    $('#sub-nav').on('hidden.bs.collapse', function () {
       this.animateNavLine()
       $('#sub-toggler').html('<i class="fas icon-size fa-angle-down"></i>')
     }.bind(this))
-    $('#navbarSupportedContent').on('hidden.bs.collapse',  ()=> this.animateNavLine() ) 
-    $('#navbarSupportedContent').on('shown.bs.collapse',  ()=> this.animateNavLine() )
-   
- 
+    $('#navbarSupportedContent').on('hidden.bs.collapse', () => this.animateNavLine())
+    $('#navbarSupportedContent').on('shown.bs.collapse', () => this.animateNavLine())
+
+
   }
 
-  
 
-  responsiveListener(){
-    $('.menu-link').on('click', (e)=> {
-      if($(".navbar-expand-lg .navbar-toggler").is(":visible")){
-        if(e.currentTarget.id != "produkter"){
+
+  responsiveListener() {
+    $('.menu-link').on('click', (e) => {
+      if ($(".navbar-expand-lg .navbar-toggler").is(":visible")) {
+        if (e.currentTarget.id != "produkter") {
           this.navCollapse();
         }
-    }})
+      }
+    })
 
-    $('main, footer').on('click', (e)=> {
-      if($(".navbar-expand-lg .navbar-toggler").is(":visible")){
-          this.navCollapse();
-    }})
+    $('main, footer').on('click', (e) => {
+      if ($(".navbar-expand-lg .navbar-toggler").is(":visible")) {
+        this.navCollapse();
+      }
+    })
   }
-  
+
   subNavCollapse() {
     $('#sub-nav').collapse('hide')
-   }
-  
-   
+  }
+
+
   navCollapse() {
     $('#navbarSupportedContent').collapse('hide')
-   }
+  }
 
-  
+
 
 
   animateNavLine() {
     //Animates nav line
-  
+
     let element = $(`header nav .menu-link[class~="active"]`).not(".navbar-brand")[0]
     if (element) {
       let position = $(element).offset()
@@ -141,10 +143,10 @@ class NavBar {
         left: position.left + parseFloat($(element).css("padding-left")),
         top: (position.top + parseFloat($(element).css("height")) - parseFloat($(element).css("padding"))) - parseFloat($(window).scrollTop()),
         width: $(element).find("span").css("width")
-      }, 250, ()=>{
+      }, 250, () => {
         $("#nav-active-line").show();
       })
-    }else{
+    } else {
       $("#nav-active-line").hide()
     }
 

@@ -1,14 +1,13 @@
-
 class OrderHistory {
 
 
-  constructor(){
-  this.sort = false;
-  this.orderCopy = []
+  constructor() {
+    this.sort = false;
+    this.orderCopy = []
   }
   render() {
 
-    $("main").html(/*html*/ `
+    $("main").html( /*html*/ `
         <div class="">
       <div class="row d-flex flex-column">
       
@@ -39,58 +38,56 @@ class OrderHistory {
       </div>
     </div>
     `);
-    if(!store.purchases)  $('#history-list').html('<section class="list-group-item col-12 d-flex flex-row justify-content-around pl-0 pr-0">No Order History</section>')
+    if (!store.purchases) $('#history-list').html('<section class="list-group-item col-12 d-flex flex-row justify-content-around pl-0 pr-0">No Order History</section>')
     $(".detail-button").on(
       "click",
-      function(e) {
+      function (e) {
         console.log(e.target);
 
         this.getOrderDetails(e.target);
       }.bind(this));
 
 
-    $("#toggle-order" ).click( ()=> {
+    $("#toggle-order").click(() => {
       this.orderCopy = $.extend(true, [], store.purchases)
       this.orderCopy.sort(this.compare.bind(this.sort))
       this.sort = !this.sort
       this.render()
     })
-    
+
   }
- orderListHandler(){
-   let orderList = store.purchases.map(order => this.renderInList(order)).join("")
-   if (orderList){
-     return orderList;
-   }
-   else {
-     return ""
-   }
- }
- checkOrderHistories(){
-    if (store.purchases && store.purchases.length > this.orderCopy.length){
+  orderListHandler() {
+    let orderList = store.purchases.map(order => this.renderInList(order)).join("")
+    if (orderList) {
+      return orderList;
+    } else {
+      return ""
+    }
+  }
+  checkOrderHistories() {
+    if (store.purchases && store.purchases.length > this.orderCopy.length) {
       this.sort = false;
       return false;
-    }
-    else  {
+    } else {
       return true;
     }
- }
- compare(a, b) {
+  }
+  compare(a, b) {
 
     const orderA = a.orderNumber;
     const orderB = b.orderNumber;
-    
+
     let comparison = 0;
 
-      if (orderA > orderB) {
-        comparison = this ? 1 : -1;
-      } else if (orderA < orderB) {
-        comparison= this ? -1 : 1;
-      }
-  
+    if (orderA > orderB) {
+      comparison = this ? 1 : -1;
+    } else if (orderA < orderB) {
+      comparison = this ? -1 : 1;
+    }
+
     return comparison;
   }
- 
+
 
 
   renderInList(order) {
@@ -143,7 +140,7 @@ class OrderHistory {
 
   renderOrderDetails(orderItem) {
     console.log(orderItem);
-    $("main").html(/*html*/ `
+    $("main").html( /*html*/ `
     <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -254,7 +251,7 @@ class OrderHistory {
 
     // hack to convert cartList to array
     // (should have been an array already, where did that go wrong?)
-    
+
     // let newCartList = [];
     // for(let key in cartList){
     //   newCartList[key] = cartList[key];
@@ -264,7 +261,7 @@ class OrderHistory {
     console.log(cartList);
 
     cartList.map(product => {
-    
+
       listProducts += /*html*/ `<li class="list-group-item d-flex justify-content-between lh-condensed container">
       <div class="row">
         <div class = "col">
@@ -289,7 +286,7 @@ class OrderHistory {
 
   format(n) {
     return n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    
+
   }
 
 }

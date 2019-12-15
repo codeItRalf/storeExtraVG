@@ -6,7 +6,7 @@ class AboutUs {
   */
 
   render() {
-    $('main').html(/*html*/`
+    $('main').html( /*html*/ `
       <section class="row about-us-text">
         <div class="col">
           <h1>Meet our staff!</h1>
