@@ -31,7 +31,22 @@ class AdressInfo {
     })
   }
 
+  formChecker(){
+    $('#payment-button').on('click', function(e) {
+      if ($('#firstName').val() == "" || $('#lastName').val() == "" || $('#email').val() == ""
+      || $('#address').val() == "" || $('#country').val() == "" || $('#zip').val() == ""){
+        e.preventDefault()
+        e.stopPropagation()
+        $("#adress-next").trigger("click")
+        
+      }
+      else{
+        $("#adress-next").trigger("click")
+      }
+    })
+  }
 
+  
   submitPayment(){
     console.log("submitPayment() called")
     $('#payment-form').on('submit',  e =>{
@@ -59,8 +74,6 @@ toConfirmPage(){
 
 
 changeButtonType(){
-  
- 
    $('#creditcard').on('click', ()=>{
     console.log('creditcard')
     $('#confirm-button').attr("type","submit").unbind()
@@ -87,7 +100,6 @@ changeButtonType(){
     $('form').submit(function (e) {
        e.preventDefault()
     })
-
   }
 
  
@@ -123,7 +135,7 @@ changeButtonType(){
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <h4 class="mb-3">Shipping/Billing address</h4>
+          <h4 class="mb-3">1. Shipping/Billing address</h4>
           </button>
         </h2>
       </div>
@@ -199,7 +211,7 @@ changeButtonType(){
       <div class="card-header" id="headingTwo">
         <h2 class="mb-0">
           <button class="btn btn-link collapsed" id="payment-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          <h4 class="mb-3">Payment</h4>
+          <h4 class="mb-3">2. Payment</h4>
           </button>
         </h2>
       </div>
@@ -311,8 +323,9 @@ changeButtonType(){
     `);
    
     this.preventSubmit()
+    this.formChecker()
     this.submitAdress()
-    this. submitPayment()
+    this.submitPayment()
     this.changeButtonType()
   }
 

@@ -22,7 +22,7 @@ class App {
       'omoss': new AboutUs(),
       'page404': new Page404(),
       'cart' : new Cart(),
-      'payment-info': new PaymentInfo(),
+      'adressinfo' : new AdressInfo(),
       'orderhistory' : new OrderHistory()
     };
     
